@@ -1,15 +1,14 @@
 # Circle Game
 
 The Circle Game is a simple interactive game where circles are generated on the screen based on user taps implemented using HTML, CSS, and JavaScript.
-   - Each tap generates a circle with a random radius is generated at the tapped position
-   - Tapping again generates a second circle with another random radius.
 
-   - If the user taps a third time, both circles disappear from the screen.
-   - After the circles disappear, a new circle is generated on the next tap.
-
-- **Intersection Check**:
-   - When there are two circles on the screen, the game checks if they are intersecting or not.
-   - If the circles intersect, a message is displayed indicating their intersection status.
+   - **Gameplay:**
+      - Each tap generates a circle with a random radius at the tapped position.
+      - Only two circles are allowed on the screen at a time.
+      - If the user taps a third time, both circles disappear from the screen. A new circle is then generated on the next tap.
+   - **Intersection Check:**
+      - When two circles are present on the screen, the game checks if they intersect.
+      - If the circles intersect, a message is displayed indicating their intersection status.
 
 ## Implementation Details:
 - Circles are generated dynamically using JavaScript DOM manipulation.
