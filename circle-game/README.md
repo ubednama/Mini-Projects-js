@@ -14,6 +14,9 @@ The Circle Game is a simple interactive game where circles are generated on the 
 - Circles are generated dynamically using JavaScript DOM manipulation.
 - Intersection between circles is calculated using geometric algorithms in JavaScript.
 
+## Demo
+Play game [here](https://mini-projects-js-git-main-ubednamas-projects.vercel.app/)
+
 ## Screenshots:
 ![](https://github.com/ubednama/mini-projects-js/assets/61332446/1443d5ee-809a-441d-a75f-9783fe1cd3c1)
 ![](https://github.com/ubednama/mini-projects-js/assets/61332446/3027984f-5c9d-47ac-83b6-53889671dac5)
