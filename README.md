@@ -2,6 +2,9 @@
 
 This repository contains a collection of simple yet engaging mini games built using HTML, CSS, and JavaScript. Each game offers a fun experience and showcases different aspects of web development.
 
+## Demo
+Play game [here](https://mini-projects-js-git-main-ubednamas-projects.vercel.app/)
+
 ## Games Included:
 
 1. [**Circle Game**](/circle-game)
