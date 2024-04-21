@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Games</title>
+    <style>
+        .gameList {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .gameList div {
+            margin-bottom: 10px;
+        }
+
+        .gameList a {
+            color: blue;
+            text-decoration: none;
+        }
+        .gameList a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <link rel="stylesheet" href="./BBQuotes-API/style.css">
+</head>
+<body>
+    <h1>Mini Games built with JavaScript</h1>
+    <div class="gameList">
+        <div>1. <a href="/circle-game/index.html">Circle Game</a></div>
+        <div>2. <a href="/tic-tac-toe/index.html">Tic-tac-toe</a></div>
+        <div>3. <a href="/rockpaperscissors/index.html">Rock Paper Scissors</a></div>
+        <div>4. <a href="/BBQuotes-API/index.html">Random Breaking Bad Quotes</a></div>
+        <!-- <div>5. <a href=""></a></div> -->
+    </div>
+    <div id="quote-container" style="bottom: 50px;">
+        <p id="quote" style="font-style: italic;"></p>
+        <p id="author" style="font-style: bold;"></p>
+    </div>
+    <div id="bottom-bar" >
+        Made with ❤️ by <a href="https://github.com/ubednama" style="color: white;">ubednama</a> 
+    </div>
+    <script src="./BBQuotes-API/quotes.js"></script>
+</body>
+</html>

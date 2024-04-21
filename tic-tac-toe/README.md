@@ -16,8 +16,6 @@ Play game [here](https://65ae51a07077ff276e4d9826--deluxe-licorice-d069b8.netlif
   <img src="https://github.com/ubednama/mini-projects-js/assets/61332446/9c6913ec-14bf-404b-aaa7-1f91d17378ba" alt="winner dashboard" width="49%" align="center"  />
 </p>
 
-![tic-tac-toe]()
-
 ## Features
 
 - Two-player mode for local multiplayer

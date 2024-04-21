@@ -1,0 +1,88 @@
+/* style.css */
+*{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+h1 {
+    background-color: #14110F;
+    color: white;
+    height: 5rem;
+    line-height: 5rem;
+    /* this is trick to get Title in middle */
+}
+
+.game {
+    margin-bottom: 5rem;
+}
+
+.choices {
+    display: flex;
+    justify-content: center;            /* x-axis*/
+    align-items: center;                /* y-axis*/
+    gap: 3rem;
+    margin-top: 5rem;
+}
+
+.choice {
+    height: 165px;
+    width: 165px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+}
+
+.choice:hover{
+    opacity: 50%;
+    cursor: pointer;
+    /* box-shadow: 5px 5px 10px #130303; */
+    background-color: #6D6875;
+}
+
+img {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
+.scoreBoard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    gap: 7rem;
+    margin-top: 3%;
+}
+
+#userScore, #compScore {
+    font-size: 4rem;
+}
+
+.msgContainer{
+    margin-top: 3%;
+}
+
+#msg {
+    background-color: #14110F;
+    color: white;
+    font-size: 2rem;
+    display: inline;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+#bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}

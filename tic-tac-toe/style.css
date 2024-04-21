@@ -13,24 +13,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 body {
-    /* display: flex; */
-    /* justify-content: center; */
     text-align: center;
-    /* align-items: center; */
-    /* height: 100vh; */
     background-color: #EFE6DD;
-    /* flex-wrap: wrap; */
 }
-
-/* .main {
-    display: flex;
-    text-align: center;
-    justify-content: space-around;
-} */
 
 
 .container {
-    height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,7 +29,7 @@ body {
 
 .game {
     display: flex;
-    height: 60vmin;
+    height: 50vmin;
     max-height: 700px;
     width: 60vmin;
     gap: 2vmin;
@@ -68,15 +56,12 @@ body {
     background-color: #231F20;
     font-size: 8vmin;
     color: #CFCFCF;
-    /* flex-grow: 1;        Add flex-grow to make the boxes take up available space */
-    /* flex-shrink: 0;      Prevent boxes from shrinking */
 }
 
 .msg-container{
-    height: 9vmin;
     align-items: end;
     justify-content: center;
-    margin-top: 30%;
+    margin-top: 2rem;
     padding-top: 1%;
 }
 
@@ -129,6 +114,17 @@ body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+#quote-container {
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.hide{
+    display: none;
+}
 
 #bottom-bar {
     position: fixed;
@@ -137,23 +133,7 @@ body {
     width: 100%;
     background-color: #333;
     color: #fff;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-align: center;
-}
-
-
-#quote-container {
-    position: fixed;
-    bottom: 50px; /* Adjust the distance from the bottom as needed */
-    left: 0;
-    width: 100%;
-    /* background-color: #f0f0f0; */
-    padding: 10px;
-    text-align: center;
-}
-
-
-.hide{
-    /* visibility: hidden; */
-    display: none;
 }

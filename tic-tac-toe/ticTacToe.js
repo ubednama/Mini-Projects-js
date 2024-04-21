@@ -7,8 +7,9 @@ let container = document.querySelector(".container");
 let turn = document.querySelector("#turnMsg");
 console.log();
 
+console.log("script")
 
-const URL = "https://api.breakingbadquotes.xyz/v1/quotes";
+const URI = "https://api.breakingbadquotes.xyz/v1/quotes";
 // const URL = "https://cat-fact.herokuapp.com/facts";
 
 const quoteText = document.querySelector("#quote");
@@ -17,7 +18,7 @@ const quoteAuthor = document.querySelector("#author");
 
 const getQuotes = async () => {
     console.log("getting data....")
-    let response = await fetch(URL);
+    let response = await fetch(URI);
     // console.log(response)       //JSON format
     let data = await response.json();
     console.log(data[0].quote);
@@ -26,7 +27,7 @@ const getQuotes = async () => {
     quoteAuthor.innerText = data[0].author;
 };
 
-(getQuotes())();
+getQuotes();
 
 
 //playerX, playerO
