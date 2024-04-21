@@ -8,10 +8,7 @@ email: [kubedrn@gmail.com](mailto:kubedrn@gmail.com)<br>
 <!-- <img align="left" alt="Ubed's LinkedIN" width="22px" src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" /><br> -->
 
 ## Screenshots
-<p  align="center">
-  <img src="https://github.com/ubednama/currency-converter-js/assets/61332446/b2000876-b1c5-49e4-a419-e88897d4a5da" alt="screenshot"/>
-  <img src="https://github.com/ubednama/currency-converter-js/assets/61332446/c33cd6db-b0fc-4206-bae2-39a74775615b" alt="screenshot"/>
-</p>
+![Screenshot 2024-04-22 034123](https://github.com/ubednama/mini-projects-js/assets/61332446/d057253a-7f9c-4bb1-b3d5-a21f08724f24)
 
 ## Features
 - **Supports 150+ Currencies:** Convert between various currencies from different countries.
