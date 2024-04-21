@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tic-tac-toe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <h1>tic-tac-toe</h1>
+        <div class="container">
+            <div class="game">
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+            </div>
+            <p id="turnMsg">O turn</p>
+            <button id="resetBtn">Reset</button>
+        </div>
+        <div class="msg-container">
+            <p id="msg" class="hide">Winner</p>
+            <div class="button">
+                <button id="newBtn" class="hide">New Game</button>
+            </div>  
+        </div>
+    </main>
+    <div id="quote-container">
+        <p id="quote" style="font-style: italic;"></p>
+        <p id="author" style="font-style: bold;"></p>
+    </div>
+    <script src="ticTacToe.js"></script>
+    <div id="bottom-bar">
+            Made with ❤️ by <a href="https://github.com/ubednama" style="color: white;">ubednama</a> 
+    </div>
+</body>
+</html>
