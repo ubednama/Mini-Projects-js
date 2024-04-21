@@ -7,6 +7,9 @@ email: [kubedrn@gmail.com](mailto:kubedrn@gmail.com)<br>
 <a href="https://www.linkedin.com/in/ubed9">
 <!-- <img align="left" alt="Ubed's LinkedIN" width="22px" src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" /><br> -->
 
+## Demo
+Play game [here](https://mini-projects-js-git-main-ubednamas-projects.vercel.app/)
+
 ## Screenshots
 ![Screenshot 2024-04-22 034123](https://github.com/ubednama/mini-projects-js/assets/61332446/d057253a-7f9c-4bb1-b3d5-a21f08724f24)
 
