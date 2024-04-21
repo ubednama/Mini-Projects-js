@@ -12,10 +12,11 @@ Play game [here](https://65ae51a07077ff276e4d9826--deluxe-licorice-d069b8.netlif
 ## Screenshots
 
 <p align="right" width="100%">
-  <img src="https://github.com/ubednama/tictactoe-js/assets/61332446/08a06a65-3ba6-4b30-b58c-9e6109bab482" alt="gameplay" width="49%" align="center"  />
-  <img src="https://github.com/ubednama/tictactoe-js/assets/61332446/38453222-d13e-4a60-8b4c-f2778eaa7289" alt="winner dashboard" width="49%" align="center"  />
+  <img src="https://github.com/ubednama/mini-projects-js/assets/61332446/9c6913ec-14bf-404b-aaa7-1f91d17378ba" alt="gameplay" width="49%" align="center"  />
+  <img src="https://github.com/ubednama/mini-projects-js/assets/61332446/f654a0d8-37dd-474a-b871-076727d92cba" alt="winner dashboard" width="49%" align="center"  />
 </p>
 
+![tic-tac-toe]()
 
 ## Features
 
