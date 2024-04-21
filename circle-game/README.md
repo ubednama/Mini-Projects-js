@@ -33,6 +33,8 @@ The Circle Game is a simple interactive game where circles are generated on the 
 
 ## Screenshots:
 (Add screenshots here if available)
+![](https://github.com/ubednama/mini-projects-js/assets/61332446/1443d5ee-809a-441d-a75f-9783fe1cd3c1)
+![](https://github.com/ubednama/mini-projects-js/assets/61332446/3027984f-5c9d-47ac-83b6-53889671dac5)
 
 ## Future Improvements:
 - Add scoring system or game objectives.
