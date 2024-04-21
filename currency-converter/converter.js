@@ -1,12 +1,12 @@
 //currency converter API url
-const BASE_URL =`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies`
+const BASE_URL =`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies`
 
 const dropdowns = document.querySelectorAll(".dropdown select");
 
 const btn = document.querySelector("form button");
 
-const fromCurr = document.querySelector(".from select")         //class -> from, tagmane -> select
-const toCurr = document.querySelector(".to select")             //class -> from, tagmane -> select
+const fromCurrSelect = document.querySelector(".from select")         //class -> from, tagmane -> select
+const toCurrSelect = document.querySelector(".to select")             //class -> from, tagmane -> select
 
 const msg = document.querySelector(".msg");
 
@@ -14,10 +14,11 @@ const msg = document.querySelector(".msg");
 
 for(let select of dropdowns) {
     for (currCode in countryList) {
-        // console.log(currCode, countryList[currCode]);
+
         let newOption = document.createElement("option");
         newOption.innerText = currCode;
         newOption.value = currCode;
+
         if(select.name === "from" && currCode === "USD") {
             newOption.selected = "selected"
         } else if(select.name === "to" && currCode === "INR") {
@@ -49,26 +50,30 @@ const updateFlag = (element) => {
 const updateExchRate = async() => {
     let amount = document.querySelector(".amount input");
     let amtVal= amount.value;
-    // console.log(amount);
-    // console.log(amtVal);
+
     if(amtVal === "" || amtVal < 1) {
         amtVal = 1;
         amount.value = "1";
     }
-    // console.log(amtVal);
 
-    // console.log(fromCurr, toCurr.value);
-        /*  toCurr.value -> gives just value of 'to currency' */
-    const URL = `${BASE_URL}/${fromCurr.value.toLowerCase()}/${toCurr.value.toLowerCase()}.json`;
+    const fromCurr = fromCurrSelect.value.toLowerCase();
+    const toCurr = toCurrSelect.value.toLowerCase()
+
+    const URL = `${BASE_URL}/${fromCurr}.json`;
+    // console.log(URL)
+
     let response = await fetch(URL);
     let data = await response.json();
-    console.log(data);
-    let rate = data[toCurr.value.toLowerCase()];
-    console.log(rate);
+    // console.log("data ",data);
+
+    let rate = data[fromCurr][toCurr];
+    // console.log(rate);
+
     let finalAmount = rate * amount.value;
     let shortFinalAmount = finalAmount.toFixed(3);
-    console.log(finalAmount);
-    msg.innerText = `${amount.value} ${fromCurr.value} is around ${shortFinalAmount} ${toCurr.value}`;
+    // console.log(finalAmount);
+
+    msg.innerText = `${amount.value} ${fromCurr.toUpperCase()} is around ${shortFinalAmount} ${toCurr.toUpperCase()}`;
 };
 
 
