@@ -16,6 +16,8 @@ This repository contains a collection of simple yet engaging mini games built us
 4. [**Tic Tac Toe**](/tic-tac-toe)
    - A web-based Tic Tac Toe game where two players can compete against each other locally.
 
+5. [**BBQuotes-API**](/BBQuotes-API)
+    - Fetches and displays random quotes of Breaking Bad series from API.
 
 
 Enjoy playing and exploring these mini JavaScript games!
