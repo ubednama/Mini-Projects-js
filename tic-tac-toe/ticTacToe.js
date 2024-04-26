@@ -115,7 +115,7 @@ const disableBoxes = () => {
 const showWinner = (winner) => {
     winMsg.innerText = `Congratulations, Winner is "${winner}"`;
     disableBoxes();
-    container.classList.add("hide");
+    // container.classList.add("hide");
     winMsg.classList.remove("hide");
     newGameBtn.classList.remove("hide");
 };
@@ -123,7 +123,7 @@ const showWinner = (winner) => {
 const showDraw = () => {
     winMsg.innerText = `Game is Draw`;
     disableBoxes();
-    container.classList.add("hide");
+    // container.classList.add("hide");
     winMsg.classList.remove("hide");
     newGameBtn.classList.remove("hide");
 }

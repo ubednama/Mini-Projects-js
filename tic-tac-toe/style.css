@@ -24,7 +24,7 @@ body {
     align-items: center;
     flex-wrap: wrap;
     flex-direction: column;
-    gap: 4vmin
+    gap: 3vmin
 }
 
 .game {
@@ -42,10 +42,10 @@ body {
     
 }
 
-.h1 {
-    font-size: 18vmin;
-    margin-bottom: 100%;
-    padding: 2rem;
+h1 {
+    font-size: 6vmin;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
 }
 .box {
     height: 15vmin;
@@ -61,8 +61,7 @@ body {
 .msg-container{
     align-items: end;
     justify-content: center;
-    margin-top: 2rem;
-    padding-top: 1%;
+    margin-top:0.5rem;
 }
 
 #msg {
@@ -79,13 +78,12 @@ body {
     align-items: center;
     align-content: center;
     padding: 0.5rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     flex-direction: column;
-    gap: 2rem;
-    height: 9vmin;
 }
 
 #turnMsg {
+    border: 2px black solid;
     font-size: 1.5rem;
     border-radius: 1rem;
     border: none;
@@ -105,6 +103,7 @@ body {
 }
 
 #resetBtn {
+    border: 2px black solid;
     font-size: 1.5rem;
     border-radius: 1rem;
     border: none;
@@ -116,7 +115,7 @@ body {
 
 #quote-container {
     position: fixed;
-    bottom: 60px;
+    bottom: 50px;
     left: 0;
     width: 100%;
     text-align: center;
@@ -124,16 +123,4 @@ body {
 
 .hide{
     display: none;
-}
-
-#bottom-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #333;
-    color: #fff;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center;
 }
