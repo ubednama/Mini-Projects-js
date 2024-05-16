@@ -18,14 +18,20 @@ Play game [here](https://mini-projects-js-git-main-ubednamas-projects.vercel.app
 
 4. [**Caculator**](/Caculator)
    - Simple Calculator
+
+5. [**Weather App**](/Weather-App)
+   - Simple Weather App
      
-5. [**Quick Sign**](/Quick%20Sign)
+6. [**Quick Sign**](/Quick%20Sign)
    - Simple Canvas where users can draw using their mouse, they can also downlaod it in png format
 
 7. [**Circle Game**](/circle-game)
    - A simple interactive game where circles are generated on the screen based on user taps with random radius.
 
-7. [**BBQuotes-API**](/BBQuotes-API)
+8. [**Print Numbers**](/Print-Numbers)
+   - Simple Calculator
+
+9. [**BBQuotes-API**](/BBQuotes-API)
     - Fetches and displays random quotes of Breaking Bad series from API.
 
 
