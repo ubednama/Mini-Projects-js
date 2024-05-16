@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Gillroy', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background-color: #222;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 28px;
+}
+
+main {
+    min-height: calc(100vh - 160px);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+main form input[type='text'] {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    width: 300px;
+}
+
+main form button {
+    background-color: #222;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.result-container {
+    display: none;
+    max-width: 800px;
+    width: 100%;
+}
+
+.result {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+}
+
+.result p {
+    margin-top: 10px;
+}
+
+.result .partsOfSpeech {
+    font-style: italic;
+    color: #008080;
+    margin-top: 2px;
+}
+
+.result div {
+    margin-top: 20px;
+}
+
+.result div a {
+    text-decoration: none;
+    background-color: #222;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.result li {
+    padding: 3px;
+    margin-left: 20px;
+}
