@@ -29,7 +29,7 @@ Play game [here](https://mini-projects-js-git-main-ubednamas-projects.vercel.app
    - A simple interactive game where circles are generated on the screen based on user taps with random radius.
 
 8. [**Print Numbers**](/Print-Numbers)
-   - Simple Calculator
+   - Simple Program that prints numbers in ascending and descending order
 
 9. [**BBQuotes-API**](/BBQuotes-API)
     - Fetches and displays random quotes of Breaking Bad series from API.
