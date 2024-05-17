@@ -1,6 +1,6 @@
-# Mini JavaScript Games
+# Mini Projects JavaScript
 
-This repository contains a collection of simple yet engaging mini games built using HTML, CSS, and JavaScript. Each game offers a fun experience and showcases different aspects of web development.
+This repository contains a collection of simple yet engaging mini games & Mini Projects built using HTML, CSS, and JavaScript. Each Project offers a fun experience and showcases different aspects of web development.
 
 ## Demo
 Play game [here](https://mini-projects-js-git-main-ubednamas-projects.vercel.app/)
