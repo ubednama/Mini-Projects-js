@@ -35,10 +35,10 @@ Play game [here](https://mini-projects-js-git-main-ubednamas-projects.vercel.app
    - Simple Canvas where users can draw using their mouse, they can also downlaod it in png format
 
 10. [**Circle Game**](/circle-game)
-   - A simple interactive game where circles are generated on the screen based on user taps with random radius.
+      - A simple interactive game where circles are generated on the screen based on user taps with random radius.
 
 11. [**Print Numbers**](/Print-Numbers)
-   - Simple Program that prints numbers in ascending and descending order
+      - Simple Program that prints numbers in ascending and descending order
 
 12. [**BBQuotes-API**](/BBQuotes-API)
     - Fetches and displays random quotes of Breaking Bad series from API.
