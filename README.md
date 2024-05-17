@@ -22,16 +22,25 @@ Play game [here](https://mini-projects-js-git-main-ubednamas-projects.vercel.app
 5. [**Weather App**](/Weather-App)
    - Simple Weather App
      
-6. [**Quick Sign**](/Quick%20Sign)
+6. [**Dictionary**](/Dictionary-App)
+   - Simple Dictionary App
+
+7. [**Password Generator**](/Password-Generator)
+   - Simple Random Password Generator
+
+8. [**QR Code Generator**](/QR-Code-Generator)
+   - Simple QR Code Generator
+     
+9. [**Quick Sign**](/Quick%20Sign)
    - Simple Canvas where users can draw using their mouse, they can also downlaod it in png format
 
-7. [**Circle Game**](/circle-game)
+10. [**Circle Game**](/circle-game)
    - A simple interactive game where circles are generated on the screen based on user taps with random radius.
 
-8. [**Print Numbers**](/Print-Numbers)
+11. [**Print Numbers**](/Print-Numbers)
    - Simple Program that prints numbers in ascending and descending order
 
-9. [**BBQuotes-API**](/BBQuotes-API)
+12. [**BBQuotes-API**](/BBQuotes-API)
     - Fetches and displays random quotes of Breaking Bad series from API.
 
 
