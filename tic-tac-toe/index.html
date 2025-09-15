@@ -3,42 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tic-tac-toe</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../index.css">
+    <title>Tic Tac Toe - Terminal</title>
+    <meta name="description" content="Classic Tic Tac Toe game with retro terminal interface">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../global.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <main>
-        <h1>tic-tac-toe</h1>
-        <div class="container">
-            <div class="game">
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <button type="button" class="btn-close" title="Close terminal"></button>
+                <button type="button" class="btn-minimize" title="Minimize terminal"></button>
+                <button type="button" class="btn-maximize" title="Maximize terminal"></button>
             </div>
-            <div id="turnMsg">O turn</div>
-            <button id="resetBtn">Reset</button>
+            <div class="terminal-title">tic-tac-toe@terminal:~$</div>
+            <div class="header-controls">
+                <button class="back-btn" onclick="window.location.href='../index.html'">← Back</button>
+                <button class="theme-toggle" id="theme-toggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
         </div>
-        <div class="msg-container">
-            <div id="msg" class="hide">Winner</div>
-            <div class="button">
-                <button id="newBtn" class="hide">New Game</button>
-            </div>  
+        
+        <div class="terminal-body">
+            <div class="terminal-output">
+                <div class="output-line">
+                    <span class="prompt">user@tic-tac-toe:~$</span> <span class="command">./tictactoe --classic --mode=pvp</span>
+                </div>
+                <div class="output-line success">Tic Tac Toe v1.0 initialized...</div>
+                <div class="output-line success">Game board ready ✓</div>
+                <div class="output-line"></div>
+                
+                <div class="terminal-selection">
+                    <h3>$ ./configure --mode</h3>
+                    <div class="terminal-options">
+                        <button id="pvpMode" class="terminal-option active">PVP</button>
+                        <button id="pvcMode" class="terminal-option">PVC</button>
+                    </div>
+                </div>
+                <div class="terminal-selection hide" id="difficultySection">
+                    <h3>$ ./configure --difficulty</h3>
+                    <div class="terminal-options">
+                        <button id="easyMode" class="terminal-option active">EASY</button>
+                        <button id="mediumMode" class="terminal-option">MEDIUM</button>
+                        <button id="hardMode" class="terminal-option">HARD</button>
+                    </div>
+                </div>
+                
+                <div class="game-container">
+                    <div class="game-grid">
+                        <button type="button" class="game-cell" title="Top left cell" aria-label="Top left cell"></button>
+                        <button type="button" class="game-cell" title="Top center cell" aria-label="Top center cell"></button>
+                        <button type="button" class="game-cell" title="Top right cell" aria-label="Top right cell"></button>
+                        <button type="button" class="game-cell" title="Middle left cell" aria-label="Middle left cell"></button>
+                        <button type="button" class="game-cell" title="Middle center cell" aria-label="Middle center cell"></button>
+                        <button type="button" class="game-cell" title="Middle right cell" aria-label="Middle right cell"></button>
+                        <button type="button" class="game-cell" title="Bottom left cell" aria-label="Bottom left cell"></button>
+                        <button type="button" class="game-cell" title="Bottom center cell" aria-label="Bottom center cell"></button>
+                        <button type="button" class="game-cell" title="Bottom right cell" aria-label="Bottom right cell"></button>
+                    </div>
+                    
+                    <div class="game-controls">
+                        <div id="turnMsg">O turn</div>
+                        <button type="button" id="resetBtn" class="btn-secondary">Reset Game</button>
+                    </div>
+                </div>
+                
+                <div class="msg-container">
+                    <div id="msg" class="hide">Winner</div>
+                    <div class="button">
+                        <button type="button" id="newBtn" class="hide btn-primary">New Game</button>
+                    </div>  
+                </div>
+                
+                <div class="line">
+                    <span class="prompt">user@tic-tac-toe:~$</span> <span class="cursor">_</span>
+                </div>
+            </div>
         </div>
-    </main>
-    <div id="quote-container">
-        <p id="quote" style="font-style: italic;"></p>
-        <p id="author" style="font-style: bold;"></p>
+        
+        <div class="terminal-footer">
+            <div class="status-bar">
+                <span class="status-item">🎮 Classic gameplay</span>
+                <span class="status-item">⚡ Real-time updates</span>
+                <span class="status-item">Made with ❤️ by <a href="https://github.com/ubednama" class="footer-link">ubednama</a></span>
+                <span class="status-item" id="currentTime"></span>
+            </div>
+        </div>
     </div>
-    <div id="bottom-bar">
-        Made with ❤️ by <a href="https://github.com/ubednama">ubednama</a> 
-    </div>
+    
+    <script src="../theme.js"></script>
+    <script src="../terminal-utils.js"></script>
     <script src="ticTacToe.js"></script>
 </body>
 </html>

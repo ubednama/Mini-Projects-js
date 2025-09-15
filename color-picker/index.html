@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Modern color picker tool with retro terminal interface">
+    <title>Color Picker - Terminal</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="btn close"></span>
+                <span class="btn minimize"></span>
+                <span class="btn maximize"></span>
+            </div>
+            <div class="terminal-title">color-picker@terminal:~$</div>
+            <div class="header-controls">
+                <button class="back-btn" onclick="window.location.href='../index.html'">← Back</button>
+                <button class="theme-toggle" id="theme-toggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="terminal-body">
+            <div class="terminal-output">
+                <div class="line">
+                    <span class="prompt">user@color-picker:~$</span> <span class="command">./picker --rgb --hex --hsl</span>
+                </div>
+                <div class="line output">Color Picker v3.0 initialized...</div>
+                <div class="line output">Multi-format support enabled ✓</div>
+                <div class="line"></div>
+            </div>
+            
+            <div class="color-picker-app">
+                <div class="color-main">
+                    <div class="color-preview" id="colorPreview"></div>
+                    <div class="color-controls">
+                        <div class="control-row">
+                            <label class="control-label">Pick:</label>
+                            <input type="color" id="colorInput" value="#4169e1" class="color-input">
+                        </div>
+                        <div class="control-row">
+                            <label class="control-label">Hex:</label>
+                            <input type="text" id="hexInput" value="#4169e1" class="hex-input" placeholder="#000000">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formats-compact">
+                    <div class="format-row">
+                        <span class="format-label">HEX</span>
+                        <code class="format-code" id="hexValue">#4169e1</code>
+                        <button class="copy-icon" data-format="hex" title="Copy HEX">📋</button>
+                    </div>
+                    <div class="format-row">
+                        <span class="format-label">RGB</span>
+                        <code class="format-code" id="rgbValue">rgb(65, 105, 225)</code>
+                        <button class="copy-icon" data-format="rgb" title="Copy RGB">📋</button>
+                    </div>
+                    <div class="format-row">
+                        <span class="format-label">HSL</span>
+                        <code class="format-code" id="hslValue">hsl(225, 73%, 57%)</code>
+                        <button class="copy-icon" data-format="hsl" title="Copy HSL">📋</button>
+                    </div>
+                </div>
+
+                <div class="palette-quick">
+                    <div class="palette-buttons">
+                        <button id="generateMonochromatic" class="palette-btn">Mono</button>
+                        <button id="generateComplementary" class="palette-btn">Comp</button>
+                        <button id="generateTriadic" class="palette-btn">Triad</button>
+                        <button id="generateAnalogous" class="palette-btn">Analog</button>
+                    </div>
+                    <div class="palette-display" id="paletteDisplay"></div>
+                </div>
+
+                <div class="color-history-compact" id="colorHistory"></div>
+            </div>
+            </div>
+        </div>
+        
+        <div class="terminal-footer">
+            <div class="status-bar">
+                <span class="status-item">🎨 Color Picker</span>
+                <span class="status-item">🌈 Multi-format support</span>
+                <span class="status-item">Made with ❤️ by <a href="https://github.com/ubednama" class="footer-link">ubednama</a></span>
+                <span class="status-item" id="currentTime"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script src="../theme.js"></script>
+    <script src="../terminal-utils.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

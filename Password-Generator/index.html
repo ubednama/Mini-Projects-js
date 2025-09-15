@@ -4,57 +4,97 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Generator</title>
-    <link
-    href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet"
-  />
+    <title>Password Generator - Terminal</title>
+    <meta name="description" content="Secure password generator with retro terminal interface">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="../global.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../index.css">
-    <script src="script.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <h1>Password Generator</h1>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="btn close"></span>
+                <span class="btn minimize"></span>
+                <span class="btn maximize"></span>
+            </div>
+            <div class="terminal-title">password-generator@terminal:~$</div>
+            <div class="header-controls">
+                <button class="back-btn" onclick="window.location.href='../index.html'">← Back</button>
+                <button class="theme-toggle" id="theme-toggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="terminal-body">
+            <div class="terminal-output">
+                <div class="line">
+                    <span class="prompt">user@password-gen:~$</span> <span class="command">./passgen --secure --random</span>
+                </div>
+                <div class="line output">Password Generator v2.0 initialized...</div>
+                <div class="line output">Cryptographically secure random generator ready ✓</div>
+                <div class="line"></div>
+                
+                <div class="password-container">
+                    <div class="password-output">
+                        <input type="text" class="passBox" id="passBox" placeholder="Generated password" disabled />
+                        <button class="copy-btn" id="copyIcon" title="Copy to clipboard">📋</button>
+                    </div>
 
-    <div class="inputBox">
-      <input type="text" class="passBox" id="passBox" disabled />
-      <span class="material-icons" id="copyIcon">content_copy</span>
+                    <div class="length-control">
+                        <label class="control-label">Length: <span id="sliderValue">8</span></label>
+                        <input type="range" min="4" max="32" value="8" id="inputSlider" class="length-slider" />
+                    </div>
+
+                    <div class="options-grid">
+                        <label class="option-item">
+                            <input type="checkbox" name="lowercase" id="lowercase" checked/>
+                            <span class="option-text">Lowercase (a-z)</span>
+                        </label>
+
+                        <label class="option-item">
+                            <input type="checkbox" name="uppercase" id="uppercase" checked/>
+                            <span class="option-text">Uppercase (A-Z)</span>
+                        </label>
+
+                        <label class="option-item">
+                            <input type="checkbox" name="numbers" id="numbers" checked/>
+                            <span class="option-text">Numbers (0-9)</span>
+                        </label>
+
+                        <label class="option-item">
+                            <input type="checkbox" name="symbols" id="symbols"/>
+                            <span class="option-text">Symbols (@-*)</span>
+                        </label>
+                    </div>
+
+                    <button type="button" class="genBtn" id="genBtn">Generate Password</button>
+                </div>
+                
+                <div class="line"></div>
+                <div class="line">
+                    <span class="prompt">user@password-gen:~$</span> <span class="cursor">_</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="terminal-footer">
+            <div class="status-bar">
+                <span class="status-item">🔐 Secure generation</span>
+                <span class="status-item">🎲 Cryptographically random</span>
+                <span class="status-item">Made with ❤️ by <a href="https://github.com/ubednama" class="footer-link">ubednama</a></span>
+                <span class="status-item" id="currentTime"></span>
+            </div>
+        </div>
     </div>
-
-    <input type="range" min="1" max="30" value="8" id="inputSlider" />
-
-    <div class="row">
-      <p>Password Length</p>
-      <span id="sliderValue"></span>
-    </div>
-
-    <div class="row">
-      <label for="lowercase">Include Lowercase Letters (a-z)</label>
-      <input type="checkbox" name="lowercase" id="lowercase"/>
-    </div>
-
-    <div class="row">
-      <label for="uppercase">Include Uppercase Letters (A-Z)</label>
-      <input type="checkbox" name="uppercase" id="uppercase"/>
-    </div>
-
-    <div class="row">
-      <label for="numbers">Include Numbers (0-9)</label>
-      <input type="checkbox" name="numbers" id="numbers"/>
-    </div>
-
-    <div class="row">
-      <label for="symbols">Include Symbols (@-*)</label>
-      <input type="checkbox" name="symbols" id="symbols" />
-    </div>
-
-    <button type="button" class="genBtn" id="genBtn">
-      Generate Password
-    </button>
-  </div>
-  <div id="bottom-bar">
-    Made with ❤️ by <a href="https://github.com/ubednama">ubednama</a> 
-  </div>
+    
+    <script src="../theme.js"></script>
+    <script src="../terminal-utils.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>

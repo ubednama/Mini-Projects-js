@@ -2,11 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dictionary App - Terminal</title>
-    <meta name="description" content="Interactive dictionary with retro terminal interface">
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <title>Breaking Bad Quotes - Terminal</title>
+    <meta name="description" content="Breaking Bad quotes API with retro terminal interface">
     <link rel="stylesheet" href="../global.css">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,11 +15,11 @@
     <div class="terminal-container">
         <div class="terminal-header">
             <div class="terminal-buttons">
-                <span class="btn close"></span>
-                <span class="btn minimize"></span>
-                <span class="btn maximize"></span>
+                <button type="button" class="btn-close" title="Close terminal"></button>
+                <button type="button" class="btn-minimize" title="Minimize terminal"></button>
+                <button type="button" class="btn-maximize" title="Maximize terminal"></button>
             </div>
-            <div class="terminal-title">dictionary-app@terminal:~$</div>
+            <div class="terminal-title">bb-quotes@terminal:~$</div>
             <div class="header-controls">
                 <button class="back-btn" onclick="window.location.href='../index.html'">← Back</button>
                 <button class="theme-toggle" id="theme-toggle">
@@ -32,34 +30,31 @@
         
         <div class="terminal-body">
             <div class="terminal-output">
-                <div class="line">
-                    <span class="prompt">user@dictionary:~$</span> <span class="command">./dict --api=oxford --lookup</span>
+                <div class="output-line">
+                    <span class="prompt">user@bb-quotes:~$</span> <span class="command">./quotes --api=breaking-bad --random</span>
                 </div>
-                <div class="line output">Dictionary API v2.1 initialized...</div>
-                <div class="line output">Oxford English Dictionary connected ✓</div>
-                <div class="line"></div>
+                <div class="output-line success">Breaking Bad Quotes API v1.0 initialized...</div>
+                <div class="output-line success">Connection to quotes database established ✓</div>
+                <div class="output-line"></div>
                 
-                <div class="dictionary-container">
-                    <form action="">
-                        <input type="text" id="word" placeholder="Enter a word to search...">
-                        <button type="submit">Search</button>
-                    </form>
-                    <div class="result-container">
-                        <div class="result"></div>
+                <div class="quotes-container">
+                    <div id="quote-container">
+                        <p id="quote"></p>
+                        <p id="author"></p>
                     </div>
                 </div>
                 
-                <div class="line"></div>
-                <div class="line">
-                    <span class="prompt">user@dictionary:~$</span> <span class="cursor">_</span>
+                <div class="output-line"></div>
+                <div class="output-line">
+                    <span class="prompt">user@bb-quotes:~$</span> <span class="cursor">_</span>
                 </div>
             </div>
         </div>
         
         <div class="terminal-footer">
             <div class="status-bar">
-                <span class="status-item">📚 Oxford Dictionary</span>
-                <span class="status-item">🔍 Real-time lookup</span>
+                <span class="status-item">💬 Breaking Bad quotes</span>
+                <span class="status-item">🎭 Character quotes</span>
                 <span class="status-item">Made with ❤️ by <a href="https://github.com/ubednama" class="footer-link">ubednama</a></span>
                 <span class="status-item" id="currentTime"></span>
             </div>
@@ -67,6 +62,6 @@
     </div>
     
     <script src="../theme.js"></script>
-    <script src="script.js" defer></script>
+    <script src="quotes.js"></script>
 </body>
 </html>

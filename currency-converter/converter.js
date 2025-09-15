@@ -5,10 +5,47 @@ const dropdowns = document.querySelectorAll(".dropdown select");
 
 const btn = document.querySelector("form button");
 
-const fromCurrSelect = document.querySelector(".from select")         //class -> from, tagmane -> select
-const toCurrSelect = document.querySelector(".to select")             //class -> from, tagmane -> select
+const fromCurrSelect = document.querySelector("#from-select")
+const toCurrSelect = document.querySelector("#to-select")
 
 const msg = document.querySelector(".msg");
+
+// Terminal integration functions
+function getCurrentCursorLine() {
+    return document.querySelector('.line:last-child .cursor');
+}
+
+function updateTerminalCursor(value) {
+    const cursorLine = getCurrentCursorLine();
+    if (cursorLine) {
+        cursorLine.textContent = value + '_';
+    }
+}
+
+function addTerminalLine(content, isCommand = false) {
+    const terminalOutput = document.querySelector('.terminal-output');
+    if (!terminalOutput) return;
+    
+    const line = document.createElement('div');
+    line.className = 'line';
+    
+    if (isCommand) {
+        line.innerHTML = `<span class="prompt">user@currency:~$</span> <span class="command">${content}</span>`;
+    } else {
+        line.innerHTML = `<span class="output">${content}</span>`;
+    }
+    
+    // Insert before cursor line
+    const cursorLine = terminalOutput.querySelector('.line:last-child');
+    if (cursorLine && cursorLine.innerHTML.includes('cursor')) {
+        terminalOutput.insertBefore(line, cursorLine);
+    } else {
+        terminalOutput.appendChild(line);
+    }
+    
+    TerminalMessages.limitTerminalMessages();
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+}
 
 
 
@@ -49,7 +86,7 @@ const updateFlag = (element) => {
 
 const updateExchRate = async() => {
     let amount = document.querySelector(".amount input");
-    let amtVal= amount.value;
+    let amtVal = amount.value;
 
     if(amtVal === "" || amtVal < 1) {
         amtVal = 1;
@@ -57,33 +94,150 @@ const updateExchRate = async() => {
     }
 
     const fromCurr = fromCurrSelect.value.toLowerCase();
-    const toCurr = toCurrSelect.value.toLowerCase()
+    const toCurr = toCurrSelect.value.toLowerCase();
 
-    const URL = `${BASE_URL}/${fromCurr}.json`;
-    // console.log(URL)
-
-    let response = await fetch(URL);
-    let data = await response.json();
-    // console.log("data ",data);
-
-    let rate = data[fromCurr][toCurr];
-    // console.log(rate);
-
-    let finalAmount = rate * amount.value;
-    let shortFinalAmount = finalAmount.toFixed(3);
-    // console.log(finalAmount);
-
-    msg.innerText = `${amount.value} ${fromCurr.toUpperCase()} is around ${shortFinalAmount} ${toCurr.toUpperCase()}`;
+    // Show terminal command simulation
+    if (window.terminalApp) {
+        window.terminalApp.simulateCommand(
+            `curl -s "${BASE_URL}/${fromCurr}.json" | jq '.${fromCurr}.${toCurr}'`,
+            async () => {
+                try {
+                    const URL = `${BASE_URL}/${fromCurr}.json`;
+                    let response = await fetch(URL);
+                    let data = await response.json();
+                    
+                    let rate = data[fromCurr][toCurr];
+                    let finalAmount = rate * amtVal;
+                    let shortFinalAmount = finalAmount.toFixed(3);
+                    
+                    const result = `${amtVal} ${fromCurr.toUpperCase()} = ${shortFinalAmount} ${toCurr.toUpperCase()}`;
+                    msg.innerText = result;
+                    
+                    // Add to terminal history
+                    window.terminalApp.addToHistory(
+                        `convert ${amtVal} ${fromCurr.toUpperCase()} to ${toCurr.toUpperCase()}`,
+                        result,
+                        'success'
+                    );
+                } catch (error) {
+                    console.error('Currency conversion failed:', error);
+                    msg.innerText = 'Error: Unable to fetch exchange rates';
+                    
+                    if (window.terminalApp) {
+                        window.terminalApp.addToHistory(
+                            `convert ${amtVal} ${fromCurr.toUpperCase()} to ${toCurr.toUpperCase()}`,
+                            'Error: API request failed',
+                            'error'
+                        );
+                    }
+                }
+            },
+            800
+        );
+    } else {
+        // Fallback without terminal simulation
+        try {
+            const URL = `${BASE_URL}/${fromCurr}.json`;
+            let response = await fetch(URL);
+            let data = await response.json();
+            
+            let rate = data[fromCurr][toCurr];
+            let finalAmount = rate * amtVal;
+            let shortFinalAmount = finalAmount.toFixed(3);
+            
+            msg.innerText = `${amtVal} ${fromCurr.toUpperCase()} = ${shortFinalAmount} ${toCurr.toUpperCase()}`;
+        } catch (error) {
+            console.error('Currency conversion failed:', error);
+            msg.innerText = 'Error: Unable to fetch exchange rates';
+        }
+    }
 };
 
 
-//dont use document here
-window.addEventListener("load", ()=>{
+// Swap functionality
+const swapIcon = document.querySelector('.fa-arrow-right-arrow-left');
+if (swapIcon) {
+    swapIcon.addEventListener('click', () => {
+        // Log command to terminal
+        addTerminalLine('swap', true);
+        
+        // Get current values
+        const fromValue = fromCurrSelect.value;
+        const toValue = toCurrSelect.value;
+        
+        // Swap the values
+        fromCurrSelect.value = toValue;
+        toCurrSelect.value = fromValue;
+        
+        // Update flags
+        updateFlag(fromCurrSelect);
+        updateFlag(toCurrSelect);
+        
+        // Update exchange rate
+        updateExchRate();
+        
+        // Add terminal message
+        const terminalOutput = document.querySelector('.terminal-output');
+        if (terminalOutput) {
+            const line = document.createElement('div');
+            line.className = 'line';
+            line.innerHTML = `<span class="prompt">user@currency-converter:~$</span> <span class="command">Currencies swapped: ${toValue} ⇄ ${fromValue}</span>`;
+            
+            const cursorLine = terminalOutput.querySelector('.line:last-child');
+            if (cursorLine && cursorLine.innerHTML.includes('cursor')) {
+                terminalOutput.insertBefore(line, cursorLine);
+            } else {
+                terminalOutput.appendChild(line);
+            }
+            
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+    });
+}
+
+// Initialize and update exchange rate on load
+window.addEventListener("load", ()=> {
     updateExchRate();
+    
+    // Update exchange rate when dropdowns change
+    fromCurrSelect.addEventListener('change', updateExchRate);
+    toCurrSelect.addEventListener('change', updateExchRate);
 });
 
 btn.addEventListener("click", (evt) =>{
     evt.preventDefault();
+    const amount = document.querySelector(".amount input").value || 1;
+    const from = fromCurrSelect.value;
+    const to = toCurrSelect.value;
+    
+    addTerminalLine(`convert ${amount} ${from} to ${to}`, true);
     updateExchRate();
+});
+
+// Enter key support for form and inputs
+const form = document.querySelector('form');
+const amountInput = document.querySelector('.amount input');
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    btn.click(); // Trigger the convert button
+});
+
+// Enter key support for amount input
+amountInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        btn.click();
+    }
+});
+
+// Enter key support for dropdowns
+[fromCurrSelect, toCurrSelect].forEach(select => {
+    select.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            btn.click();
+        }
+    });
 });
 

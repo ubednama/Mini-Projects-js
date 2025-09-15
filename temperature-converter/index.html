@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter - Terminal</title>
+    <meta name="description" content="Temperature converter with retro terminal interface">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="btn close"></span>
+                <span class="btn minimize"></span>
+                <span class="btn maximize"></span>
+            </div>
+            <div class="terminal-title">temperature-converter@terminal:~$</div>
+            <div class="header-controls">
+                <button class="back-btn" onclick="window.location.href='../index.html'">← Back</button>
+                <button class="theme-toggle" id="theme-toggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="terminal-body">
+            <div class="terminal-output">
+                <div class="line">
+                    <span class="prompt">user@temperature-converter:~$</span> <span class="command">./convert --celsius --fahrenheit --kelvin</span>
+                </div>
+                <div class="line output">Temperature Converter v2.0 initialized...</div>
+                <div class="line output">Multi-unit support enabled ✓</div>
+                <div class="line"></div>
+            </div>
+            
+            <div class="app-container">
+                <div class="compact-form">
+                    <div class="input-row">
+                        <label class="form-label">Temperature:</label>
+                        <input type="number" id="temperature-input" class="form-input" value="0" step="any">
+                    </div>
+                    
+                    <div class="selector-row">
+                        <div class="form-group">
+                            <label class="form-label">From:</label>
+                            <select id="from-unit" class="form-select">
+                                <option value="celsius" selected>°C</option>
+                                <option value="fahrenheit">°F</option>
+                                <option value="kelvin">K</option>
+                            </select>
+                        </div>
+                        
+                        <button id="swap-units" class="terminal-btn swap-btn" title="Swap units">⇄</button>
+                        
+                        <div class="form-group">
+                            <label class="form-label">To:</label>
+                            <select id="to-unit" class="form-select">
+                                <option value="celsius">°C</option>
+                                <option value="fahrenheit" selected>°F</option>
+                                <option value="kelvin">K</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="result-row">
+                        <div class="result-display" id="result-display">
+                            <span class="result-value">32</span>
+                            <span class="result-unit">°F</span>
+                        </div>
+                    </div>
+                    
+                    <div class="formula-row">
+                        <span class="formula-text" id="conversion-formula">Formula: °F = (°C × 9/5) + 32</span>
+                    </div>
+                </div>
+                
+                <div class="quick-ref">
+                    <span class="ref-item">0°C = 32°F</span>
+                    <span class="ref-item">100°C = 212°F</span>
+                    <span class="ref-item">37°C = 98.6°F</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="terminal-footer">
+            <div class="status-bar">
+                <span class="status-item">🌡️ Temperature Converter</span>
+                <span class="status-item">🔄 Multi-unit support</span>
+                <span class="status-item">Made with ❤️ by <a href="https://github.com/ubednama" class="footer-link">ubednama</a></span>
+                <span class="status-item" id="currentTime"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="../theme.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
