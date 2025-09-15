@@ -48,6 +48,19 @@
     margin-bottom: 1rem;
     letter-spacing: 0.1em;
     animation: glow 2s ease-in-out infinite alternate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1em;
+}
+
+.time-part {
+    display: inline-block;
+}
+
+.time-separator {
+    display: inline-block;
+    margin: 0 0.05em;
 }
 
 @keyframes glow {

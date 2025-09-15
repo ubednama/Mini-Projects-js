@@ -59,8 +59,27 @@ class AnalogClock {
             terminalOutput.appendChild(line);
         }
         
-        TerminalMessages.limitTerminalMessages();
+        // Limit terminal messages to 6-7 lines
+        this.limitTerminalMessages();
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
+
+    limitTerminalMessages() {
+        const terminalOutput = document.querySelector('.terminal-output');
+        if (!terminalOutput) return;
+        
+        const lines = terminalOutput.querySelectorAll('.line');
+        const maxLines = 6; // Keep 6 lines + cursor line = 7 total
+        
+        if (lines.length > maxLines + 1) { // +1 for cursor line
+            // Remove oldest lines (keep cursor line at the end)
+            const linesToRemove = lines.length - maxLines - 1;
+            for (let i = 0; i < linesToRemove; i++) {
+                if (lines[i] && !lines[i].innerHTML.includes('cursor')) {
+                    lines[i].remove();
+                }
+            }
+        }
     }
 
     processTerminalCommand(command) {
@@ -78,24 +97,37 @@ class AnalogClock {
             }
         }
         
-        // Toggle commands
-        const toggles = {
-            'seconds': () => {
-                this.elements.showSeconds.click();
-                return `Second hand ${this.showSeconds ? 'enabled' : 'disabled'}`;
-            },
-            'numbers': () => {
-                this.elements.showNumbers.click();
-                return `Clock numbers ${this.showNumbers ? 'enabled' : 'disabled'}`;
-            },
-            'smooth': () => {
-                this.elements.smoothSeconds.click();
-                return `Smooth seconds ${this.smoothSeconds ? 'enabled' : 'disabled'}`;
+        // Enable/Disable commands
+        if (parts[0] === 'enable' && parts[1]) {
+            switch(parts[1]) {
+                case 'seconds':
+                    if (!this.showSeconds) this.elements.showSeconds.click();
+                    return 'Second hand enabled';
+                case 'numbers':
+                    if (!this.showNumbers) this.elements.showNumbers.click();
+                    return 'Clock numbers enabled';
+                case 'smooth':
+                    if (!this.smoothSeconds) this.elements.smoothSeconds.click();
+                    return 'Smooth seconds enabled';
+                default:
+                    return 'Available options: seconds, numbers, smooth';
             }
-        };
+        }
         
-        if (toggles[cmd]) {
-            return toggles[cmd]();
+        if (parts[0] === 'disable' && parts[1]) {
+            switch(parts[1]) {
+                case 'seconds':
+                    if (this.showSeconds) this.elements.showSeconds.click();
+                    return 'Second hand disabled';
+                case 'numbers':
+                    if (this.showNumbers) this.elements.showNumbers.click();
+                    return 'Clock numbers disabled';
+                case 'smooth':
+                    if (this.smoothSeconds) this.elements.smoothSeconds.click();
+                    return 'Smooth seconds disabled';
+                default:
+                    return 'Available options: seconds, numbers, smooth';
+            }
         }
         
         // Timezone commands
@@ -123,7 +155,7 @@ class AnalogClock {
         // System commands
         const systemCommands = {
             'time': () => this.getCurrentTime12Hour(),
-            'help': () => `Commands: style [name], seconds, numbers, smooth, timezone [zone], time, help`,
+            'help': () => `Commands: style [name], enable/disable [seconds|numbers|smooth], timezone [zone], time, help`,
             'status': () => `Style: ${this.currentStyle}, Seconds: ${this.showSeconds ? 'on' : 'off'}, Numbers: ${this.showNumbers ? 'on' : 'off'}`
         };
         
@@ -240,21 +272,24 @@ class AnalogClock {
         // Toggle controls with terminal logging
         this.elements.showSeconds.addEventListener('change', () => {
             this.showSeconds = this.elements.showSeconds.checked;
-            this.addTerminalLine('seconds', true);
+            const command = this.showSeconds ? 'enable seconds' : 'disable seconds';
+            this.addTerminalLine(command, true);
             this.addTerminalLine(`Second hand ${this.showSeconds ? 'enabled' : 'disabled'}`);
             this.updateSecondHandVisibility();
         });
 
         this.elements.showNumbers.addEventListener('change', () => {
             this.showNumbers = this.elements.showNumbers.checked;
-            this.addTerminalLine('numbers', true);
+            const command = this.showNumbers ? 'enable numbers' : 'disable numbers';
+            this.addTerminalLine(command, true);
             this.addTerminalLine(`Clock numbers ${this.showNumbers ? 'enabled' : 'disabled'}`);
             this.updateNumbersVisibility();
         });
 
         this.elements.smoothSeconds.addEventListener('change', () => {
             this.smoothSeconds = this.elements.smoothSeconds.checked;
-            this.addTerminalLine('smooth', true);
+            const command = this.smoothSeconds ? 'enable smooth' : 'disable smooth';
+            this.addTerminalLine(command, true);
             this.addTerminalLine(`Smooth seconds ${this.smoothSeconds ? 'enabled' : 'disabled'}`);
         });
 

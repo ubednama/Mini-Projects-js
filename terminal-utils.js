@@ -77,12 +77,13 @@ class TerminalMessages {
         if (!terminalOutput) return;
 
         const lines = terminalOutput.querySelectorAll('.line');
-        const maxLines = 8; // Keep initial messages + 4-5 recent queries
+        const maxLines = 6; // Keep 6 lines + cursor line = 7 total
         
-        if (lines.length > maxLines) {
-            // Keep first 3 lines (initialization) and last 5 lines (recent + cursor)
-            for (let i = 3; i < lines.length - 5; i++) {
-                if (lines[i]) {
+        if (lines.length > maxLines + 1) { // +1 for cursor line
+            // Remove oldest lines (keep cursor line at the end)
+            const linesToRemove = lines.length - maxLines - 1;
+            for (let i = 0; i < linesToRemove; i++) {
+                if (lines[i] && !lines[i].innerHTML.includes('cursor')) {
                     lines[i].remove();
                 }
             }

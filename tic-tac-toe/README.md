@@ -1,12 +1,15 @@
 # tictactoe-js
+
 A simple web-based Tic Tac Toe game implemented using HTML, CSS, and JavaScript.
 
 #### Contact me
+
 email: [kubedrn@gmail.com](mailto:kubedrn@gmail.com)<br>
 <a href="https://www.linkedin.com/in/ubed9">
   <!-- <img align="left" alt="Ubed's LinkedIN" width="22px" src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" /><br> -->
 
 ## Demo
+
 Play game [here](https://mini-projects-js-git-main-ubednamas-projects.vercel.app/)
 
 ## Screenshots
@@ -20,7 +23,3 @@ Play game [here](https://mini-projects-js-git-main-ubednamas-projects.vercel.app
 
 - Two-player mode for local multiplayer
 - Responsive design for various screen sizes
-
-## To DO
-- ~~Add Random Quotes at bottom~~ (✅Done)
-- Add Computer vs Human mode

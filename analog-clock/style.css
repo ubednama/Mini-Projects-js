@@ -4,7 +4,21 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
-    min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 200px);
+}
+
+/* Terminal Output Section */
+.terminal-output {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-top: 1rem;
+    max-height: 200px;
+    overflow-y: auto;
+    font-family: 'JetBrains Mono', monospace;
 }
 
 /* Main Clock Section */
@@ -262,7 +276,6 @@
     height: 16px;
     accent-color: var(--accent-color);
 }
-}
 
 .control-group {
     display: flex;
@@ -413,6 +426,69 @@
     color: var(--bg-primary);
     border-color: var(--accent-color);
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+/* Clock Style Variations */
+.analog-clock.style-classic {
+    /* Classic style - default */
+}
+
+.analog-clock.style-modern .clock-face {
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+    border: 3px solid var(--accent-color);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+}
+
+.analog-clock.style-minimal .clock-face {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    box-shadow: none;
+}
+
+.analog-clock.style-minimal .hour-marker,
+.analog-clock.style-minimal .minute-marker {
+    background: var(--text-muted);
+}
+
+.analog-clock.style-retro .clock-face {
+    background: radial-gradient(circle, #0a0a0a, #1a1a1a);
+    border: 2px solid #ff6b35;
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
+}
+
+.analog-clock.style-retro .hand {
+    background: #ff6b35;
+}
+
+.analog-clock.style-neon .clock-face {
+    background: radial-gradient(circle, #000011, #000033);
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+}
+
+.analog-clock.style-neon .hand {
+    background: #00ffff;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.analog-clock.style-neon .number {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+.analog-clock.style-terminal .clock-face {
+    background: #000000;
+    border: 1px solid #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+}
+
+.analog-clock.style-terminal .hand {
+    background: #00ff00;
+}
+
+.analog-clock.style-terminal .number {
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
 }
 
 /* Timezone Section */

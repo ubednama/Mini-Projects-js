@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Clock - Terminal</title>
     <meta name="description" content="Digital clock with retro terminal interface">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../global.css">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +36,9 @@
                 </div>
                 <div class="line output">Digital Clock v1.0 initialized...</div>
                 <div class="line output">24-hour format enabled ✓</div>
-                <div class="line"></div>
+                <div class="line">
+                    <span class="prompt">user@digital-clock:~$</span> <span class="cursor">_</span>
+                </div>
             </div>
             
             <div class="clock-app">
@@ -68,6 +71,7 @@
     </div>
     
     <script src="../theme.js"></script>
+    <script src="../terminal-utils.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
