@@ -1,17 +1,85 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const printButton = document.querySelector('.input button');
-    const printContainer = document.querySelector('.print');
-    let sortOrder = "ascending"; // Default sort order
-    
-    // Function to print numbers in ascending order
-    function printAscending(startingNumber) {
+// Print Numbers Application
+class PrintNumbers {
+    constructor() {
+        this.terminal = null;
+        this.printButton = document.getElementById('print-btn');
+        this.printArea = document.getElementById('print-area');
+        this.input = document.getElementById('input');
+        this.ascendingRadio = document.getElementById('ascending');
+        this.descendingRadio = document.getElementById('descending');
+        this.sortOrder = "ascending";
+
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+        this.initializeTerminal();
+    }
+
+    initializeTerminal() {
+        if (window.TerminalUtils && window.TerminalUtils.TerminalUI) {
+            this.terminal = new window.TerminalUtils.TerminalUI('print-numbers');
+            this.terminal.log('Number Printer v1.0 initialized...', 'system');
+        }
+    }
+
+    bindEvents() {
+        this.printButton.addEventListener('click', () => this.handlePrint());
+
+        this.input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.handlePrint();
+            }
+        });
+
+        this.ascendingRadio.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                this.sortOrder = "ascending";
+                if (this.terminal) this.terminal.log('Sort order set to Ascending', 'info');
+            }
+        });
+
+        this.descendingRadio.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                this.sortOrder = "descending";
+                if (this.terminal) this.terminal.log('Sort order set to Descending', 'info');
+            }
+        });
+    }
+
+    handlePrint() {
+        const inputNumber = parseInt(this.input.value);
+
+        if (!isNaN(inputNumber)) {
+            this.printArea.innerHTML = ''; // Clear previous content
+
+            if (this.sortOrder === "ascending") {
+                this.printAscending(inputNumber);
+            } else {
+                this.printDescending(inputNumber);
+            }
+
+            this.printArea.style.display = 'flex';
+
+            if (this.terminal) {
+                this.terminal.log(`Printed sequence starting from ${inputNumber} (${this.sortOrder})`, 'success');
+            }
+        } else {
+            if (this.terminal) this.terminal.log('Error: Invalid number input', 'error');
+            alert('Please enter a valid number.');
+        }
+    }
+
+    printAscending(startingNumber) {
         const rows = [];
         for (let i = 0; i < 2; i++) {
             const row = document.createElement('div');
             row.classList.add('row');
-            printContainer.appendChild(row);
+            this.printArea.appendChild(row);
             rows.push(row);
         }
+
         let currentRowIndex = 0;
         for (let i = startingNumber; i < startingNumber + 6; i++) {
             const box = document.createElement('div');
@@ -23,16 +91,16 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     }
-    
-    // Function to print numbers in descending order
-    function printDescending(startingNumber) {
+
+    printDescending(startingNumber) {
         const rows = [];
         for (let i = 0; i < 2; i++) {
             const row = document.createElement('div');
             row.classList.add('row');
-            printContainer.appendChild(row);
+            this.printArea.appendChild(row);
             rows.push(row);
         }
+
         let currentRowIndex = 0;
         for (let i = startingNumber + 5; i >= startingNumber; i--) {
             const box = document.createElement('div');
@@ -44,40 +112,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     }
-    
-    // Event listener for the Print button
-    printButton.addEventListener('click', function() {
-        const inputNumber = parseInt(document.getElementById('input').value);
-        
-        if (!isNaN(inputNumber)) {
-            printContainer.innerHTML = ''; // Clear previous content
-            
-            if (sortOrder === "ascending") {
-                printAscending(inputNumber);
-            } else {
-                printDescending(inputNumber);
-            }
+}
 
-            // Show the print container after printing
-            printContainer.style.display = 'flex';
-        } else {
-            alert('Please enter a valid number.');
-        }
-    });
-    
-    // Event listener for radio buttons to change the sort order
-    const ascendingRadio = document.getElementById('ascending');
-    const descendingRadio = document.getElementById('descending');
-    
-    ascendingRadio.addEventListener('change', function() {
-        if (this.checked) {
-            sortOrder = "ascending";
-        }
-    });
-    
-    descendingRadio.addEventListener('change', function() {
-        if (this.checked) {
-            sortOrder = "descending";
-        }
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    new PrintNumbers();
 });

@@ -58,90 +58,148 @@ body {
 
 .terminal-buttons .close { background: #ff5f57; }
 .terminal-buttons .minimize { background: #ffbd2e; }
-.terminal-buttons .maximize { background: #28ca42; }
-
-.terminal-title {
-    font-weight: 500;
-    color: var(--text-secondary);
-    font-size: 14px;
-}
-
-.header-controls {
+/* Compact Dictionary App Styles */
+.dictionary-container {
+    width: 100%;
+    max-width: 500px;
+    background: var(--bg-terminal);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
     display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
+    flex-direction: column;
+    gap: 15px;
+    min-height: 300px;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
-.back-btn {
-    color: var(--text-accent);
-    text-decoration: none;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius-sm);
-    background: var(--bg-accent);
-    font-size: 12px;
-    font-weight: 500;
-    transition: var(--transition-smooth);
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+#word {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.search-btn {
+    padding: 10px 20px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.search-btn:hover {
+    background: var(--accent-hover);
+}
+
+.result-container {
+    background: var(--bg-card);
+    padding: 15px;
+    border-radius: var(--radius-sm);
     border: 1px solid var(--border-color);
 }
 
-.back-btn:hover {
-    background: var(--bg-hover);
-    transform: translateY(-1px);
+.word-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
 }
 
-/* Terminal Body */
-.terminal-body {
-    padding: var(--spacing-lg);
-    min-height: 600px;
-    background: var(--bg-terminal);
+.word-header h2 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
 }
 
-.terminal-output {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
-    line-height: 1.5;
+.part-of-speech {
+    font-style: italic;
+    color: var(--text-secondary);
 }
 
-.line {
-    margin-bottom: var(--spacing-xs);
+.definition-section p, .antonyms-section p {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.audio-section {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.audio-item {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 0.9rem;
 }
 
-.prompt {
-    color: var(--text-accent);
-    margin-right: var(--spacing-xs);
-    font-weight: 500;
+audio {
+    height: 30px;
+    max-width: 200px;
 }
 
-.command {
-    color: var(--text-command);
+.source-link {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    text-align: right;
 }
 
-.output {
-    color: var(--text-secondary);
-    margin-left: var(--spacing-md);
+.source-link a {
+    color: var(--accent-color);
+    text-decoration: none;
 }
 
-.cursor {
-    color: var(--text-accent);
-    animation: blink 1s infinite;
+.source-link a:hover {
+    text-decoration: underline;
 }
 
-@keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
+.loading {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
 }
 
-/* Dictionary Container */
-.dictionary-container {
-    margin: var(--spacing-lg) 0;
-    padding: var(--spacing-lg);
-    background: var(--bg-card);
-    border-radius: var(--border-radius-md);
-    border: var(--border-width) solid var(--border-color);
+.spinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid var(--bg-secondary);
+    border-top: 3px solid var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
+
+.error-msg {
+    color: var(--error-color);
+    text-align: center;
+    font-weight: bold;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hide {
+    display: none;
+}
+
 
 /* Form Styles */
 form {

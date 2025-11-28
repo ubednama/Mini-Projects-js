@@ -13,87 +13,80 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="terminal-container">
-        <div class="terminal-header">
-            <div class="terminal-buttons">
-                <span class="btn close"></span>
-                <span class="btn minimize"></span>
-                <span class="btn maximize"></span>
-            </div>
-            <div class="terminal-title">rock-paper-scissors@terminal:~$</div>
-            <div class="header-controls">
-                <button class="back-btn" onclick="window.location.href='../index.html'">← Back</button>
-                <button class="theme-toggle" id="theme-toggle">
-                    <span class="theme-icon">🌙</span>
-                </button>
-            </div>
+    <div class="app-layout">
+        <!-- 1. App Description -->
+        <div id="app-description" class="app-description">
+            <h1>Rock Paper Scissors</h1>
+            <p>
+                Beat the computer. Choose your difficulty.
+            </p>
         </div>
-        
-        <div class="terminal-body">
-            <div class="terminal-output">
-                <div class="line">
-                    <span class="prompt">user@rps-game:~$</span> <span class="command">./game --rock --paper --scissors</span>
-                </div>
-                <div class="line output">Rock Paper Scissors v2.0 initialized...</div>
-                <div class="line output">Game engine ready ✓</div>
-                <div class="line output">Type: rock, paper, scissors (or r, p, s) + Enter to play</div>
-                <div class="line"></div>
-    
+
+        <!-- 2. App Container (Game UI) -->
+        <div id="app-container" class="app-visual">
+            <div class="game-content">
                 <div class="game-setup">
-        <div class="difficulty-selection">
-            <h3>Select Difficulty:</h3>
-            <div class="difficulty-buttons">
-                <button class="difficulty-btn" id="easy-mode">Easy</button>
-                <button class="difficulty-btn" id="medium-mode">Medium</button>
-                <button class="difficulty-btn" id="hard-mode">Hard</button>
-            </div>
-        </div>
-    </div>
-    <div class="game">
-        <div class="choices">
-            <div class="choice" id="rock">
-                🪨
-                <!-- <img src="./images/rock.png" alt="Rock"> -->
-            </div>
-            <div class="choice" id="paper">
-                📄
-                <!-- <img src="./images/paper.png" alt="Paper"> -->
-            </div>
-            <div class="choice" id="scissors">
-                ✂️
-                <!-- <img src="./images/scissors.png" alt="Scissors"> -->
-            </div>
-        </div>
-    
-            <div class="scoreBoard">
-                <div class="score">
-                    <p id="userScore">0</p>
-                    <p>You</p>
+                    <div class="difficulty-selection">
+                        <button class="difficulty-btn" id="easy-mode">Easy</button>
+                        <button class="difficulty-btn" id="medium-mode">Medium</button>
+                        <button class="difficulty-btn" id="hard-mode">Hard</button>
+                    </div>
                 </div>
-                <div class="score">
-                    <p id="compScore">0</p>
-                    <p>Computer</p>
-                </div>
-            </div>
-    
-            <div class="msgContainer">
-                <p id="msg">
-                    Play your Move
-                </p>
-                </div>
+
+                <div class="game">
+                    <div class="choices">
+                        <div class="choice" id="rock" title="Rock">🪨</div>
+                        <div class="choice" id="paper" title="Paper">📄</div>
+                        <div class="choice" id="scissors" title="Scissors">✂️</div>
+                    </div>
                 
-                <div class="line">
-                    <span class="prompt">user@rps-game:~$</span> <span class="cursor">_</span>
+                    <div class="scoreBoard">
+                        <div class="score">
+                            <p id="userScore">0</p>
+                            <p>You</p>
+                        </div>
+                        <div class="score">
+                            <p id="compScore">0</p>
+                            <p>Computer</p>
+                        </div>
+                    </div>
+                
+                    <div class="msgContainer">
+                        <p id="msg">Play your Move</p>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <div class="terminal-footer">
-            <div class="status-bar">
-                <span class="status-item">🪨 Rock Paper Scissors</span>
-                <span class="status-item">🎮 Classic game</span>
-                <span class="status-item">Made with ❤️ by <a href="https://github.com/ubednama" class="footer-link">ubednama</a></span>
-                <span class="status-item" id="currentTime"></span>
+
+        <!-- 3. Terminal Container -->
+        <div id="terminal-container" class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="btn close"></span>
+                    <span class="btn minimize"></span>
+                    <span class="btn maximize"></span>
+                </div>
+                <div class="terminal-title">rock-paper-scissors@terminal:~$</div>
+                <div class="header-controls">
+                    <a href="../index.html" class="back-btn">← Back</a>
+                    <button type="button" class="theme-toggle" id="themeToggle" title="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="terminal-body">
+                <div class="terminal-output">
+                    <!-- Terminal content will be injected here -->
+                </div>
+            </div>
+            
+            <div class="terminal-footer">
+                <div class="status-bar">
+                    <span class="status-item">📁 ~/rock-paper-scissors</span>
+                    <span class="status-item">🎮 v2.0.0</span>
+                    <span class="status-item" id="currentTime"></span>
+                </div>
             </div>
         </div>
     </div>

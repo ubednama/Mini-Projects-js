@@ -167,61 +167,62 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
-    margin: 20px 0;
+/* Compact BB Quotes Styles */
+.quotes-container {
+    width: 100%;
+    max-width: 500px;
+    background: var(--bg-terminal);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
 }
 
 #quote-container {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 24px;
-    max-width: 600px;
     width: 100%;
-    text-align: center;
-    box-shadow: var(--shadow-md);
-    position: relative;
-}
-
-#quote-container::before {
-    content: '"';
-    position: absolute;
-    top: -10px;
-    left: 20px;
-    font-size: 3rem;
-    color: var(--accent-color);
-    font-weight: 700;
-}
-
-#quote-container::after {
-    content: '"';
-    position: absolute;
-    bottom: -20px;
-    right: 20px;
-    font-size: 3rem;
-    color: var(--accent-color);
-    font-weight: 700;
+    padding: 20px;
+    background: var(--bg-card);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #quote {
     font-size: 1.2rem;
-    line-height: 1.6;
-    color: var(--text-primary);
-    margin-bottom: 16px;
     font-style: italic;
-    min-height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    font-family: 'Georgia', serif;
 }
 
 #author {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: bold;
     color: var(--accent-color);
-    text-align: right;
-    border-top: 1px solid var(--border-color);
-    padding-top: 12px;
+    align-self: flex-end;
+}
+
+#new-quote-btn {
+    padding: 10px 20px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+#new-quote-btn:hover {
+    background: var(--accent-hover);
 }
 
 #author::before {

@@ -14,59 +14,68 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="terminal-container">
-        <div class="terminal-header">
-            <div class="terminal-buttons">
-                <span class="btn close"></span>
-                <span class="btn minimize"></span>
-                <span class="btn maximize"></span>
-            </div>
-            <div class="terminal-title">dictionary-app@terminal:~$</div>
-            <div class="header-controls">
-                <button class="back-btn" onclick="window.location.href='../index.html'">← Back</button>
-                <button class="theme-toggle" id="theme-toggle">
-                    <span class="theme-icon">🌙</span>
-                </button>
-            </div>
+    <div class="app-layout">
+        <!-- 1. App Description -->
+        <div id="app-description" class="app-description">
+            <h1>Dictionary App</h1>
+            <p>
+                Look up definitions, synonyms, and pronunciations.
+            </p>
         </div>
-        
-        <div class="terminal-body">
-            <div class="terminal-output">
-                <div class="line">
-                    <span class="prompt">user@dictionary:~$</span> <span class="command">./dict --api=oxford --lookup</span>
-                </div>
-                <div class="line output">Dictionary API v2.1 initialized...</div>
-                <div class="line output">Oxford English Dictionary connected ✓</div>
-                <div class="line"></div>
-                
-                <div class="dictionary-container">
-                    <form action="">
+
+        <!-- 2. App Container (Dictionary UI) -->
+        <div id="app-container" class="app-visual">
+            <div class="dictionary-container">
+                <form id="searchForm">
+                    <div class="input-group">
                         <input type="text" id="word" placeholder="Enter a word to search...">
-                        <button type="submit">Search</button>
-                    </form>
-                    <div class="result-container">
-                        <div class="result"></div>
+                        <button type="submit" class="search-btn">Search</button>
                     </div>
+                </form>
+                <div class="result-container hide">
+                    <div class="result"></div>
                 </div>
-                
-                <div class="line"></div>
-                <div class="line">
-                    <span class="prompt">user@dictionary:~$</span> <span class="cursor">_</span>
+                <div class="loading hide">
+                    <div class="spinner"></div>
                 </div>
             </div>
         </div>
-        
-        <div class="terminal-footer">
-            <div class="status-bar">
-                <span class="status-item">📚 Oxford Dictionary</span>
-                <span class="status-item">🔍 Real-time lookup</span>
-                <span class="status-item">Made with ❤️ by <a href="https://github.com/ubednama" class="footer-link">ubednama</a></span>
-                <span class="status-item" id="currentTime"></span>
+
+        <!-- 3. Terminal Container -->
+        <div id="terminal-container" class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="btn close"></span>
+                    <span class="btn minimize"></span>
+                    <span class="btn maximize"></span>
+                </div>
+                <div class="terminal-title">dictionary-app@terminal:~$</div>
+                <div class="header-controls">
+                    <a href="../index.html" class="back-btn">← Back</a>
+                    <button type="button" class="theme-toggle" id="themeToggle" title="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="terminal-body">
+                <div class="terminal-output">
+                    <!-- Terminal content will be injected here -->
+                </div>
+            </div>
+            
+            <div class="terminal-footer">
+                <div class="status-bar">
+                    <span class="status-item">📁 ~/dictionary-app</span>
+                    <span class="status-item">📚 v2.1.0</span>
+                    <span class="status-item" id="currentTime"></span>
+                </div>
             </div>
         </div>
     </div>
     
     <script src="../theme.js"></script>
-    <script src="script.js" defer></script>
+    <script src="../terminal-utils.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

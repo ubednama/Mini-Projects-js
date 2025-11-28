@@ -3,94 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe - Terminal</title>
-    <meta name="description" content="Classic Tic Tac Toe game with retro terminal interface">
+    <title>Tic-Tac-Toe - Terminal</title>
+    <meta name="description" content="Classic Tic-Tac-Toe game with retro terminal interface">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="terminal-container">
-        <div class="terminal-header">
-            <div class="terminal-buttons">
-                <button type="button" class="btn-close" title="Close terminal"></button>
-                <button type="button" class="btn-minimize" title="Minimize terminal"></button>
-                <button type="button" class="btn-maximize" title="Maximize terminal"></button>
-            </div>
-            <div class="terminal-title">tic-tac-toe@terminal:~$</div>
-            <div class="header-controls">
-                <button class="back-btn" onclick="window.location.href='../index.html'">← Back</button>
-                <button class="theme-toggle" id="theme-toggle">
-                    <span class="theme-icon">🌙</span>
-                </button>
-            </div>
+    <div class="app-layout">
+        <!-- 1. App Description -->
+        <div id="app-description" class="app-description">
+            <h1>Tic-Tac-Toe</h1>
+            <p>
+                Play against a friend or the computer.
+            </p>
         </div>
-        
-        <div class="terminal-body">
-            <div class="terminal-output">
-                <div class="line">
-                    <span class="prompt">user@tic-tac-toe:~$</span> <span class="command">./tictactoe --classic --mode=pvp</span>
-                </div>
-                <div class="line output">Tic Tac Toe v1.0 initialized...</div>
-                <div class="line output">Game board ready ✓</div>
-                <div class="line"></div>
-                
-                <div class="terminal-selection">
-                    <h3>$ ./configure --mode</h3>
-                    <div class="terminal-options">
-                        <button id="pvpMode" class="terminal-option active">PVP</button>
-                        <button id="pvcMode" class="terminal-option">PVC</button>
+
+        <!-- 2. App Container (Game UI) -->
+        <div id="app-container" class="app-visual">
+            <div class="game-content">
+                <div class="game-setup">
+                    <div class="game-mode-selection">
+                        <button id="pvpMode" class="mode-btn active">Player vs Player</button>
+                        <button id="pvcMode" class="mode-btn">Player vs Computer</button>
+                    </div>
+                    
+                    <div id="difficultySection" class="difficulty-selection hide">
+                        <div class="difficulty-buttons">
+                            <button id="easyMode" class="difficulty-btn active">Easy</button>
+                            <button id="mediumMode" class="difficulty-btn">Medium</button>
+                            <button id="hardMode" class="difficulty-btn">Hard</button>
+                        </div>
                     </div>
                 </div>
-                <div class="terminal-selection hide" id="difficultySection">
-                    <h3>$ ./configure --difficulty</h3>
-                    <div class="terminal-options">
-                        <button id="easyMode" class="terminal-option active">EASY</button>
-                        <button id="mediumMode" class="terminal-option">MEDIUM</button>
-                        <button id="hardMode" class="terminal-option">HARD</button>
-                    </div>
-                </div>
-                
+
                 <div class="game-container">
-                    <div class="game-grid">
-                        <button type="button" class="game-cell" title="Top left cell" aria-label="Top left cell"></button>
-                        <button type="button" class="game-cell" title="Top center cell" aria-label="Top center cell"></button>
-                        <button type="button" class="game-cell" title="Top right cell" aria-label="Top right cell"></button>
-                        <button type="button" class="game-cell" title="Middle left cell" aria-label="Middle left cell"></button>
-                        <button type="button" class="game-cell" title="Middle center cell" aria-label="Middle center cell"></button>
-                        <button type="button" class="game-cell" title="Middle right cell" aria-label="Middle right cell"></button>
-                        <button type="button" class="game-cell" title="Bottom left cell" aria-label="Bottom left cell"></button>
-                        <button type="button" class="game-cell" title="Bottom center cell" aria-label="Bottom center cell"></button>
-                        <button type="button" class="game-cell" title="Bottom right cell" aria-label="Bottom right cell"></button>
+                    <div class="game game-grid">
+                        <button class="box game-cell"></button>
+                        <button class="box game-cell"></button>
+                        <button class="box game-cell"></button>
+                        <button class="box game-cell"></button>
+                        <button class="box game-cell"></button>
+                        <button class="box game-cell"></button>
+                        <button class="box game-cell"></button>
+                        <button class="box game-cell"></button>
+                        <button class="box game-cell"></button>
                     </div>
                     
                     <div class="game-controls">
-                        <div id="turnMsg">O turn</div>
-                        <button type="button" id="resetBtn" class="btn-secondary">Reset Game</button>
+                        <div id="turnMsg" class="turn-msg">O turn</div>
+                        <button id="resetBtn" class="btn-secondary">Reset Game</button>
+                        <button id="newBtn" class="btn-primary hide">New Game</button>
                     </div>
-                </div>
-                
-                <div class="msg-container">
-                    <div id="msg" class="hide">Winner</div>
-                    <div class="button">
-                        <button type="button" id="newBtn" class="hide btn-primary">New Game</button>
-                    </div>  
-                </div>
-                
-                <div class="line">
-                    <span class="prompt">user@tic-tac-toe:~$</span> <span class="cursor">_</span>
                 </div>
             </div>
         </div>
-        
-        <div class="terminal-footer">
-            <div class="status-bar">
-                <span class="status-item">🎮 Classic gameplay</span>
-                <span class="status-item">⚡ Real-time updates</span>
-                <span class="status-item">Made with ❤️ by <a href="https://github.com/ubednama" class="footer-link">ubednama</a></span>
-                <span class="status-item" id="currentTime"></span>
+
+        <!-- 3. Terminal Container -->
+        <div id="terminal-container" class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="btn close"></span>
+                    <span class="btn minimize"></span>
+                    <span class="btn maximize"></span>
+                </div>
+                <div class="terminal-title">tic-tac-toe@terminal:~$</div>
+                <div class="header-controls">
+                    <a href="../index.html" class="back-btn">← Back</a>
+                    <button type="button" class="theme-toggle" id="themeToggle" title="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="terminal-body">
+                <div class="terminal-output">
+                    <!-- Terminal content will be injected here -->
+                </div>
+            </div>
+            
+            <div class="terminal-footer">
+                <div class="status-bar">
+                    <span class="status-item">📁 ~/tic-tac-toe</span>
+                    <span class="status-item">🎮 v1.0.0</span>
+                    <span class="status-item" id="currentTime"></span>
+                </div>
             </div>
         </div>
     </div>

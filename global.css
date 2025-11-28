@@ -138,6 +138,25 @@ body {
   flex-direction: column;
 }
 
+/* Main Menu Full Size Terminal */
+.terminal-container.main-menu {
+  max-width: 95vw;
+  width: 95vw;
+  height: 90vh;
+  margin: 5vh auto;
+}
+
+.terminal-container.main-menu .terminal-body {
+  flex: 1;
+  overflow: hidden;
+}
+
+.terminal-container.main-menu .terminal-output {
+  height: 100%;
+  max-height: none;
+}
+
+
 /* Terminal Header */
 .terminal-header {
   background-color: var(--bg-header);
@@ -279,57 +298,78 @@ body {
 }
 
 /* Terminal output contains everything */
+/* Fixed height for 5 lines. Assuming ~24px per line + padding */
 .terminal-output {
+  height: 150px; 
+  overflow-y: auto;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.6;
   font-family: 'JetBrains Mono', monospace;
+  padding-right: 10px;
 }
 
-.line, .output-line {
-  margin-bottom: 2px;
+.line {
+  margin-bottom: 4px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
-.prompt {
+.prompt-text {
   color: var(--accent-color);
-  font-weight: 500;
-  margin-right: 8px;
+  font-weight: bold;
+  white-space: nowrap;
 }
+
 
 .command {
-  color: var(--text-command);
-  font-weight: 400;
+  color: var(--text-inverse);
+  font-weight: normal;
 }
 
-.output {
-  color: var(--text-output);
-  margin-left: 0;
-}
 
-.success {
-  color: var(--success-color);
-}
-
-.warning {
-  color: var(--warning-color);
-}
-
-.error {
-  color: var(--error-color);
-}
-
-.cursor {
-  color: var(--accent-color);
-  animation: blink 1s infinite;
+.icon {
   font-weight: bold;
+  margin-left: auto; /* Push icon to the right */
 }
 
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+.icon.info { color: var(--accent-color); }
+.icon.success { color: var(--success-color); }
+.icon.error { color: var(--error-color); }
+.icon.warning { color: var(--warning-color); }
+.icon.system { color: var(--text-secondary); }
+
+.message {
+  color: var(--text-output);
+  word-break: break-word;
+  flex: 1;
 }
+
+.message.info { color: var(--text-primary); }
+.message.success { color: var(--success-color); }
+.message.error { color: var(--error-color); }
+.message.warning { color: var(--warning-color); }
+.message.system { color: var(--text-muted); font-style: italic; }
+
+/* Scrollbar styling for terminal */
+.terminal-output::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-output::-webkit-scrollbar-track {
+  background: var(--bg-terminal);
+}
+
+.terminal-output::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+.terminal-output::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
 
 /* Terminal Footer */
 .terminal-footer {
@@ -1262,4 +1302,89 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
+}
+
+/* New App Layout Structure */
+.app-layout {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.app-description {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  box-shadow: var(--shadow-sm);
+}
+
+.app-description h1 {
+  color: var(--accent-color);
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.app-description p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.app-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  background: var(--bg-card); /* Optional: distinct background for game area */
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+
+/* Ensure terminal container fits within the layout */
+.app-layout .terminal-container {
+  width: 100%;
+  margin: 0; /* Reset margin as it's handled by gap */
+  height: 400px; /* Fixed height for terminal in app view */
+}
+
+.app-layout .terminal-body {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0; /* Allow flex item to shrink */
+}
+
+/* Centered Game Mode Selection */
+.game-mode-selection {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Mobile Responsiveness for Tic-Tac-Toe */
+@media (max-width: 600px) {
+  .game-grid {
+    width: 260px;
+    height: 260px;
+  }
+  
+  .game-cell {
+    font-size: 2rem;
+  }
+  
+  .game-mode-selection {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .terminal-options {
+    justify-content: center;
+  }
 }

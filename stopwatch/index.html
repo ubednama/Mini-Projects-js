@@ -13,68 +13,72 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="terminal-container">
-        <div class="terminal-header">
-            <div class="terminal-buttons">
-                <button type="button" class="btn-close" title="Close Terminal"></button>
-                <button type="button" class="btn-minimize" title="Minimize Terminal"></button>
-                <button type="button" class="btn-maximize" title="Maximize Terminal"></button>
-            </div>
-            <div class="terminal-title">stopwatch@terminal:~$</div>
-            <div class="header-controls">
-                <button type="button" class="back-btn" onclick="window.location.href='../index.html'">← Back</button>
-                <button type="button" class="theme-toggle" id="theme-toggle">
-                    <span class="theme-icon">🌙</span>
-                </button>
-            </div>
+    <div class="app-layout">
+        <!-- 1. App Description -->
+        <div id="app-description" class="app-description">
+            <h1>Stopwatch</h1>
+            <p>
+                Precision timing with lap recording.
+                Use controls or keyboard shortcuts.
+            </p>
         </div>
-        
-        <div class="terminal-body">
-            <div class="terminal-output">
-                <div class="output-line">
-                    <span class="prompt">user@stopwatch:~$</span> <span class="command">./timer --precision-mode</span>
-                </div>
-                <div class="output-line success">Stopwatch v2.1 initialized...</div>
-                <div class="output-line success">High-precision timing enabled ✓</div>
-                <div class="output-line success">Lap recording system ready ✓</div>
-                <div class="output-line"></div>
-                
-                <div class="stopwatch-container">
-                    <div class="stopwatch-display">
-                        <div class="time-display" id="timeDisplay">
-                            <span class="minutes">00</span>:
-                            <span class="seconds">00</span>.
-                            <span class="milliseconds">00</span>
-                        </div>
-                    </div>
 
-                    <div class="controls">
-                        <button id="startBtn" class="control-btn start-btn">START</button>
-                        <button id="pauseBtn" class="control-btn pause-btn" disabled>PAUSE</button>
-                        <button id="resetBtn" class="control-btn reset-btn">RESET</button>
-                        <button id="lapBtn" class="control-btn lap-btn" disabled>LAP</button>
-                    </div>
-
-                    <div class="laps-section">
-                        <h3>LAP TIMES</h3>
-                        <div class="laps-container" id="lapsContainer">
-                            <div class="no-laps">No lap times recorded</div>
-                        </div>
+        <!-- 2. App Container (Stopwatch UI) -->
+        <div id="app-container" class="app-visual">
+            <div class="stopwatch-container">
+                <div class="stopwatch-display">
+                    <div class="time-display" id="timeDisplay">
+                        <span class="minutes">00</span>:
+                        <span class="seconds">00</span>.
+                        <span class="milliseconds">00</span>
                     </div>
                 </div>
-                
-                <div class="line">
-                    <span class="prompt">user@stopwatch:~$</span> <span class="cursor">_</span>
+
+                <div class="controls">
+                    <button id="startBtn" class="control-btn start-btn">START</button>
+                    <button id="pauseBtn" class="control-btn pause-btn" disabled>PAUSE</button>
+                    <button id="resetBtn" class="control-btn reset-btn">RESET</button>
+                    <button id="lapBtn" class="control-btn lap-btn" disabled>LAP</button>
+                </div>
+
+                <div class="laps-section">
+                    <h3>LAP TIMES</h3>
+                    <div class="laps-container" id="lapsContainer">
+                        <div class="no-laps">No lap times recorded</div>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <div class="terminal-footer">
-            <div class="status-bar">
-                <span class="status-item">⏱️ Precision timing</span>
-                <span class="status-item">📊 Lap recording</span>
-                <span class="status-item">Made with ❤️ by <a href="https://github.com/ubednama" class="footer-link">ubednama</a></span>
-                <span class="status-item" id="currentTime"></span>
+
+        <!-- 3. Terminal Container -->
+        <div id="terminal-container" class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="btn close"></span>
+                    <span class="btn minimize"></span>
+                    <span class="btn maximize"></span>
+                </div>
+                <div class="terminal-title">stopwatch@terminal:~$</div>
+                <div class="header-controls">
+                    <a href="../index.html" class="back-btn">← Back</a>
+                    <button type="button" class="theme-toggle" id="themeToggle" title="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="terminal-body">
+                <div class="terminal-output">
+                    <!-- Terminal content will be injected here -->
+                </div>
+            </div>
+            
+            <div class="terminal-footer">
+                <div class="status-bar">
+                    <span class="status-item">📁 ~/stopwatch</span>
+                    <span class="status-item">⏱️ v2.1.0</span>
+                    <span class="status-item" id="currentTime"></span>
+                </div>
             </div>
         </div>
     </div>

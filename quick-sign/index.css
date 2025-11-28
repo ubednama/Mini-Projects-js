@@ -1,43 +1,100 @@
-body{
-    background-color: darkgray;
-}
-.main{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.canvas{
-    background-color: white;
-    border: 2px solid black;
-}
-.top, .bottom{
+/* Compact Quick Sign Styles */
+
+.main {
+    width: 100%;
+    max-width: 650px;
+    background: var(--bg-terminal);
+    padding: 15px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 15px;
+    margin: 0 auto;
+}
+
+.controls-top {
+    display: flex;
     justify-content: space-between;
-    margin: 20px 0 20px 0;
+    gap: 10px;
+    padding: 10px;
+    background: var(--bg-card);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    flex-wrap: wrap;
 }
-.block, input, select, button{
-    width: 80%;
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
-.top>.block, .bottom>button{
-    margin: 10px;
+
+.control-group label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
 }
-button{
-    padding: 1%;
-    border-radius: 5px;
+
+.control-group input[type="color"] {
+    width: 30px;
+    height: 30px;
     border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    padding: 0;
+    background: none;
 }
-.btn-danger{
-    background: red;
+
+.control-group select {
+    padding: 5px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
 }
-.btn-success{
-    background: green;
+
+.canvas-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    touch-action: none; /* Prevent scrolling while drawing on touch devices */
 }
-.btn-primary{
-    background: rgb(51, 51, 230);
+
+#my-canvas {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    cursor: crosshair;
+    display: block;
 }
-.block>label{
-    margin: 10px auto;
-    width: 50%;
+
+.controls-bottom {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
+
+.action-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    transition: opacity 0.2s;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.action-btn:hover {
+    opacity: 0.9;
+}
+
+.action-btn.danger { background: var(--error-color); }
+.action-btn.success { background: var(--success-color); }
+.action-btn.primary { background: var(--accent-color); }

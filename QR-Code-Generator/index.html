@@ -14,57 +14,60 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="terminal-container">
-        <div class="terminal-header">
-            <div class="terminal-buttons">
-                <span class="btn close"></span>
-                <span class="btn minimize"></span>
-                <span class="btn maximize"></span>
-            </div>
-            <div class="terminal-title">qr-generator@terminal:~$</div>
-            <div class="header-controls">
-                <button class="back-btn" onclick="window.location.href='../index.html'">← Back</button>
-                <button class="theme-toggle" id="theme-toggle">
-                    <span class="theme-icon">🌙</span>
-                </button>
-            </div>
+    <div class="app-layout">
+        <!-- 1. App Description -->
+        <div id="app-description" class="app-description">
+            <h1>QR Code Generator</h1>
+            <p>
+                Generate QR codes for text, URLs, or any data.
+            </p>
         </div>
-        
-        <div class="terminal-body">
-            <div class="terminal-output">
-                <div class="line">
-                    <span class="prompt">user@qr-generator:~$</span> <span class="command">./qr-gen --instant</span>
+
+        <!-- 2. App Container (QR Generator UI) -->
+        <div id="app-container" class="app-visual">
+            <div class="qr-container">
+                <div class="input-section">
+                    <input type="text" id="input" placeholder="Enter text, URL, or data to encode...">
+                    <button id="qr-code">GENERATE QR CODE</button>
                 </div>
-                <div class="line output">QR Code Generator v3.0 initialized...</div>
-                <div class="line output">High-resolution output enabled ✓</div>
-                <div class="line"></div>
-                
-                <div class="qr-container">
-                    <div class="input-section">
-                        <input type="text" id="input" placeholder="Enter text, URL, or data to encode...">
-                        <button id="qr-code">GENERATE QR CODE</button>
+                <div class="output-section">
+                    <span id="loading"></span>
+                    <div class="qr-result">
+                        <img id="code-img" src="" alt="Generated QR Code">
                     </div>
-                    <div class="output-section">
-                        <span id="loading"></span>
-                        <div class="qr-result">
-                            <img id="code-img" src="" alt="Generated QR Code">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="line"></div>
-                <div class="line">
-                    <span class="prompt">user@qr-generator:~$</span> <span class="cursor">_</span>
                 </div>
             </div>
         </div>
-        
-        <div class="terminal-footer">
-            <div class="status-bar">
-                <span class="status-item">📱 Instant generation</span>
-                <span class="status-item">🔗 URL & text support</span>
-                <span class="status-item">Made with ❤️ by <a href="https://github.com/ubednama" class="footer-link">ubednama</a></span>
-                <span class="status-item" id="currentTime"></span>
+
+        <!-- 3. Terminal Container -->
+        <div id="terminal-container" class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="btn close"></span>
+                    <span class="btn minimize"></span>
+                    <span class="btn maximize"></span>
+                </div>
+                <div class="terminal-title">qr-generator@terminal:~$</div>
+                <div class="header-controls">
+                    <a href="../index.html" class="back-btn">← Back</a>
+                    <button type="button" class="theme-toggle" id="themeToggle" title="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="terminal-body">
+                <div class="terminal-output">
+                    <!-- Terminal content will be injected here -->
+                </div>
+            </div>
+            
+            <div class="terminal-footer">
+                <div class="status-bar">
+                    <span class="status-item">📁 ~/qr-generator</span>
+                    <span class="status-item">📱 v3.0.0</span>
+                    <span class="status-item" id="currentTime"></span>
+                </div>
             </div>
         </div>
     </div>

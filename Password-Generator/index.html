@@ -15,86 +15,89 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="terminal-container">
-        <div class="terminal-header">
-            <div class="terminal-buttons">
-                <span class="btn close"></span>
-                <span class="btn minimize"></span>
-                <span class="btn maximize"></span>
-            </div>
-            <div class="terminal-title">password-generator@terminal:~$</div>
-            <div class="header-controls">
-                <button class="back-btn" onclick="window.location.href='../index.html'">← Back</button>
-                <button class="theme-toggle" id="theme-toggle">
-                    <span class="theme-icon">🌙</span>
-                </button>
+    <div class="app-layout">
+        <!-- 1. App Description -->
+        <div id="app-description" class="app-description">
+            <h1>Password Generator</h1>
+            <p>
+                Generate strong, secure passwords.
+            </p>
+        </div>
+
+        <!-- 2. App Container (Password Generator UI) -->
+        <div id="app-container" class="app-visual">
+            <div class="password-container">
+                <div class="password-output">
+                    <input type="text" class="passBox" id="passBox" placeholder="Generated password" disabled />
+                    <button class="copy-btn" id="copyIcon" title="Copy to clipboard">📋</button>
+                </div>
+
+                <div class="length-control">
+                    <label class="control-label">Length: <span id="sliderValue">8</span></label>
+                    <input type="range" min="4" max="32" value="8" id="inputSlider" class="length-slider" />
+                </div>
+
+                <div class="options-grid">
+                    <label class="option-item">
+                        <input type="checkbox" name="lowercase" id="lowercase" checked/>
+                        <span class="option-text">Lowercase (a-z)</span>
+                    </label>
+
+                    <label class="option-item">
+                        <input type="checkbox" name="uppercase" id="uppercase" checked/>
+                        <span class="option-text">Uppercase (A-Z)</span>
+                    </label>
+
+                    <label class="option-item">
+                        <input type="checkbox" name="numbers" id="numbers" checked/>
+                        <span class="option-text">Numbers (0-9)</span>
+                    </label>
+
+                    <label class="option-item">
+                        <input type="checkbox" name="symbols" id="symbols"/>
+                        <span class="option-text">Symbols (@-*)</span>
+                    </label>
+                </div>
+
+                <button type="button" class="genBtn" id="genBtn">Generate Password</button>
             </div>
         </div>
-        
-        <div class="terminal-body">
-            <div class="terminal-output">
-                <div class="line">
-                    <span class="prompt">user@password-gen:~$</span> <span class="command">./passgen --secure --random</span>
+
+        <!-- 3. Terminal Container -->
+        <div id="terminal-container" class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="btn close"></span>
+                    <span class="btn minimize"></span>
+                    <span class="btn maximize"></span>
                 </div>
-                <div class="line output">Password Generator v2.0 initialized...</div>
-                <div class="line output">Cryptographically secure random generator ready ✓</div>
-                <div class="line"></div>
-                
-                <div class="password-container">
-                    <div class="password-output">
-                        <input type="text" class="passBox" id="passBox" placeholder="Generated password" disabled />
-                        <button class="copy-btn" id="copyIcon" title="Copy to clipboard">📋</button>
-                    </div>
-
-                    <div class="length-control">
-                        <label class="control-label">Length: <span id="sliderValue">8</span></label>
-                        <input type="range" min="4" max="32" value="8" id="inputSlider" class="length-slider" />
-                    </div>
-
-                    <div class="options-grid">
-                        <label class="option-item">
-                            <input type="checkbox" name="lowercase" id="lowercase" checked/>
-                            <span class="option-text">Lowercase (a-z)</span>
-                        </label>
-
-                        <label class="option-item">
-                            <input type="checkbox" name="uppercase" id="uppercase" checked/>
-                            <span class="option-text">Uppercase (A-Z)</span>
-                        </label>
-
-                        <label class="option-item">
-                            <input type="checkbox" name="numbers" id="numbers" checked/>
-                            <span class="option-text">Numbers (0-9)</span>
-                        </label>
-
-                        <label class="option-item">
-                            <input type="checkbox" name="symbols" id="symbols"/>
-                            <span class="option-text">Symbols (@-*)</span>
-                        </label>
-                    </div>
-
-                    <button type="button" class="genBtn" id="genBtn">Generate Password</button>
-                </div>
-                
-                <div class="line"></div>
-                <div class="line">
-                    <span class="prompt">user@password-gen:~$</span> <span class="cursor">_</span>
+                <div class="terminal-title">password-generator@terminal:~$</div>
+                <div class="header-controls">
+                    <a href="../index.html" class="back-btn">← Back</a>
+                    <button type="button" class="theme-toggle" id="themeToggle" title="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
                 </div>
             </div>
-        </div>
-        
-        <div class="terminal-footer">
-            <div class="status-bar">
-                <span class="status-item">🔐 Secure generation</span>
-                <span class="status-item">🎲 Cryptographically random</span>
-                <span class="status-item">Made with ❤️ by <a href="https://github.com/ubednama" class="footer-link">ubednama</a></span>
-                <span class="status-item" id="currentTime"></span>
+            
+            <div class="terminal-body">
+                <div class="terminal-output">
+                    <!-- Terminal content will be injected here -->
+                </div>
+            </div>
+            
+            <div class="terminal-footer">
+                <div class="status-bar">
+                    <span class="status-item">📁 ~/password-generator</span>
+                    <span class="status-item">🔐 v2.0.0</span>
+                    <span class="status-item" id="currentTime"></span>
+                </div>
             </div>
         </div>
     </div>
     
     <script src="../theme.js"></script>
     <script src="../terminal-utils.js"></script>
-    <script src="script.js" defer></script>
+    <script src="script.js"></script>
 </body>
 </html>

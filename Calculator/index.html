@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,73 +12,81 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <div class="terminal-container">
-        <div class="terminal-header">
-            <div class="terminal-buttons">
-                <span class="btn close"></span>
-                <span class="btn minimize"></span>
-                <span class="btn maximize"></span>
-            </div>
-            <div class="terminal-title">calculator@terminal:~$</div>
-            <div class="header-controls">
-                <button class="back-btn" onclick="window.location.href='../index.html'">← Back</button>
-                <button class="theme-toggle" id="theme-toggle">
-                    <span class="theme-icon">🌙</span>
-                </button>
-            </div>
+    <div class="app-layout">
+        <!-- 1. App Description -->
+        <div id="app-description" class="app-description">
+            <h1>Calculator</h1>
+            <p>
+                Perform basic arithmetic calculations.
+            </p>
         </div>
-        
-        <div class="terminal-body">
-            <div class="terminal-output">
-                <div class="line">
-                    <span class="prompt">user@calculator:~$</span> <span class="command">./calc --advanced</span>
-                </div>
-                <div class="line output">Scientific Calculator v4.0 initialized...</div>
-                <div class="line output">Precision mode enabled ✓</div>
-                <div class="line"></div>
-                
-                <div class="calculator-container">
-                    <div class="calculator">
-                        <div class="display">
-                            <input type="text" id="myInput" placeholder="0" readonly>
-                        </div>
-                        <div class="keys">
-                            <button onclick="assign('AC')" class="function-btn">AC</button>
-                            <button onclick="assign('DEL')" class="function-btn">DEL</button>
-                            <button value="/" onclick="assign('/')" class="operator-btn">/</button>
-                            <button value="*" onclick="assign('*')" class="operator-btn">×</button>
-                            <button value="7" onclick="assign('7')" class="number-btn">7</button>
-                            <button value="8" onclick="assign('8')" class="number-btn">8</button>
-                            <button value="9" onclick="assign('9')" class="number-btn">9</button>
-                            <button value="-" onclick="assign('-')" class="operator-btn">−</button>
-                            <button value="4" onclick="assign('4')" class="number-btn">4</button>
-                            <button value="5" onclick="assign('5')" class="number-btn">5</button>
-                            <button value="6" onclick="assign('6')" class="number-btn">6</button>
-                            <button value="+" onclick="assign('+')" class="operator-btn">+</button>
-                            <button value="1" onclick="assign('1')" class="number-btn">1</button>
-                            <button value="2" onclick="assign('2')" class="number-btn">2</button>
-                            <button value="3" onclick="assign('3')" class="number-btn">3</button>
-                            <button onclick="assign('=')" class="equals-btn">=</button>
-                            <button onclick="assign('0')" class="number-btn zero-btn">0</button>
-                            <button value="." onclick="assign('.')" class="number-btn">.</button>
-                        </div>
+
+        <!-- 2. App Container (Calculator UI) -->
+        <div id="app-container" class="app-visual">
+            <div class="calculator-container">
+                <div class="calculator">
+                    <div class="display">
+                        <input type="text" id="myInput" placeholder="0" readonly>
+                    </div>
+                    <div class="keys">
+                        <button onclick="assign('AC')" class="function-btn">AC</button>
+                        <button onclick="assign('DEL')" class="function-btn">DEL</button>
+                        <button onclick="assign('%')" class="function-btn">%</button>
+                        <button onclick="assign('/')" class="operator-btn">÷</button>
+                        
+                        <button onclick="assign('7')" class="number-btn">7</button>
+                        <button onclick="assign('8')" class="number-btn">8</button>
+                        <button onclick="assign('9')" class="number-btn">9</button>
+                        <button onclick="assign('*')" class="operator-btn">×</button>
+                        
+                        <button onclick="assign('4')" class="number-btn">4</button>
+                        <button onclick="assign('5')" class="number-btn">5</button>
+                        <button onclick="assign('6')" class="number-btn">6</button>
+                        <button onclick="assign('-')" class="operator-btn">−</button>
+                        
+                        <button onclick="assign('1')" class="number-btn">1</button>
+                        <button onclick="assign('2')" class="number-btn">2</button>
+                        <button onclick="assign('3')" class="number-btn">3</button>
+                        <button onclick="assign('+')" class="operator-btn">+</button>
+                        
+                        <button onclick="assign('0')" class="number-btn zero-btn">0</button>
+                        <button onclick="assign('.')" class="number-btn">.</button>
+                        <button onclick="assign('=')" class="equals-btn">=</button>
                     </div>
                 </div>
-                
-                <div class="line">
-                    <span class="prompt">user@calculator:~$</span> <span class="cursor">_</span>
-                </div>
             </div>
         </div>
-        
-        <div class="terminal-footer">
-            <div class="status-bar">
-                <span class="status-item">🔢 Scientific mode</span>
-                <span class="status-item">⚡ High precision</span>
-                <span class="status-item">Made with ❤️ by <a href="https://github.com/ubednama" class="footer-link">ubednama</a></span>
-                <span class="status-item" id="currentTime"></span>
+
+        <!-- 3. Terminal Container -->
+        <div id="terminal-container" class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="btn close"></span>
+                    <span class="btn minimize"></span>
+                    <span class="btn maximize"></span>
+                </div>
+                <div class="terminal-title">calculator@terminal:~$</div>
+                <div class="header-controls">
+                    <a href="../index.html" class="back-btn">← Back</a>
+                    <button type="button" class="theme-toggle" id="themeToggle" title="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="terminal-body">
+                <div class="terminal-output">
+                    <!-- Terminal content will be injected here -->
+                </div>
+            </div>
+            
+            <div class="terminal-footer">
+                <div class="status-bar">
+                    <span class="status-item">📁 ~/calculator</span>
+                    <span class="status-item">🔢 v4.0.0</span>
+                    <span class="status-item" id="currentTime"></span>
+                </div>
             </div>
         </div>
     </div>
@@ -88,5 +95,4 @@
     <script src="../terminal-utils.js"></script>
     <script src="index.js"></script>
 </body>
-
 </html>

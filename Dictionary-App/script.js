@@ -1,136 +1,123 @@
-// select elements
-let form = document.querySelector('form');
-let word = document.querySelector('#word');
-let resultContainer = document.querySelector('.result-container');
-let result = document.querySelector('.result');
+// Dictionary App with Terminal Integration
+class DictionaryApp {
+    constructor() {
+        this.terminal = null;
+        this.form = document.getElementById('searchForm');
+        this.wordInput = document.getElementById('word');
+        this.resultContainer = document.querySelector('.result-container');
+        this.result = document.querySelector('.result');
+        this.loading = document.querySelector('.loading');
 
-// Terminal integration functions
-function getCurrentCursorLine() {
-    return document.querySelector('.line:last-child .cursor');
-}
-
-function updateTerminalCursor(value) {
-    const cursorLine = getCurrentCursorLine();
-    if (cursorLine) {
-        cursorLine.textContent = value + '_';
+        this.init();
     }
-}
 
-function addTerminalLine(content, isCommand = false) {
-    const terminalOutput = document.querySelector('.terminal-output');
-    if (!terminalOutput) return;
-    
-    const line = document.createElement('div');
-    line.className = 'line';
-    
-    if (isCommand) {
-        line.innerHTML = `<span class="prompt">user@dictionary:~$</span> <span class="command">${content}</span>`;
-    } else {
-        line.innerHTML = `<span class="output">${content}</span>`;
+    init() {
+        this.bindEvents();
+        this.initializeTerminal();
     }
-    
-    // Insert before cursor line
-    const cursorLine = terminalOutput.querySelector('.line:last-child');
-    if (cursorLine && cursorLine.innerHTML.includes('cursor')) {
-        terminalOutput.insertBefore(line, cursorLine);
-    } else {
-        terminalOutput.appendChild(line);
+
+    initializeTerminal() {
+        if (window.TerminalUtils && window.TerminalUtils.TerminalUI) {
+            this.terminal = new window.TerminalUtils.TerminalUI('dictionary-app');
+            this.terminal.log('Dictionary App v2.1 initialized...', 'system');
+            this.terminal.log('Enter a word to search for its definition.', 'info');
+        }
     }
-    
-    TerminalMessages.limitTerminalMessages();
-    terminalOutput.scrollTop = terminalOutput.scrollHeight;
-}
 
-form.addEventListener('submit',(e)=>{
-    e.preventDefault();
-    const searchWord = word.value.trim();
-    if (searchWord) {
-        addTerminalLine(`fetch ${searchWord}`, true);
-        getData(searchWord);
+    bindEvents() {
+        this.form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const searchWord = this.wordInput.value.trim();
+            if (searchWord) {
+                this.getData(searchWord);
+            }
+        });
     }
-})
 
-const getData = async (word) => {
-    try {
-        resultContainer.style.display = "block";
-        result.innerHTML = "Searching...";
-        addTerminalLine(`Searching definition for "${word}"...`);
-        const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-        const data = await res.json();
+    async getData(word) {
+        try {
+            if (this.terminal) this.terminal.log(`Fetching definition for "${word}"...`, 'info');
 
-        if (data.length > 0) {
-            const wordData = data[0];
-            let definitions = wordData.meanings[0].definitions[0];
-        
-            result.innerHTML = `<h2><strong>Word: </strong>${wordData.word}</h2>
-            <p class="partsOfSpeech">${wordData.meanings[0].partOfSpeech}</p>
-            <p><strong>Meaning: </strong>${definitions.definition === undefined ? "Not Found" : definitions.definition}</p>
-            <p><strong>Example: </strong>${definitions.example === undefined ? "Not Found" : definitions.example}</p>
-            <p><strong>Antonyms: </strong></p>`;
-        
-            if (definitions.antonyms.length === 0) {
-                result.innerHTML += `<span>Not Found</span> <br>`;
+            this.showLoading(true);
+            this.resultContainer.classList.add('hide');
+
+            const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+            const data = await res.json();
+
+            this.showLoading(false);
+
+            if (res.ok && data.length > 0) {
+                this.displayResult(data[0]);
             } else {
-                for (let i = 0; i < definitions.antonyms.length; i++) {
-                    result.innerHTML += `<li>${definitions.antonyms[i]}</li>`;
-                }
+                this.showError(`Word "${word}" not found`);
             }
-        
-        // Audio section with improved UI
-        if (wordData.phonetics.length === 0 || !wordData.phonetics.find(p => p.audio)) {
-            result.innerHTML += `<div class="audio-section">
-                <p><strong>Audio:</strong> Not Found</p>
-            </div>`;
-        } else {
-            result.innerHTML += `<div class="audio-section">
-                <p><strong>Audio:</strong></p>
-            </div>`;
-            
-            const audioSection = result.querySelector('.audio-section');
-            const audioList = document.createElement('div');
-            audioList.className = 'audio-list';
-            
-            let audioCount = 0;
-            for (let i = 0; i < wordData.phonetics.length; i++) {
-                const phonetic = wordData.phonetics[i];
-                if (phonetic.audio && phonetic.audio !== "") {
-                    audioCount++;
-                    const audioItem = document.createElement('div');
-                    audioItem.className = 'audio-item';
-                    
-                    const audioLabel = document.createElement('span');
-                    audioLabel.className = 'audio-label';
-                    audioLabel.textContent = `Pronunciation ${audioCount}:`;
-                    
-                    const audioPlayer = document.createElement('audio');
-                    audioPlayer.controls = true;
-                    audioPlayer.className = 'terminal-audio';
-                    
-                    const audioSource = document.createElement('source');
-                    audioSource.src = phonetic.audio;
-                    audioSource.type = 'audio/mpeg';
-                    
-                    audioPlayer.appendChild(audioSource);
-                    audioPlayer.innerHTML += 'Your browser does not support the audio tag.';
-                    
-                    audioItem.appendChild(audioLabel);
-                    audioItem.appendChild(audioPlayer);
-                    audioList.appendChild(audioItem);
-                }
-            }
-            
-            audioSection.appendChild(audioList);
-        }
-        
-            result.innerHTML += `<div><a href="${wordData.sourceUrls[0]}" target="_blank">Read More</a></div>`;
-            addTerminalLine(`Definition found for "${word}"`);
-        } else {
-            result.innerHTML = "<p>Sorry, the word could not be found</p>";
-            addTerminalLine(`Word "${word}" not found in dictionary`);
+        } catch (e) {
+            this.showLoading(false);
+            this.showError('An error occurred while fetching data');
         }
     }
-    catch(e){
-        result.innerHTML = "<p>Sorry, the word could not be found</p>";
-        addTerminalLine(`Error searching for "${word}"`);
+
+    displayResult(wordData) {
+        this.resultContainer.classList.remove('hide');
+        const definitions = wordData.meanings[0].definitions[0];
+
+        let html = `
+            <div class="word-header">
+                <h2>${wordData.word}</h2>
+                <span class="part-of-speech">${wordData.meanings[0].partOfSpeech}</span>
+            </div>
+            <div class="definition-section">
+                <p><strong>Meaning:</strong> ${definitions.definition || "Not Found"}</p>
+                <p><strong>Example:</strong> ${definitions.example || "Not Found"}</p>
+            </div>
+        `;
+
+        // Antonyms
+        if (definitions.antonyms && definitions.antonyms.length > 0) {
+            html += `<div class="antonyms-section"><p><strong>Antonyms:</strong> ${definitions.antonyms.join(', ')}</p></div>`;
+        }
+
+        // Audio
+        const phonetics = wordData.phonetics.filter(p => p.audio);
+        if (phonetics.length > 0) {
+            html += `<div class="audio-section">`;
+            phonetics.forEach((phonetic, index) => {
+                html += `
+                    <div class="audio-item">
+                        <span>Pronunciation ${index + 1}:</span>
+                        <audio controls src="${phonetic.audio}"></audio>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+        }
+
+        html += `<div class="source-link"><a href="${wordData.sourceUrls[0]}" target="_blank">Read More</a></div>`;
+
+        this.result.innerHTML = html;
+
+        if (this.terminal) {
+            this.terminal.log(`Definition found: ${wordData.word} - ${wordData.meanings[0].partOfSpeech}`, 'success');
+        }
+
+        this.wordInput.value = '';
+    }
+
+    showError(message) {
+        this.resultContainer.classList.remove('hide');
+        this.result.innerHTML = `<p class="error-msg">${message}</p>`;
+        if (this.terminal) this.terminal.log(`Error: ${message}`, 'error');
+    }
+
+    showLoading(isLoading) {
+        if (isLoading) {
+            this.loading.classList.remove('hide');
+        } else {
+            this.loading.classList.add('hide');
+        }
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    new DictionaryApp();
+});
