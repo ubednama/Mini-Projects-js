@@ -53,6 +53,37 @@
 }
 
 @media (max-width: 768px) {
+  /* Moved from global.css */
+  .terminal-container {
+    width: 100%;
+    margin: 5px auto;
+    max-width: 100%;
+    border-radius: 0;
+  }
+
+  .terminal-header {
+    padding: 8px 12px;
+    /* Merge conflicts from global */
+    justify-content: space-between;
+  }
+
+  .terminal-title {
+    font-size: 12px;
+    /* Existing overrides */
+    left: 40px;
+    transform: none;
+    text-align: left;
+    width: auto;
+  }
+
+  .terminal-body {
+    padding: 15px;
+  }
+
+  .terminal-output {
+    font-size: 13px;
+  }
+
   .terminal-buttons {
     align-self: flex-start; /* Move buttons to left/start */
   }
@@ -106,19 +137,26 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+}
 
-  /* Move title more left/adjust header */
-  .terminal-title {
-    left: 40px; /* Move from center to left-ish */
-    transform: none;
-    text-align: left;
-    width: auto;
-    font-size: 12px;
+@media (max-width: 480px) {
+  /* Moved from global.css - smaller mobile adjustments */
+  .terminal-header {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
   }
 
-  .terminal-header {
-    padding: 8px 10px;
-    justify-content: space-between;
+  .terminal-buttons {
+    align-self: flex-end;
+  }
+}
+
+@media (min-width: 769px) {
+  /* Moved from global.css */
+  .terminal-container {
+    max-width: 1000px;
+    width: 90%;
   }
 }
 .terminal-buttons {

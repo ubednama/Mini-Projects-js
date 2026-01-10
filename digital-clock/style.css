@@ -12,10 +12,6 @@
 }
 
 /* Header */
-.app-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
 
 .app-desc {
   color: var(--text-muted);

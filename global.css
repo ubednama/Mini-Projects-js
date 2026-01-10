@@ -217,29 +217,6 @@ body {
     padding: 5px;
   }
 
-  .terminal-container {
-    width: 100%;
-    margin: 5px auto;
-    max-width: 100%;
-    border-radius: 0;
-  }
-
-  .terminal-header {
-    padding: 8px 12px;
-  }
-
-  .terminal-title {
-    font-size: 12px;
-  }
-
-  .terminal-body {
-    padding: 15px;
-  }
-
-  .terminal-output {
-    font-size: 13px;
-  }
-
   .status-bar {
     flex-direction: column;
     gap: 4px;
@@ -247,23 +224,7 @@ body {
   }
 }
 
-@media (min-width: 769px) {
-  .terminal-container {
-    max-width: 1000px;
-    width: 90%;
-  }
-}
-
 @media (max-width: 480px) {
-  .terminal-header {
-    flex-direction: column;
-    gap: 8px;
-    align-items: flex-start;
-  }
-
-  .terminal-buttons {
-    align-self: flex-end;
-  }
 }
 
 /* Accessibility */

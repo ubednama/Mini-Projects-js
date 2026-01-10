@@ -151,9 +151,6 @@
 }
 
 /* Utility */
-.hide {
-  display: none !important;
-}
 
 /* Responsive Design */
 @media (max-width: 600px) {
