@@ -76,3 +76,38 @@
     font-size: 3.5rem;
   }
 }
+
+/* AM/PM Indicator */
+.ampm {
+  font-size: 1.5rem;
+  margin-left: 10px;
+  color: var(--text-muted);
+  font-weight: 500;
+  align-self: flex-end;
+  margin-bottom: 15px;
+}
+
+/* Controls */
+.controls {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.toggle-btn {
+  background: transparent;
+  border: 1px solid var(--text-muted);
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.toggle-btn:hover {
+  border-color: var(--text-secondary);
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+}

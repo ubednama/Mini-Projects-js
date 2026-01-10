@@ -43,6 +43,75 @@
   position: relative;
 }
 
+@media (max-width: 768px) {
+  .terminal-buttons {
+    align-self: flex-end;
+  }
+
+  /* Mobile optimizations */
+  .terminal-container.main-menu {
+    width: 98vw; /* Maximize width */
+    max-width: 98vw;
+  }
+
+  /* Single row footer on mobile */
+  .terminal-footer {
+    padding: 4px 8px;
+  }
+
+  .status-bar {
+    flex-wrap: nowrap; /* Force single line */
+    overflow-x: auto; /* Scroll if needed */
+    justify-content: flex-start;
+    gap: 15px;
+    font-size: 10px; /* Smaller font */
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+  }
+
+  .status-bar::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari */
+  }
+
+  /* Single line project list on mobile */
+  .project-item {
+    margin-bottom: 2px;
+  }
+
+  .project-link {
+    padding: 6px 8px;
+    flex-wrap: nowrap; /* No wrapping */
+  }
+
+  .project-name {
+    min-width: auto; /* Allow shrinking */
+    margin-right: 8px;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .project-desc {
+    font-size: 10px; /* Smaller description */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Move title more left/adjust header */
+  .terminal-title {
+    left: 40px; /* Move from center to left-ish */
+    transform: none;
+    text-align: left;
+    width: auto;
+    font-size: 12px;
+  }
+
+  .terminal-header {
+    padding: 8px 10px;
+    justify-content: space-between;
+  }
+}
 .terminal-buttons {
   display: flex;
   gap: 8px;

@@ -1,33 +1,44 @@
 /* Color Picker - Minimalist Dark Theme */
 
 /* Container */
+/* Container */
 .color-app-container {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   align-items: center;
   padding-bottom: 100px;
-  padding-top: 40px; /* Move title down */
+  padding-top: 0;
 }
 
 @media (max-width: 600px) {
   .control-group {
     flex-direction: column;
   }
+  .picker-section {
+    flex-direction: column;
+  }
 }
 
 /* Header */
 /* Header styles moved to global.css */
+/* Overriding strict global header margin to move it down */
+.app-header {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
 
 /* Picker Section */
 .picker-section {
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 1rem; /* Decrease gap */
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
 }
 
 .color-preview {
@@ -37,6 +48,7 @@
   border: 4px solid #333;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   transition: background-color 0.2s, transform 0.2s;
+  flex-shrink: 0;
 }
 
 .color-preview.changing {
@@ -46,8 +58,9 @@
 .control-group {
   display: flex;
   gap: 20px;
-  width: 100%;
+  /* width: 100%; Remove full width to fit in row */
   justify-content: center;
+  align-items: center;
 }
 
 .input-wrapper {

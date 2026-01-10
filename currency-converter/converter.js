@@ -2,7 +2,7 @@
 const BASE_URL = `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies`
 
 const dropdowns = document.querySelectorAll(".currency-selectors select");
-const btn = document.querySelector(".convert-btn");
+const btn = document.querySelector(".btn-primary");
 const fromCurrSelect = document.querySelector("#from-select")
 const toCurrSelect = document.querySelector("#to-select")
 const msg = document.querySelector(".result-msg");

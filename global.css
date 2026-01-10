@@ -439,6 +439,14 @@ body.game-body {
   font-size: 0.8rem;
   opacity: 0.8;
   z-index: 999;
+  white-space: nowrap; /* Single line */
+}
+
+@media (max-width: 600px) {
+  .global-footer {
+    font-size: 0.7rem; /* Smaller on mobile */
+    bottom: 10px;
+  }
 }
 
 .global-footer a {
