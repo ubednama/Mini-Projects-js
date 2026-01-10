@@ -296,6 +296,10 @@
   font-weight: normal;
 }
 
+.output {
+  color: #ffffff;
+}
+
 .icon {
   font-weight: bold;
   margin-left: auto; /* Push icon to the right */
