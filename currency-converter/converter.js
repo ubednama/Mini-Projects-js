@@ -1,13 +1,12 @@
-// Currency Converter with Terminal Integration
+// Currency Converter
 const BASE_URL = `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies`
 
-const dropdowns = document.querySelectorAll(".dropdown select");
-const btn = document.querySelector("form button");
+const dropdowns = document.querySelectorAll(".currency-selectors select");
+const btn = document.querySelector(".convert-btn");
 const fromCurrSelect = document.querySelector("#from-select")
 const toCurrSelect = document.querySelector("#to-select")
-const msg = document.querySelector(".msg");
-
-let terminal = null;
+const msg = document.querySelector(".result-msg");
+const toastContainer = document.querySelector("#toast-container");
 
 // Populate Dropdowns
 for (let select of dropdowns) {
@@ -36,8 +35,26 @@ const updateFlag = (element) => {
     img.src = newScr;
 }
 
+const showToast = (message, type = 'error') => {
+    if (!toastContainer) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerText = message;
+
+    toastContainer.appendChild(toast);
+
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+        toast.classList.add('fade-out');
+        toast.addEventListener('animationend', () => {
+            toast.remove();
+        });
+    }, 3000);
+}
+
 const updateExchRate = async () => {
-    let amount = document.querySelector(".amount input");
+    let amount = document.querySelector(".amount-section input");
     let amtVal = amount.value;
 
     if (amtVal === "" || amtVal < 1) {
@@ -48,11 +65,10 @@ const updateExchRate = async () => {
     const fromCurr = fromCurrSelect.value.toLowerCase();
     const toCurr = toCurrSelect.value.toLowerCase();
 
-    if (terminal) terminal.log(`Converting ${amtVal} ${fromCurr.toUpperCase()} to ${toCurr.toUpperCase()}...`, 'info');
-
     try {
         const URL = `${BASE_URL}/${fromCurr}.json`;
         let response = await fetch(URL);
+        if (!response.ok) throw new Error("Network response was not ok");
         let data = await response.json();
 
         let rate = data[fromCurr][toCurr];
@@ -60,19 +76,20 @@ const updateExchRate = async () => {
         let shortFinalAmount = finalAmount.toFixed(3);
 
         const result = `${amtVal} ${fromCurr.toUpperCase()} = ${shortFinalAmount} ${toCurr.toUpperCase()}`;
-        msg.innerText = result;
+        const unitRate = `1 ${fromCurr.toUpperCase()} = ${rate} ${toCurr.toUpperCase()}`;
 
-        if (terminal) terminal.log(result, 'success');
+        msg.innerHTML = `${result}<br><span style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px; display: block;">${unitRate}</span>`;
+
     } catch (error) {
-        msg.innerText = 'Error: Unable to fetch exchange rates';
-        if (terminal) terminal.log('Error: API request failed', 'error');
+        msg.innerText = 'Conversion failed';
+        showToast('Error: Unable to fetch exchange rates. Please check your connection.', 'error');
     }
 };
 
 // Swap functionality
-const swapIcon = document.querySelector('.fa-arrow-right-arrow-left');
+const swapIcon = document.querySelector('.swap-icon');
 if (swapIcon) {
-    swapIcon.parentElement.addEventListener('click', () => {
+    swapIcon.addEventListener('click', () => {
         const fromValue = fromCurrSelect.value;
         const toValue = toCurrSelect.value;
 
@@ -82,8 +99,6 @@ if (swapIcon) {
         updateFlag(fromCurrSelect);
         updateFlag(toCurrSelect);
         updateExchRate();
-
-        if (terminal) terminal.log(`Swapped currencies: ${toValue} ⇄ ${fromValue}`, 'info');
     });
 }
 
@@ -97,10 +112,9 @@ btn.addEventListener("click", (evt) => {
     updateExchRate();
 });
 
-// Initialize Terminal
-document.addEventListener('DOMContentLoaded', () => {
-    if (window.TerminalUtils && window.TerminalUtils.TerminalUI) {
-        terminal = new window.TerminalUtils.TerminalUI('currency-converter');
-        terminal.log('Currency Converter v2.0 initialized...', 'system');
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        updateExchRate();
     }
 });

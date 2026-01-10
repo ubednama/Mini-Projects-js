@@ -1,27 +1,18 @@
-// Dictionary App with Terminal Integration
+// Dictionary App
 class DictionaryApp {
     constructor() {
-        this.terminal = null;
         this.form = document.getElementById('searchForm');
         this.wordInput = document.getElementById('word');
         this.resultContainer = document.querySelector('.result-container');
         this.result = document.querySelector('.result');
         this.loading = document.querySelector('.loading');
+        this.toastContainer = document.querySelector("#toast-container");
 
         this.init();
     }
 
     init() {
         this.bindEvents();
-        this.initializeTerminal();
-    }
-
-    initializeTerminal() {
-        if (window.TerminalUtils && window.TerminalUtils.TerminalUI) {
-            this.terminal = new window.TerminalUtils.TerminalUI('dictionary-app');
-            this.terminal.log('Dictionary App v2.1 initialized...', 'system');
-            this.terminal.log('Enter a word to search for its definition.', 'info');
-        }
     }
 
     bindEvents() {
@@ -32,28 +23,42 @@ class DictionaryApp {
                 this.getData(searchWord);
             }
         });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const searchWord = this.wordInput.value.trim();
+                if (searchWord) {
+                    this.getData(searchWord);
+                }
+            }
+        });
     }
 
     async getData(word) {
         try {
-            if (this.terminal) this.terminal.log(`Fetching definition for "${word}"...`, 'info');
-
             this.showLoading(true);
             this.resultContainer.classList.add('hide');
 
             const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-            const data = await res.json();
 
+            if (!res.ok) {
+                throw new Error("Word not found");
+            }
+
+            const data = await res.json();
             this.showLoading(false);
 
-            if (res.ok && data.length > 0) {
+            if (data.length > 0) {
                 this.displayResult(data[0]);
             } else {
                 this.showError(`Word "${word}" not found`);
             }
         } catch (e) {
             this.showLoading(false);
-            this.showError('An error occurred while fetching data');
+            console.error(e);
+            this.showError('An error occurred. Please try again.');
+            this.showToast(`Error: ${e.message}`, 'error');
         }
     }
 
@@ -95,18 +100,12 @@ class DictionaryApp {
         html += `<div class="source-link"><a href="${wordData.sourceUrls[0]}" target="_blank">Read More</a></div>`;
 
         this.result.innerHTML = html;
-
-        if (this.terminal) {
-            this.terminal.log(`Definition found: ${wordData.word} - ${wordData.meanings[0].partOfSpeech}`, 'success');
-        }
-
         this.wordInput.value = '';
     }
 
     showError(message) {
         this.resultContainer.classList.remove('hide');
         this.result.innerHTML = `<p class="error-msg">${message}</p>`;
-        if (this.terminal) this.terminal.log(`Error: ${message}`, 'error');
     }
 
     showLoading(isLoading) {
@@ -115,6 +114,23 @@ class DictionaryApp {
         } else {
             this.loading.classList.add('hide');
         }
+    }
+
+    showToast(message, type = 'error') {
+        if (!this.toastContainer) return;
+
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerText = message;
+
+        this.toastContainer.appendChild(toast);
+
+        setTimeout(() => {
+            toast.classList.add('fade-out');
+            toast.addEventListener('animationend', () => {
+                toast.remove();
+            });
+        }, 3000);
     }
 }
 

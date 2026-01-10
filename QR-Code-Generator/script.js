@@ -1,25 +1,17 @@
-// QR Code Generator with Terminal Integration
+// QR Code Generator
 class QRCodeGenerator {
     constructor() {
-        this.terminal = null;
         this.qrButton = document.querySelector("#qr-code");
         this.codeImage = document.querySelector("#code-img");
         this.loader = document.querySelector("#loading");
         this.input = document.querySelector("#input");
+        this.toastContainer = document.querySelector("#toast-container");
 
         this.init();
     }
 
     init() {
         this.bindEvents();
-        this.initializeTerminal();
-    }
-
-    initializeTerminal() {
-        if (window.TerminalUtils && window.TerminalUtils.TerminalUI) {
-            this.terminal = new window.TerminalUtils.TerminalUI('qr-generator');
-            this.terminal.log('QR Code Generator v3.0 initialized...', 'system');
-        }
     }
 
     bindEvents() {
@@ -29,7 +21,7 @@ class QRCodeGenerator {
             if (text) {
                 this.generateQR(text);
             } else {
-                if (this.terminal) this.terminal.log('Error: No text provided for QR generation', 'error');
+                this.showToast('Please enter text or URL', 'error');
             }
         });
 
@@ -39,6 +31,20 @@ class QRCodeGenerator {
                 const text = this.input.value;
                 if (text) {
                     this.generateQR(text);
+                } else {
+                    this.showToast('Please enter text or URL', 'error');
+                }
+            }
+        });
+
+        // Global Enter key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && document.activeElement !== this.input) {
+                const text = this.input.value;
+                if (text) {
+                    this.generateQR(text);
+                } else {
+                    this.showToast('Please enter text or URL', 'error');
                 }
             }
         });
@@ -46,20 +52,50 @@ class QRCodeGenerator {
 
     generateQR(text) {
         if (!text || text.trim() === "") {
-            if (this.terminal) this.terminal.log('Error: No text provided for QR generation', 'error');
+            this.showToast('Please enter text or URL', 'error');
             this.codeImage.style.display = "none";
             return;
         }
 
-        this.loader.style.display = "block";
-        this.codeImage.onload = () => {
-            this.loader.style.display = "none";
-            this.codeImage.style.display = "block";
-            if (this.terminal) this.terminal.log(`Generated QR code for: "${text.substring(0, 30)}${text.length > 30 ? '...' : ''}"`, 'success');
-        }
+        this.loader.classList.add('show');
+        this.codeImage.classList.remove('active'); // Hide previous
+        this.codeImage.style.display = 'none';
 
         const api = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(text)}`;
-        this.codeImage.src = api;
+
+        // Setup load handler before setting src
+        const img = new Image();
+        img.onload = () => {
+            this.loader.classList.remove('show');
+            this.codeImage.src = api;
+            this.codeImage.style.display = 'block';
+            // Slight delay to allow display block to render before opacity transition
+            setTimeout(() => {
+                this.codeImage.classList.add('active');
+            }, 50);
+        };
+        img.onerror = () => {
+            this.loader.classList.remove('show');
+            this.showToast('Failed to generate QR code', 'error');
+        };
+        img.src = api;
+    }
+
+    showToast(message, type = 'error') {
+        if (!this.toastContainer) return;
+
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerText = message;
+
+        this.toastContainer.appendChild(toast);
+
+        setTimeout(() => {
+            toast.classList.add('fade-out');
+            toast.addEventListener('animationend', () => {
+                toast.remove();
+            });
+        }, 3000);
     }
 }
 

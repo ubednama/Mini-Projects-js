@@ -1,100 +1,126 @@
-/* Compact Quick Sign Styles */
+/* Quick Sign - Minimalist Dark Theme */
 
-.main {
-    width: 100%;
-    max-width: 650px;
-    background: var(--bg-terminal);
-    padding: 15px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin: 0 auto;
+/* Container */
+.sign-app-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  justify-content: space-between; /* Distribute space */
 }
 
+/* Header: Using global styles */
+
+/* Controls Top */
 .controls-top {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 10px;
-    background: var(--bg-card);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
-    flex-wrap: wrap;
+  display: flex;
+  gap: 20px;
+  background: #222;
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid #333;
+  margin-bottom: 1rem;
 }
 
 .control-group {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .control-group label {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
-.control-group input[type="color"] {
-    width: 30px;
-    height: 30px;
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    padding: 0;
-    background: none;
+/* Inputs */
+input[type="color"] {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+  overflow: hidden;
 }
 
-.control-group select {
-    padding: 5px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    font-family: 'JetBrains Mono', monospace;
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
 }
 
+input[type="color"]::-webkit-color-swatch {
+  border: 2px solid #444;
+  border-radius: 50%;
+}
+
+select {
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  border: 1px solid #444;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  font-family: "JetBrains Mono", monospace;
+  cursor: pointer;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+/* Canvas Wrapper */
 .canvas-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    background: #fff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    touch-action: none; /* Prevent scrolling while drawing on touch devices */
+  flex: 1;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  /* Optional: Add a border or ensure canvas is visible against background */
 }
 
-#my-canvas {
-    width: 100%;
-    max-width: 600px;
-    height: auto;
-    cursor: crosshair;
-    display: block;
+canvas {
+  background: #fff; /* Default canvas bg */
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  cursor: crosshair;
+  max-width: 100%;
+  max-height: 100%;
+  touch-action: none; /* Prevent scrolling while drawing */
 }
 
+/* Controls Bottom (Action Buttons) */
 .controls-bottom {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 4rem; /* Space for footer */
+}
+
+/* Buttons using global classes */
+
+/* Responsive */
+@media (max-width: 600px) {
+  .controls-top {
     flex-wrap: wrap;
-}
+    justify-content: center;
+    border-radius: var(--radius-md);
+  }
 
-.action-btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-weight: bold;
-    color: white;
-    transition: opacity 0.2s;
-    font-family: 'JetBrains Mono', monospace;
-}
+  .canvas-wrapper {
+    width: 100%;
+    padding: 0 10px;
+  }
 
-.action-btn:hover {
-    opacity: 0.9;
+  canvas {
+    width: 100%;
+    height: auto;
+  }
 }
-
-.action-btn.danger { background: var(--error-color); }
-.action-btn.success { background: var(--success-color); }
-.action-btn.primary { background: var(--accent-color); }

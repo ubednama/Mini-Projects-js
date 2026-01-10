@@ -59,10 +59,9 @@ class TicTacToe {
         });
 
         this.resetButton.addEventListener("click", () => this.resetGame());
+
         this.newGameBtn.addEventListener("click", () => {
-            this.container.classList.remove("hide");
-            this.enableBoxes();
-            this.count = 0;
+            this.resetGame();
             if (this.terminal) this.terminal.log('Starting new game...', 'system');
         });
 
@@ -250,6 +249,7 @@ class TicTacToe {
         this.turn.classList.add('success');
         this.disableBoxes();
         this.newGameBtn.classList.remove("hide");
+        this.resetButton.classList.add("hide"); // Hide reset when game ends
 
         if (this.terminal) this.terminal.log(winnerMessage, 'success');
     }
@@ -260,6 +260,7 @@ class TicTacToe {
         this.turn.innerText = drawMessage;
         this.disableBoxes();
         this.newGameBtn.classList.remove("hide");
+        this.resetButton.classList.add("hide"); // Hide reset when game ends
         if (this.terminal) this.terminal.log(drawMessage, 'warning');
     }
 
@@ -271,6 +272,11 @@ class TicTacToe {
         this.container.classList.remove("hide");
         this.count = 0;
         this.updateTurnMessage();
+
+        // Ensure correct button state
+        this.newGameBtn.classList.add("hide");
+        this.resetButton.classList.remove("hide");
+
         if (this.terminal) this.terminal.log('Game reset. Player O starts.', 'system');
     }
 

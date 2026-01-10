@@ -59,6 +59,14 @@ class PasswordGenerator {
                 });
             }
         });
+
+        // Enter key to generate
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.genBtn.click();
+            }
+        });
     }
 
     generatePassword() {

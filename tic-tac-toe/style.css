@@ -1,338 +1,245 @@
-/* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* Tic-Tac-Toe Game Styles */
 
-body {
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    min-height: 100vh;
-    overflow-x: hidden;
-    transition: all var(--transition-normal);
-}
-
-/* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    min-height: 100vh;
-    overflow-x: hidden;
-    transition: all var(--transition-normal);
-}
-
-/* Game Setup Styles */
-.game-setup {
-    margin: 20px 0;
-    padding: 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background: rgba(0, 255, 0, 0.05);
-}
-
-.mode-selection, .difficulty-selection {
-    margin-bottom: 15px;
-}
-
-.mode-selection h3, .difficulty-selection h3 {
-    color: var(--text-primary);
-    font-size: 14px;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-}
-
-.mode-buttons, .difficulty-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.mode-btn, .difficulty-btn {
-    background: var(--bg-button-secondary);
-    color: var(--text-inverse);
-    border: 1px solid var(--border-color);
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: 'JetBrains Mono', monospace;
-}
-
-.mode-btn:hover, .difficulty-btn:hover {
-    background: var(--bg-button-secondary-hover);
-    transform: translateY(-1px);
-}
-
-.mode-btn.active, .difficulty-btn.active {
-    background: var(--accent-color);
-    color: var(--bg-terminal);
-   /* Compact Tic Tac Toe Styles */
+/* Game Content Container */
 .game-content {
-    width: 100%;
-    max-width: 400px;
-    background: var(--bg-terminal);
-    padding: 15px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
 }
 
+/* Game Setup Section */
 .game-setup {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  align-items: center;
+  min-height: 95px;
 }
 
-.game-mode-selection, .difficulty-buttons {
-    display: flex;
-    gap: 5px;
-    background: var(--bg-card);
-    padding: 5px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
+.game-mode-selection,
+.difficulty-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.mode-btn, .difficulty-btn {
-    flex: 1;
-    padding: 5px;
-    border: none;
-    background: transparent;
-    color: var(--text-secondary);
-    cursor: pointer;
-    border-radius: var(--radius-sm);
-    font-size: 0.8rem;
-    transition: all 0.2s;
+/* Mode and Difficulty Buttons */
+.mode-btn,
+.difficulty-btn {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 2px solid #333;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-width: 120px;
 }
 
-.mode-btn.active, .difficulty-btn.active {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    font-weight: bold;
+.mode-btn:hover,
+.difficulty-btn:hover {
+  border-color: var(--game-accent-light);
+  background: rgba(255, 255, 255, 0.05);
 }
 
+.mode-btn.active,
+.difficulty-btn.active {
+  background: var(--game-accent-gray);
+  border-color: var(--game-accent-gray);
+  color: #ffffff;
+}
+
+/* Difficulty Section */
+.difficulty-selection {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Game Container */
+.game-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Game Grid */
 .game-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
-    aspect-ratio: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 90px);
+  grid-template-rows: repeat(3, 90px);
+  gap: 10px;
+  width: fit-content;
+  margin: 0 auto;
 }
 
+/* Game Cells */
 .game-cell {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--text-primary);
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 90px;
+  height: 90px;
+  background: transparent;
+  border: 2px solid #333;
+  border-radius: var(--radius-sm);
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+  overflow: hidden;
 }
 
 .game-cell:hover:not(:disabled) {
-    background: var(--bg-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--game-accent-light);
 }
 
-.game-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
+.game-cell:active:not(:disabled) {
+  transform: scale(0.95);
 }
 
-.turn-msg {
-    font-size: 1rem;
-    color: var(--text-primary);
-    font-weight: bold;
-}
-
-.turn-msg.success {
-    color: var(--success-color);
-}
-
-.btn-secondary, .btn-primary {
-    padding: 8px 16px;
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-weight: bold;
-    width: 100%;
-}
-
-.btn-secondary {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-}
-
-.btn-primary {
-    background: var(--primary-color);
-    color: white;
-}
-
-.hide {
-    display: none;
-}
-
-
-.box:hover {
-    background: var(--bg-button-secondary);
-    border-color: var(--accent-color);
-    transform: scale(1.05);
-    box-shadow: var(--shadow-sm);
-}
-
-.box:active {
-    transform: scale(0.95);
-}
-
-.box:disabled {
-    cursor: not-allowed;
-    opacity: 0.7;
+.game-cell:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 /* Game Controls */
 .game-controls {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-#turnMsg {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--accent-color);
-    padding: 8px 16px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    text-align: center;
+/* Turn Message */
+.turn-msg {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 10px 0;
+  white-space: nowrap;
 }
 
+.turn-msg.success {
+  color: var(--game-accent-light);
+  border-color: var(--game-accent-light);
+}
+
+/* Button Overrides for Game Context */
 #resetBtn {
-    background: var(--warning-color);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: var(--radius-sm);
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    font-family: 'JetBrains Mono', monospace;
-}
-
-#resetBtn:hover {
-    background: var(--warning-hover);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
-}
-
-/* Message Container */
-.msg-container {
-    text-align: center;
-    margin: 20px 0;
-}
-
-#msg {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--success-color);
-    margin-bottom: 16px;
-    padding: 12px 24px;
-    background: var(--bg-card);
-    border: 2px solid var(--success-color);
-    border-radius: var(--radius-md);
-    display: inline-block;
+  width: 100%;
+  max-width: 300px;
 }
 
 #newBtn {
-    background: var(--success-color);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: var(--radius-sm);
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    font-family: 'JetBrains Mono', monospace;
+  width: 100%;
+  max-width: 300px;
 }
 
-#newBtn:hover {
-    background: var(--success-hover);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
+/* Utility */
+.hide {
+  display: none !important;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-    .game {
-        width: 250px;
-        height: 250px;
-        padding: 12px;
-    }
-    
-    .box {
-        font-size: 2rem;
-    }
-    
-    #turnMsg {
-        font-size: 1rem;
-    }
+@media (max-width: 600px) {
+  .game-grid {
+    grid-template-columns: repeat(3, 70px);
+    grid-template-rows: repeat(3, 70px);
+  }
+
+  .game-cell {
+    width: 70px;
+    height: 70px;
+    font-size: 2.5rem;
+  }
+
+  .game-controls {
+    max-width: 240px;
+  }
+
+  #resetBtn,
+  #newBtn {
+    max-width: 240px;
+  }
+
+  .mode-btn,
+  .difficulty-btn {
+    min-width: 100px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
 }
 
 @media (max-width: 480px) {
-    .game {
-        width: 200px;
-        height: 200px;
-        padding: 8px;
-        gap: 4px;
-    }
-    
-    .box {
-        font-size: 1.5rem;
-    }
-    
-    #msg {
-        font-size: 1.2rem;
-    }
+  .game-grid {
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(3, 60px);
+    gap: 8px;
+  }
+
+  .game-cell {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+
+  .game-controls {
+    max-width: 240px;
+  }
+
+  #resetBtn,
+  #newBtn {
+    max-width: 240px;
+  }
+
+  .turn-msg {
+    font-size: 1rem;
+  }
+
+  .mode-btn,
+  .difficulty-btn {
+    min-width: 90px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
 }
 
 /* Animations */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .game-container {
-    animation: fadeIn 0.5s ease-out;
+  animation: fadeIn 0.5s ease-out;
 }
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,98 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator - Terminal</title>
-    <meta name="description" content="Advanced calculator with retro terminal interface">
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../global.css">
-    <link rel="stylesheet" href="index.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="app-layout">
-        <!-- 1. App Description -->
-        <div id="app-description" class="app-description">
-            <h1>Calculator</h1>
-            <p>
-                Perform basic arithmetic calculations.
-            </p>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <meta name="description" content="Simple Calculator" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../global.css" />
+    <link rel="stylesheet" href="index.css" />
+    <!-- Google Fonts already in global.css but good to ensure -->
+  </head>
+  <body class="game-body">
+    <!-- Back Button -->
+    <a href="../index.html" class="top-right-back">← Back</a>
 
-        <!-- 2. App Container (Calculator UI) -->
-        <div id="app-container" class="app-visual">
-            <div class="calculator-container">
-                <div class="calculator">
-                    <div class="display">
-                        <input type="text" id="myInput" placeholder="0" readonly>
-                    </div>
-                    <div class="keys">
-                        <button onclick="assign('AC')" class="function-btn">AC</button>
-                        <button onclick="assign('DEL')" class="function-btn">DEL</button>
-                        <button onclick="assign('%')" class="function-btn">%</button>
-                        <button onclick="assign('/')" class="operator-btn">÷</button>
-                        
-                        <button onclick="assign('7')" class="number-btn">7</button>
-                        <button onclick="assign('8')" class="number-btn">8</button>
-                        <button onclick="assign('9')" class="number-btn">9</button>
-                        <button onclick="assign('*')" class="operator-btn">×</button>
-                        
-                        <button onclick="assign('4')" class="number-btn">4</button>
-                        <button onclick="assign('5')" class="number-btn">5</button>
-                        <button onclick="assign('6')" class="number-btn">6</button>
-                        <button onclick="assign('-')" class="operator-btn">−</button>
-                        
-                        <button onclick="assign('1')" class="number-btn">1</button>
-                        <button onclick="assign('2')" class="number-btn">2</button>
-                        <button onclick="assign('3')" class="number-btn">3</button>
-                        <button onclick="assign('+')" class="operator-btn">+</button>
-                        
-                        <button onclick="assign('0')" class="number-btn zero-btn">0</button>
-                        <button onclick="assign('.')" class="number-btn">.</button>
-                        <button onclick="assign('=')" class="equals-btn">=</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <main class="center-container">
+      <header class="app-header">
+        <h1 class="app-title">Calculator</h1>
+      </header>
 
-        <!-- 3. Terminal Container -->
-        <div id="terminal-container" class="terminal-container">
-            <div class="terminal-header">
-                <div class="terminal-buttons">
-                    <span class="btn close"></span>
-                    <span class="btn minimize"></span>
-                    <span class="btn maximize"></span>
-                </div>
-                <div class="terminal-title">calculator@terminal:~$</div>
-                <div class="header-controls">
-                    <a href="../index.html" class="back-btn">← Back</a>
-                    <button type="button" class="theme-toggle" id="themeToggle" title="Toggle theme">
-                        <span class="theme-icon">🌙</span>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="terminal-body">
-                <div class="terminal-output">
-                    <!-- Terminal content will be injected here -->
-                </div>
-            </div>
-            
-            <div class="terminal-footer">
-                <div class="status-bar">
-                    <span class="status-item">📁 ~/calculator</span>
-                    <span class="status-item">🔢 v4.0.0</span>
-                    <span class="status-item" id="currentTime"></span>
-                </div>
-            </div>
+      <div class="calculator-wrapper">
+        <div class="calculator">
+          <div class="display">
+            <input type="text" id="myInput" placeholder="0" readonly />
+          </div>
+          <div class="keys">
+            <button onclick="assign('AC')" class="function-btn">AC</button>
+            <button onclick="assign('DEL')" class="function-btn">DEL</button>
+            <button onclick="assign('%')" class="function-btn">%</button>
+            <button onclick="assign('/')" class="operator-btn">÷</button>
+
+            <button onclick="assign('7')" class="number-btn">7</button>
+            <button onclick="assign('8')" class="number-btn">8</button>
+            <button onclick="assign('9')" class="number-btn">9</button>
+            <button onclick="assign('*')" class="operator-btn">×</button>
+
+            <button onclick="assign('4')" class="number-btn">4</button>
+            <button onclick="assign('5')" class="number-btn">5</button>
+            <button onclick="assign('6')" class="number-btn">6</button>
+            <button onclick="assign('-')" class="operator-btn">−</button>
+
+            <button onclick="assign('1')" class="number-btn">1</button>
+            <button onclick="assign('2')" class="number-btn">2</button>
+            <button onclick="assign('3')" class="number-btn">3</button>
+            <button onclick="assign('+')" class="operator-btn">+</button>
+
+            <button onclick="assign('0')" class="number-btn zero-btn">0</button>
+            <button onclick="assign('.')" class="number-btn">.</button>
+            <button onclick="assign('=')" class="equals-btn">=</button>
+          </div>
         </div>
-    </div>
-    
+      </div>
+
+      <!-- Footer -->
+      <footer class="global-footer">
+        Built with ❤️ by
+        <a href="https://ubednama.com" target="_blank">ubednama</a>
+      </footer>
+    </main>
+
     <script src="../theme.js"></script>
-    <script src="../terminal-utils.js"></script>
     <script src="index.js"></script>
-</body>
+  </body>
 </html>

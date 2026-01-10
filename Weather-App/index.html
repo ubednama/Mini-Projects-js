@@ -1,84 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App - Terminal</title>
-    <meta name="description" content="Real-time weather information with retro terminal interface">
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../global.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="app-layout">
-        <!-- 1. App Description -->
-        <div id="app-description" class="app-description">
-            <h1>Weather App</h1>
-            <p>
-                Get real-time weather information for any city worldwide.
-            </p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <meta name="description" content="Real-time weather information" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../global.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="game-body">
+    <!-- Back Button -->
+    <a href="../index.html" class="top-right-back">← Back</a>
+
+    <main class="center-container">
+      <header class="app-header">
+        <h1 class="app-title">Weather App</h1>
+        <p class="app-desc">Get real-time weather information.</p>
+      </header>
+
+      <div class="weather-app-container">
+        <div class="input-section">
+          <input
+            type="text"
+            id="cityInput"
+            placeholder="Enter City Name..."
+            autocomplete="off"
+          />
+          <button id="btn" class="btn-primary">Search</button>
         </div>
 
-        <!-- 2. App Container (Weather UI) -->
-        <div id="app-container" class="app-visual">
-            <div class="weather-container">
-                <div class="input-group">
-                    <input type="text" id="cityInput" placeholder="Enter City Name..."/>
-                    <button id="btn" class="search-btn">Search</button>
-                </div>
-                <div class="weather-box hide">
-                    <div class="icon"></div>
-                    <div class="weather-info">
-                        <div class="temperature"></div>
-                        <div class="weather-location"></div>
-                        <div class="description"></div>
-                    </div>
-                </div>
-                <div class="loading hide">
-                    <div class="spinner"></div>
-                </div>
-            </div>
-        </div>
+        <div class="weather-output">
+          <div class="loading hide">
+            <div class="spinner"></div>
+          </div>
 
-        <!-- 3. Terminal Container -->
-        <div id="terminal-container" class="terminal-container">
-            <div class="terminal-header">
-                <div class="terminal-buttons">
-                    <span class="btn close"></span>
-                    <span class="btn minimize"></span>
-                    <span class="btn maximize"></span>
-                </div>
-                <div class="terminal-title">weather-app@terminal:~$</div>
-                <div class="header-controls">
-                    <a href="../index.html" class="back-btn">← Back</a>
-                    <button type="button" class="theme-toggle" id="themeToggle" title="Toggle theme">
-                        <span class="theme-icon">🌙</span>
-                    </button>
-                </div>
+          <div class="weather-box hide">
+            <div class="icon"></div>
+            <!-- Image injected here via JS -->
+            <div class="weather-info">
+              <div class="temperature"></div>
+              <div class="weather-location"></div>
+              <div class="description"></div>
             </div>
-            
-            <div class="terminal-body">
-                <div class="terminal-output">
-                    <!-- Terminal content will be injected here -->
-                </div>
-            </div>
-            
-            <div class="terminal-footer">
-                <div class="status-bar">
-                    <span class="status-item">📁 ~/weather-app</span>
-                    <span class="status-item">🌤️ v3.0.0</span>
-                    <span class="status-item" id="currentTime"></span>
-                </div>
-            </div>
+          </div>
         </div>
-    </div>
-    
+      </div>
+
+      <div id="toast-container" class="toast-container"></div>
+
+      <!-- Footer -->
+      <footer class="global-footer">
+        Built with ❤️ by
+        <a href="https://ubednama.com" target="_blank">ubednama</a>
+      </footer>
+    </main>
+
     <script src="../theme.js"></script>
-    <script src="../terminal-utils.js"></script>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

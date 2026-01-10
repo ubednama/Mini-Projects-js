@@ -1,199 +1,268 @@
-/* Color Picker Styles */
+/* Color Picker - Minimalist Dark Theme */
 
-/* Compact Color Picker Styles */
-.color-picker-app {
-    width: 100%;
-    max-width: 400px;
-    background: var(--bg-terminal);
-    padding: 20px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+/* Container */
+.color-app-container {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  padding-bottom: 100px;
+  padding-top: 40px; /* Move title down */
 }
 
-.color-main {
-    display: flex;
-    gap: 15px;
+@media (max-width: 600px) {
+  .control-group {
+    flex-direction: column;
+  }
+}
+
+/* Header */
+/* Header styles moved to global.css */
+
+/* Picker Section */
+.picker-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* Decrease gap */
 }
 
 .color-preview {
-    width: 80px;
-    height: 80px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-}
-
-.color-controls {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.control-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.control-label {
-    width: 40px;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-}
-
-.color-input {
-    width: 50px;
-    height: 30px;
-    padding: 0;
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    background: none;
-}
-
-.hex-input {
-    flex: 1;
-    padding: 5px 10px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    background: var(--bg-card);
-    color: var(--text-primary);
-    font-family: 'JetBrains Mono', monospace;
-}
-
-.formats-compact {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px;
-    background: var(--bg-card);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
-}
-
-.format-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.format-label {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    width: 40px;
-}
-
-.format-code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-    color: var(--text-primary);
-}
-
-.copy-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-    color: var(--text-primary);
-}
-
-.copy-icon:hover {
-    opacity: 1;
-    color: var(--accent-color);
-}
-
-.palette-quick {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.palette-buttons {
-    display: flex;
-    gap: 5px;
-}
-
-.palette-btn {
-    flex: 1;
-    padding: 5px;
-    font-size: 0.8rem;
-    border: 1px solid var(--border-color);
-    background: var(--bg-button-secondary);
-    color: var(--text-inverse);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.palette-btn:hover {
-    background: var(--bg-button-secondary-hover);
-}
-
-.palette-display {
-    display: flex;
-    height: 30px;
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    border: 1px solid var(--border-color);
-}
-
-.palette-color {
-    flex: 1;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.palette-color:hover {
-    transform: scaleY(1.1);
-}
-
-.color-history-compact {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-    min-height: 20px;
-}
-
-.history-color {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 1px solid var(--border-color);
-}
-
-.toast {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--bg-card);
-    color: var(--text-primary);
-    padding: 10px 20px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-md);
-    transition: transform 0.3s ease;
-    z-index: 1000;
-}
-
-.toast.show {
-    transform: translateX(-50%) translateY(0);
-}
-
-/* Animation for color changes */
-@keyframes colorChange {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* Circle for modern look */
+  border: 4px solid #333;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s, transform 0.2s;
 }
 
 .color-preview.changing {
-  animation: colorChange 0.3s ease;
+  transform: scale(1.05);
+}
+
+.control-group {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+.input-wrapper label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+#colorInput {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: none;
+  overflow: hidden;
+}
+
+#colorInput::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+#colorInput::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+  border: 2px solid #555;
+}
+
+/* New Wrapper for Icon Overlay */
+.color-picker-wrapper {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.droplet-icon {
+  position: absolute;
+  pointer-events: none;
+  font-size: 1.2rem;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+  opacity: 0.8;
+}
+
+#hexInput {
+  width: 120px;
+  padding: 12px;
+  text-align: center;
+  background: transparent;
+  border: 2px solid #333;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+  transition: var(--transition-fast);
+}
+
+#hexInput:focus {
+  outline: none;
+  border-color: var(--game-accent-light);
+}
+
+/* Formats Section */
+.formats-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: transparent; /* No card bg */
+}
+
+.format-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #222;
+}
+
+.format-item:last-child {
+  border-bottom: none;
+}
+
+.label {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  width: 50px;
+}
+
+code {
+  flex: 1;
+  text-align: right;
+  margin-right: 15px;
+  color: var(--text-secondary);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+}
+
+.copy-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  color: var(--text-secondary);
+}
+
+.copy-icon:hover {
+  opacity: 1;
+  color: var(--text-primary);
+}
+
+/* Palette Section */
+.palette-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.palette-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.palette-btn {
+  flex: 1;
+  padding: 8px;
+  background: transparent;
+  border: 1px solid #444;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.palette-btn:hover {
+  border-color: var(--text-secondary);
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.palette-display {
+  display: flex;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid #333;
+}
+
+.palette-color {
+  flex: 1;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.palette-color:hover {
+  transform: scaleY(1.1);
+}
+
+/* History Section */
+.history-section {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 30px;
+}
+
+.history-color {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #333;
+  transition: transform 0.2s;
+}
+
+.history-color:hover {
+  transform: scale(1.2);
+  border-color: #fff;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 80px; /* Above footer */
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }

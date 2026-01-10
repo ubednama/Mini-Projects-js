@@ -13,10 +13,7 @@ class ColorPicker {
     }
 
     initializeTerminal() {
-        if (window.TerminalUtils && window.TerminalUtils.TerminalUI) {
-            this.terminal = new window.TerminalUtils.TerminalUI('color-picker');
-            this.terminal.log('Color Picker v3.0 initialized...', 'system');
-        }
+        // Terminal UI removed
     }
 
     initializeElements() {

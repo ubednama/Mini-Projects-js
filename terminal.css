@@ -1,0 +1,378 @@
+/* Terminal UI Styles - Extracted from global.css */
+
+/* Terminal Container */
+.terminal-container {
+  max-width: 1000px;
+  width: 90%;
+  margin: 20px auto;
+  background-color: var(--bg-terminal);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow-terminal);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Menu Full Size Terminal */
+.terminal-container.main-menu {
+  max-width: 95vw;
+  width: 95vw;
+  height: 90vh;
+  margin: 5vh auto;
+}
+
+.terminal-container.main-menu .terminal-body {
+  flex: 1;
+  overflow: hidden;
+}
+
+.terminal-container.main-menu .terminal-output {
+  height: 100%;
+  max-height: none;
+}
+
+/* Terminal Header */
+.terminal-header {
+  background-color: var(--bg-header);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+
+.terminal-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn,
+.btn-close,
+.btn-minimize,
+.btn-maximize {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn.close,
+.btn-close {
+  background-color: var(--button-close);
+}
+
+.btn.minimize,
+.btn-minimize {
+  background-color: var(--button-minimize);
+}
+
+.btn.maximize,
+.btn-maximize {
+  background-color: var(--button-maximize);
+}
+
+.btn:hover,
+.btn-close:hover,
+.btn-minimize:hover,
+.btn-maximize:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+.terminal-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  pointer-events: none;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Standardized Back Button for All Apps */
+.back-btn,
+.terminal-back-btn {
+  background: none !important;
+  border: none !important;
+  color: var(--text-secondary) !important;
+  font-size: 14px !important;
+  font-family: "JetBrains Mono", monospace !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  padding: 6px 12px !important;
+  transition: all var(--transition-fast) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  box-shadow: none !important;
+  border-radius: 4px !important;
+}
+
+.back-btn:hover,
+.terminal-back-btn:hover {
+  color: var(--game-accent-gray) !important;
+  text-decoration: underline !important;
+  transform: translateX(-2px) !important;
+  background: none !important;
+}
+
+[data-theme="dark"] .back-btn:hover,
+[data-theme="dark"] .terminal-back-btn:hover {
+  color: #00ff00 !important;
+  text-decoration: underline !important;
+}
+
+[data-theme="light"] .back-btn:hover,
+[data-theme="light"] .terminal-back-btn:hover {
+  color: #007bff !important;
+  text-decoration: underline !important;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all var(--transition-fast);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.theme-toggle:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--game-accent-light);
+  transform: scale(1.05);
+}
+
+/* Terminal Body */
+.terminal-body {
+  background-color: var(--bg-body);
+  padding: 16px 20px;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Terminal output contains everything */
+/* Fixed height for 5 lines. Assuming ~24px per line + padding */
+.terminal-output {
+  height: 150px;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: "JetBrains Mono", monospace;
+  padding-right: 10px;
+}
+
+.line {
+  margin-bottom: 4px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.prompt-text,
+.prompt {
+  color: var(--accent-color);
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.command {
+  color: #ffffff;
+  font-weight: normal;
+}
+
+.icon {
+  font-weight: bold;
+  margin-left: auto; /* Push icon to the right */
+}
+
+.icon.info {
+  color: var(--accent-color);
+}
+.icon.success {
+  color: var(--success-color);
+}
+.icon.error {
+  color: var(--error-color);
+}
+.icon.warning {
+  color: var(--warning-color);
+}
+.icon.system {
+  color: var(--text-secondary);
+}
+
+.message {
+  color: var(--text-output);
+  word-break: break-word;
+  flex: 1;
+}
+
+.message.info {
+  color: var(--text-primary);
+}
+.message.success {
+  color: var(--success-color);
+}
+.message.error {
+  color: var(--error-color);
+}
+.message.warning {
+  color: var(--warning-color);
+}
+.message.system {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Scrollbar styling for terminal */
+.terminal-output::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-output::-webkit-scrollbar-track {
+  background: var(--bg-terminal);
+}
+
+.terminal-output::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+.terminal-output::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Terminal Footer */
+.terminal-footer {
+  background-color: var(--bg-footer);
+  border-top: 1px solid var(--border-color);
+  padding: 8px 16px;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#currentTime {
+  /* No special margins */
+}
+
+.footer-link {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+/* Projects List (Index Page) */
+.projects-list {
+  margin: 20px 0;
+}
+
+.category-header {
+  color: var(--accent-color);
+  font-weight: 700;
+  font-size: 14px;
+  margin: 16px 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 4px;
+}
+
+.project-item {
+  margin-bottom: 4px;
+}
+
+.project-link {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--link-color);
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  border-radius: 0 4px 4px 0;
+}
+
+.project-link:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-left-color: var(--accent-color);
+  color: var(--link-hover);
+  transform: translateX(4px);
+}
+
+.project-icon {
+  font-size: 18px;
+  margin-right: 12px;
+  width: 24px;
+  text-align: center;
+}
+
+.project-name {
+  font-weight: 500;
+  margin-right: 12px;
+  min-width: 200px;
+}
+
+.project-desc {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 12px;
+}
+
+[data-theme="dark"] .project-link {
+  color: #00aaff;
+}
+
+[data-theme="dark"] .project-link:hover {
+  color: #ffffff;
+  background-color: rgba(0, 255, 0, 0.1);
+}
+
+[data-theme="light"] .project-link {
+  color: #007bff;
+}
+
+[data-theme="light"] .project-link:hover {
+  color: #0056b3;
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Clock Display in Footer */
+.status-clock {
+  font-weight: 500;
+  color: var(--accent-color);
+}

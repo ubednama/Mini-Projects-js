@@ -1,274 +1,259 @@
-/* Analog Clock - Retro Terminal Styling */
+/* Analog Clock - Minimalist Dark Theme */
 
-.container {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+/* Container */
+.clock-app-container {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
-/* Main Clock Section */
-.main-clock-section {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
+/* Header */
+/* Header styles moved to global.css */
 
-.analog-clock-container {
-    width: 280px;
-    height: 280px;
-    position: relative;
-}
-
+/* Clock Face */
 .analog-clock {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: var(--bg-card);
-    border: 4px solid var(--border-color);
-    position: relative;
-    box-shadow: var(--shadow-md);
-    transition: all 0.3s ease;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: #222;
+  border: 8px solid #333;
+  position: relative;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
 }
 
 .clock-face {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    border-radius: 50%;
-}
-
-/* Clock Numbers */
-.clock-numbers {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-.number {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    line-height: 30px;
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: bold;
-    color: var(--text-primary);
-    font-size: 1.2rem;
-}
-
-/* Positioning Numbers */
-.number[data-number="12"] { top: 10px; left: 50%; transform: translateX(-50%); }
-.number[data-number="1"] { top: 25px; right: 55px; }
-.number[data-number="2"] { top: 65px; right: 25px; }
-.number[data-number="3"] { top: 50%; right: 10px; transform: translateY(-50%); }
-.number[data-number="4"] { bottom: 65px; right: 25px; }
-.number[data-number="5"] { bottom: 25px; right: 55px; }
-.number[data-number="6"] { bottom: 10px; left: 50%; transform: translateX(-50%); }
-.number[data-number="7"] { bottom: 25px; left: 55px; }
-.number[data-number="8"] { bottom: 65px; left: 25px; }
-.number[data-number="9"] { top: 50%; left: 10px; transform: translateY(-50%); }
-.number[data-number="10"] { top: 65px; left: 25px; }
-.number[data-number="11"] { top: 25px; left: 55px; }
-
-/* Clock Hands */
-.clock-hands {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-
-.hand {
-    position: absolute;
-    bottom: 50%;
-    left: 50%;
-    transform-origin: bottom center;
-    background: var(--text-primary);
-    border-radius: 4px;
-    z-index: 10;
-}
-
-.hour-hand {
-    width: 6px;
-    height: 70px;
-    background: var(--text-primary);
-}
-
-.minute-hand {
-    width: 4px;
-    height: 100px;
-    background: var(--text-secondary);
-}
-
-.second-hand {
-    width: 2px;
-    height: 110px;
-    background: var(--error-color);
-    z-index: 11;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 50%;
 }
 
 .center-dot {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 12px;
-    height: 12px;
-    background: var(--error-color);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 12;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background: var(--text-secondary); /* Gray dot */
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+/* Markers */
+.hour-marker {
+  position: absolute;
+  width: 4px;
+  height: 15px;
+  background: var(--text-muted);
+  left: 50%;
+  top: 0;
+  transform-origin: 50% 150px; /* Half of clock width */
+}
+
+.minute-marker {
+  position: absolute;
+  width: 2px;
+  height: 8px;
+  background: #444;
+  left: 50%;
+  top: 0;
+  transform-origin: 50% 150px;
+}
+
+/* Numbers */
+.clock-numbers {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.number {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* Positioning Numbers */
+.number[data-number="12"] {
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.number[data-number="6"] {
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.number[data-number="3"] {
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.number[data-number="9"] {
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Hide other numbers for minimalist look or position them correctly if needed */
+.number:not([data-number="12"]):not([data-number="6"]):not(
+    [data-number="3"]
+  ):not([data-number="9"]) {
+  display: none; /* Simplification */
+}
+
+/* Hands */
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  border-radius: 4px;
+  z-index: 5;
+}
+
+.hour-hand {
+  width: 6px;
+  height: 70px;
+  background: var(--text-secondary);
+}
+
+.minute-hand {
+  width: 4px;
+  height: 100px;
+  background: #888;
+}
+
+.second-hand {
+  width: 2px;
+  height: 110px;
+  background: #ff5f56; /* Red second hand */
+  z-index: 6;
 }
 
 /* Controls */
-.clock-controls-compact {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 10px;
-    background: var(--bg-card);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
-    width: 100%;
+.clock-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
 }
 
-.compact-toggle {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
+.toggle-group {
+  display: flex;
+  gap: 15px;
 }
 
-.compact-toggle input {
-    cursor: pointer;
+.toggle-group label {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
 }
 
-/* Styles Selection */
-.clock-styles-compact {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
+.style-selector {
+  display: flex;
+  gap: 10px;
 }
 
-.styles-label {
-    width: 100%;
-    text-align: center;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-bottom: 5px;
+.style-btn {
+  padding: 8px 16px;
+  border: 1px solid #444;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
 }
 
-.style-btn-small {
-    padding: 6px 12px;
-    border: 1px solid var(--border-color);
-    background: var(--bg-button-secondary);
-    color: var(--text-inverse);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: all 0.2s;
+.style-btn.active,
+.style-btn:hover {
+  background: var(--text-secondary);
+  color: var(--bg-primary);
+  border-color: var(--text-secondary);
 }
 
-.style-btn-small:hover {
-    background: var(--bg-button-secondary-hover);
+.timezone-display {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 10px;
 }
 
-.style-btn-small.active {
-    background: var(--accent-color);
-    border-color: var(--accent-color);
-}
-
-/* Timezone Section */
-.timezone-section {
-    width: 100%;
-    border-top: 1px solid var(--border-color);
-    padding-top: 15px;
-    text-align: center;
-}
-
-.timezone-section h3 {
-    font-size: 1rem;
-    color: var(--accent-color);
-    margin-bottom: 10px;
-}
-
-.timezone-controls {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 10px;
-}
-
-.timezone-controls select {
-    padding: 6px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    background: var(--bg-card);
-    color: var(--text-primary);
-    font-family: 'JetBrains Mono', monospace;
-}
-
-.control-btn {
-    padding: 6px 12px;
-    border: none;
-    border-radius: var(--radius-sm);
-    background: var(--accent-color);
-    color: white;
-    cursor: pointer;
-    font-size: 0.8rem;
-}
-
-.control-btn:hover {
-    opacity: 0.9;
-}
-
-.current-timezone {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
-/* Style Variations */
+/* Styles */
+/* Modern Design - Sleek, Swiss-style */
 .analog-clock.style-modern {
-    border-color: var(--accent-color);
-    background: var(--bg-secondary);
+  background: #ffffff;
+  border: 4px solid #e0e0e0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.analog-clock.style-modern .clock-face {
+  background: radial-gradient(circle at center, #fff 0%, #f8f9fa 100%);
+}
+
+.analog-clock.style-modern .number {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  color: #212529;
+  display: none; /* Hide numbers for modern look */
+}
+
+/* Modern Markers - Thinner, longer */
+.analog-clock.style-modern .hour-marker {
+  width: 2px;
+  height: 20px;
+  background: #212529;
+}
+
+.analog-clock.style-modern .minute-marker {
+  width: 1px;
+  height: 8px;
+  background: #adb5bd;
+}
+
+/* Modern Hands */
+.analog-clock.style-modern .hour-hand {
+  width: 6px;
+  background: #212529;
+  border-radius: 4px;
+}
+
+.analog-clock.style-modern .minute-hand {
+  width: 4px;
+  background: #495057;
+  border-radius: 4px;
+}
+
+.analog-clock.style-modern .second-hand {
+  width: 2px;
+  background: #fa5252; /* Different accent for modern */
+}
+
+.analog-clock.style-modern .center-dot {
+  background: #212529;
+  width: 8px;
+  height: 8px;
 }
 
 .analog-clock.style-minimal .number {
-    display: none;
+  display: none;
 }
-
-.analog-clock.style-minimal .clock-face {
-    border: 2px solid var(--text-primary);
+.analog-clock.style-minimal .hour-markers,
+.analog-clock.style-minimal .minute-markers {
+  display: none;
 }
-
-.analog-clock.style-retro {
-    background: #f4e4bc;
-    border-color: #8b4513;
-}
-.analog-clock.style-retro .number { color: #8b4513; }
-.analog-clock.style-retro .hand { background: #8b4513; }
-.analog-clock.style-retro .second-hand { background: #cd5c5c; }
-
-.analog-clock.style-neon {
-    background: #000;
-    border-color: #0ff;
-    box-shadow: 0 0 20px #0ff;
-}
-.analog-clock.style-neon .number { color: #0ff; text-shadow: 0 0 5px #0ff; }
-.analog-clock.style-neon .hand { background: #0ff; box-shadow: 0 0 5px #0ff; }
-.analog-clock.style-neon .second-hand { background: #f0f; }
-
-.analog-clock.style-terminal {
-    background: #000;
-    border-color: #0f0;
-}
-.analog-clock.style-terminal .number { color: #0f0; font-family: 'Courier New', monospace; }
-.analog-clock.style-terminal .hand { background: #0f0; }

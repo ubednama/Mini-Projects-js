@@ -1,109 +1,162 @@
 /* Compact Rock Paper Scissors Styles */
+
+/* Shuffler Animation Container */
+.shuffler-container {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
 .game-content {
-    width: 100%;
-    max-width: 450px;
-    background: var(--bg-terminal);
-    padding: 15px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  /* "Canvas" style - no card background */
+  background: transparent;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  max-width: 500px;
+  width: 100%;
 }
 
-.game-setup {
-    display: flex;
-    justify-content: center;
+.game {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center; /* Center everything */
 }
 
-.difficulty-selection {
-    display: flex;
-    gap: 5px;
-    background: var(--bg-card);
-    padding: 5px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
+/* Shuffler Styling */
+.shuffler-icon {
+  font-size: 5rem;
+  color: var(--text-secondary);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
-.difficulty-selection h3 {
-    display: none;
-}
-
-.difficulty-btn {
-    padding: 5px 10px;
-    border: none;
-    background: transparent;
-    color: var(--text-secondary);
-    cursor: pointer;
-    border-radius: var(--radius-sm);
-    font-size: 0.8rem;
-    transition: all 0.2s;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-}
-
-.difficulty-btn.active {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    font-weight: bold;
-}
-
-.choices {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.choice {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.choice:hover {
-    transform: scale(1.1);
-    background: var(--bg-secondary);
-}
-
+/* Score Board */
 .scoreBoard {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    font-size: 1rem;
-    color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  color: var(--text-secondary);
+  background: transparent;
+  padding: 10px 30px;
+  border-radius: var(--radius-lg);
+  border: none;
 }
 
 .score {
-    text-align: center;
+  text-align: center;
 }
 
-#userScore, #compScore {
-    font-size: 2rem;
-    font-weight: bold;
+.score-divider {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text-muted);
+  padding-bottom: 5px;
 }
 
+#userScore,
+#compScore {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.score p:last-child {
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+/* Message */
 .msgContainer {
-    text-align: center;
+  text-align: center;
+  height: 40px;
 }
 
 #msg {
-    display: inline-block;
-    padding: 8px 16px;
-    background: var(--bg-card);
-    border-radius: var(--radius-sm);
-    font-weight: bold;
-    color: var(--text-primary);
+  display: inline-block;
+  padding: 8px 0; /* Reduced padding since no borders */
+  background: transparent;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  min-width: 200px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
-.hide {
-    display: none;
+#msg.win {
+  color: var(--success-color);
+  background: transparent;
+  border-color: transparent;
+}
+
+#msg.loss {
+  color: var(--error-color);
+  background: transparent;
+  border-color: transparent;
+}
+
+#msg.draw {
+  color: var(--warning-color);
+  background: transparent;
+  border-color: transparent;
+}
+
+/* Choices & Tooltips */
+.choices {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.choice {
+  width: 60px; /* Slightly smaller to fit compact layout */
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  background: #333;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  position: relative; /* For Tooltip */
+}
+
+.choice:hover {
+  transform: scale(1.1);
+  background: #444;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+}
+
+/* CSS Tooltip */
+.choice::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 110%; /* Place above */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  pointer-events: none;
+  border: 1px solid #444;
+}
+
+.choice:hover::after {
+  opacity: 1;
+  visibility: visible;
 }

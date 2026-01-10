@@ -1,125 +1,119 @@
-/* Compact Currency Converter Styles */
-.converter-container {
-    width: 100%;
-    max-width: 400px;
-    background: var(--bg-terminal);
-    padding: 20px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+/* Currency Converter - Minimalist Dark Theme */
+
+/* Container */
+.currency-app-container {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
 }
 
+/* Header: Using global styles */
+
+/* Form */
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.amount {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+/* Amount Input */
+.amount-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.amount label {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
+.amount-section label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
 }
 
-.amount input {
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    background: var(--bg-card);
-    color: var(--text-primary);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1rem;
+.amount-section input {
+  width: 100%;
+  padding: 15px;
+  background: transparent;
+  border: 2px solid #333;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 1.2rem;
+  transition: var(--transition-fast);
 }
 
-.dropdown {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
+.amount-section input:focus {
+  outline: none;
+  border-color: var(--accent-color);
 }
 
-.from, .to {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    flex: 1;
+/* Selectors */
+.currency-selectors {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
-.from label, .to label {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
+.select-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.selectContainer {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: var(--bg-card);
-    padding: 5px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
+.select-box label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
-.selectContainer img {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
+.wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #444;
+  border-radius: var(--radius-sm);
+  padding: 5px 10px;
+  gap: 10px;
+  background: transparent;
 }
 
-select {
-    border: none;
-    background: transparent;
-    color: var(--text-primary);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-    cursor: pointer;
-    width: 100%;
+.wrapper img {
+  width: 25px;
 }
 
+.wrapper select {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Swap Icon */
 .swap-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--text-secondary);
-    transition: transform 0.2s;
-    margin-top: 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s;
+  margin-top: 20px;
 }
 
 .swap-icon:hover {
-    color: var(--accent-color);
-    transform: rotate(180deg);
+  color: var(--accent-color);
+  transform: scale(1.1);
 }
 
-.msg {
-    text-align: center;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: var(--text-primary);
-    background: var(--bg-card);
-    padding: 10px;
-    border-radius: var(--radius-sm);
-}
+/* Convert Button: Using global .btn-primary */
 
-.convert-btn {
-    padding: 12px;
-    background: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1rem;
-    transition: background 0.2s;
-}
-
-.convert-btn:hover {
-    background: var(--accent-hover);
+/* Result Message */
+.result-msg {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  text-align: center;
+  font-weight: 500;
 }

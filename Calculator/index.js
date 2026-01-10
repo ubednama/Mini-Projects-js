@@ -13,6 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
         terminal.log('Calculator v4.0 initialized...', 'system');
         terminal.log('Ready for calculations.', 'info');
     }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            assign('=');
+        } else if (['/', '*', '-', '+', '.', '%'].includes(e.key)) {
+            assign(e.key);
+        } else if (e.key >= '0' && e.key <= '9') {
+            assign(e.key);
+        } else if (e.key === 'Backspace') {
+            assign('DEL');
+        } else if (e.key === 'Escape') {
+            assign('AC');
+        }
+    });
 });
 
 // Main assign function - handles both UI and terminal sync

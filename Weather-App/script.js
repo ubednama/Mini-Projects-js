@@ -1,7 +1,6 @@
-// Weather App with Terminal Integration
+// Weather App
 class WeatherApp {
     constructor() {
-        this.terminal = null;
         this.cityInput = document.getElementById("cityInput");
         this.btn = document.getElementById("btn");
         this.icon = document.querySelector(".icon");
@@ -10,23 +9,15 @@ class WeatherApp {
         this.temperature = document.querySelector(".temperature");
         this.description = document.querySelector(".description");
         this.loading = document.querySelector(".loading");
+        this.toastContainer = document.querySelector("#toast-container");
 
-        this.apiKey = 'a5ac660febdf0fe62cea0ca919ac01f7'; // Using existing key from original code
+        this.apiKey = 'a5ac660febdf0fe62cea0ca919ac01f7'; // Using existing key
 
         this.init();
     }
 
     init() {
         this.bindEvents();
-        this.initializeTerminal();
-    }
-
-    initializeTerminal() {
-        if (window.TerminalUtils && window.TerminalUtils.TerminalUI) {
-            this.terminal = new window.TerminalUtils.TerminalUI('weather-app');
-            this.terminal.log('Weather App v3.0 initialized...', 'system');
-            this.terminal.log('Enter a city name to check the weather.', 'info');
-        }
     }
 
     bindEvents() {
@@ -35,6 +26,12 @@ class WeatherApp {
         this.cityInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
+                this.handleSearch();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
                 this.handleSearch();
             }
         });
@@ -48,25 +45,28 @@ class WeatherApp {
     }
 
     getWeather(city) {
-        if (this.terminal) this.terminal.log(`Fetching weather for ${city}...`, 'info');
-
         this.showLoading(true);
         this.weatherBox.classList.add('hide');
 
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${this.apiKey}`)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("City not found");
+                }
+                return response.json();
+            })
             .then(data => {
                 this.showLoading(false);
                 if (data.cod === 200) {
                     this.displayWeather(data);
                 } else {
-                    if (this.terminal) this.terminal.log(`Error: City "${city}" not found`, 'error');
+                    this.showToast(`Error: City "${city}" not found`, 'error');
                 }
             })
             .catch(error => {
                 this.showLoading(false);
-                if (this.terminal) this.terminal.log(`Error: Failed to fetch weather data`, 'error');
                 console.error(error);
+                this.showToast('Failed to fetch weather data. Please try again.', 'error');
             });
     }
 
@@ -86,11 +86,6 @@ class WeatherApp {
         this.description.innerHTML = weatherDesc;
 
         this.weatherBox.classList.remove('hide');
-
-        if (this.terminal) {
-            this.terminal.log(`Response: ${weatherTemp}°C, ${weatherDesc} in ${weatherCity}`, 'success');
-        }
-
         this.cityInput.value = '';
     }
 
@@ -100,6 +95,23 @@ class WeatherApp {
         } else {
             this.loading.classList.add('hide');
         }
+    }
+
+    showToast(message, type = 'error') {
+        if (!this.toastContainer) return;
+
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerText = message;
+
+        this.toastContainer.appendChild(toast);
+
+        setTimeout(() => {
+            toast.classList.add('fade-out');
+            toast.addEventListener('animationend', () => {
+                toast.remove();
+            });
+        }, 3000);
     }
 }
 

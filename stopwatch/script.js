@@ -5,18 +5,9 @@ class Stopwatch {
         this.timerInterval = null;
         this.isRunning = false;
         this.lapCount = 0;
-        this.terminal = null;
 
         this.initializeElements();
         this.bindEvents();
-        this.initializeTerminal();
-    }
-
-    initializeTerminal() {
-        if (window.TerminalUtils && window.TerminalUtils.TerminalUI) {
-            this.terminal = new window.TerminalUtils.TerminalUI('stopwatch');
-            this.terminal.log('Stopwatch v2.1 initialized...', 'system');
-        }
     }
 
     initializeElements() {
@@ -86,8 +77,6 @@ class Stopwatch {
             this.lapBtn.disabled = false;
 
             this.timeDisplay.classList.add('running');
-
-            if (this.terminal) this.terminal.log('Stopwatch started', 'success');
         }
     }
 
@@ -101,8 +90,6 @@ class Stopwatch {
             this.lapBtn.disabled = true;
 
             this.timeDisplay.classList.remove('running');
-
-            if (this.terminal) this.terminal.log('Stopwatch paused', 'warning');
         }
     }
 
@@ -124,8 +111,6 @@ class Stopwatch {
         this.millisecondsSpan.textContent = '00';
 
         this.clearLaps();
-
-        if (this.terminal) this.terminal.log('Stopwatch reset', 'info');
     }
 
     updateDisplay() {
@@ -149,7 +134,7 @@ class Stopwatch {
             const lapItem = document.createElement('div');
             lapItem.className = 'lap-item';
             lapItem.innerHTML = `
-                <span class="lap-number">LAP ${this.lapCount}</span>
+                <span class="lap-number">Lap ${this.lapCount}</span>
                 <span class="lap-time">${currentTime}</span>
             `;
 
@@ -159,13 +144,11 @@ class Stopwatch {
             }
 
             this.lapsContainer.insertBefore(lapItem, this.lapsContainer.firstChild);
-
-            if (this.terminal) this.terminal.log(`Lap ${this.lapCount}: ${currentTime}`, 'info');
         }
     }
 
     clearLaps() {
-        this.lapsContainer.innerHTML = '<div class="no-laps">No lap times recorded</div>';
+        this.lapsContainer.innerHTML = '<div class="no-laps">No laps recorded</div>';
     }
 
     formatTime(milliseconds) {

@@ -1,7 +1,6 @@
 // Print Numbers Application
 class PrintNumbers {
     constructor() {
-        this.terminal = null;
         this.printButton = document.getElementById('print-btn');
         this.printArea = document.getElementById('print-area');
         this.input = document.getElementById('input');
@@ -14,14 +13,6 @@ class PrintNumbers {
 
     init() {
         this.bindEvents();
-        this.initializeTerminal();
-    }
-
-    initializeTerminal() {
-        if (window.TerminalUtils && window.TerminalUtils.TerminalUI) {
-            this.terminal = new window.TerminalUtils.TerminalUI('print-numbers');
-            this.terminal.log('Number Printer v1.0 initialized...', 'system');
-        }
     }
 
     bindEvents() {
@@ -33,17 +24,22 @@ class PrintNumbers {
             }
         });
 
+        // Global Enter key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                this.handlePrint();
+            }
+        });
+
         this.ascendingRadio.addEventListener('change', (e) => {
             if (e.target.checked) {
                 this.sortOrder = "ascending";
-                if (this.terminal) this.terminal.log('Sort order set to Ascending', 'info');
             }
         });
 
         this.descendingRadio.addEventListener('change', (e) => {
             if (e.target.checked) {
                 this.sortOrder = "descending";
-                if (this.terminal) this.terminal.log('Sort order set to Descending', 'info');
             }
         });
     }
@@ -61,17 +57,13 @@ class PrintNumbers {
             }
 
             this.printArea.style.display = 'flex';
-
-            if (this.terminal) {
-                this.terminal.log(`Printed sequence starting from ${inputNumber} (${this.sortOrder})`, 'success');
-            }
         } else {
-            if (this.terminal) this.terminal.log('Error: Invalid number input', 'error');
             alert('Please enter a valid number.');
         }
     }
 
     printAscending(startingNumber) {
+        // Create 2 rows layout if needed, or just flow
         const rows = [];
         for (let i = 0; i < 2; i++) {
             const row = document.createElement('div');
@@ -85,7 +77,14 @@ class PrintNumbers {
             const box = document.createElement('div');
             box.classList.add('box');
             box.textContent = i;
-            rows[currentRowIndex].appendChild(box);
+
+            // Stagger animation
+            box.style.animationDelay = `${(i - startingNumber) * 0.1}s`;
+
+            if (rows[currentRowIndex]) {
+                rows[currentRowIndex].appendChild(box);
+            }
+
             if ((i - startingNumber + 1) % 3 === 0) {
                 currentRowIndex++;
             }
@@ -102,11 +101,20 @@ class PrintNumbers {
         }
 
         let currentRowIndex = 0;
+        let count = 0;
         for (let i = startingNumber + 5; i >= startingNumber; i--) {
             const box = document.createElement('div');
             box.classList.add('box');
             box.textContent = i;
-            rows[currentRowIndex].appendChild(box);
+
+            // Stagger animation
+            box.style.animationDelay = `${count * 0.1}s`;
+            count++;
+
+            if (rows[currentRowIndex]) {
+                rows[currentRowIndex].appendChild(box);
+            }
+
             if ((startingNumber + 5 - i + 1) % 3 === 0) {
                 currentRowIndex++;
             }

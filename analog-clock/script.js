@@ -1,4 +1,4 @@
-// Analog Clock with Terminal Integration
+// Analog Clock
 class AnalogClock {
     constructor() {
         this.currentTimezone = null;
@@ -7,7 +7,6 @@ class AnalogClock {
         this.smoothSeconds = false;
         this.currentStyle = 'classic';
         this.updateInterval = null;
-        this.terminal = null;
 
         this.init();
     }
@@ -16,30 +15,7 @@ class AnalogClock {
         this.setupElements();
         this.createMarkers();
         this.setupEventListeners();
-        this.setupKeyboardShortcuts();
-        this.detectUserTimezone();
-        this.initializeTerminal();
         this.startClock();
-        this.applyStyle(this.currentStyle);
-    }
-
-    initializeTerminal() {
-        if (window.TerminalUtils && window.TerminalUtils.TerminalUI) {
-            this.terminal = new window.TerminalUtils.TerminalUI('analog-clock');
-            this.terminal.log('Analog Clock v2.0 initialized...', 'system');
-        }
-    }
-
-    detectUserTimezone() {
-        try {
-            const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            this.currentTimezone = null; // Keep as local
-            this.elements.currentTimezone.textContent = `Local Time (${userTimezone})`;
-            if (this.terminal) this.terminal.log(`Detected timezone: ${userTimezone}`, 'info');
-        } catch (e) {
-            this.elements.currentTimezone.textContent = 'Local Time';
-            if (this.terminal) this.terminal.log('Using local timezone', 'info');
-        }
     }
 
     setupElements() {
@@ -51,11 +27,8 @@ class AnalogClock {
             showSeconds: document.getElementById('show-seconds'),
             showNumbers: document.getElementById('show-numbers'),
             smoothSeconds: document.getElementById('smooth-seconds'),
-            timezoneSelect: document.getElementById('timezone-select'),
-            applyTimezone: document.getElementById('apply-timezone'),
-            resetTimezone: document.getElementById('reset-timezone'),
             currentTimezone: document.getElementById('current-timezone'),
-            styleButtons: document.querySelectorAll('.style-btn-small')
+            styleButtons: document.querySelectorAll('.style-btn')
         };
     }
 
@@ -68,7 +41,7 @@ class AnalogClock {
             const marker = document.createElement('div');
             marker.className = 'hour-marker';
             marker.style.transform = `rotate(${i * 30}deg)`;
-            hourMarkersContainer.appendChild(marker);
+            if (hourMarkersContainer) hourMarkersContainer.appendChild(marker);
         }
 
         // Create minute markers
@@ -77,84 +50,41 @@ class AnalogClock {
                 const marker = document.createElement('div');
                 marker.className = 'minute-marker';
                 marker.style.transform = `rotate(${i * 6}deg)`;
-                minuteMarkersContainer.appendChild(marker);
+                if (minuteMarkersContainer) minuteMarkersContainer.appendChild(marker);
             }
         }
     }
 
     setupEventListeners() {
         // Toggle controls
-        this.elements.showSeconds.addEventListener('change', () => {
-            this.showSeconds = this.elements.showSeconds.checked;
-            this.updateSecondHandVisibility();
-            if (this.terminal) this.terminal.log(`Seconds ${this.showSeconds ? 'enabled' : 'disabled'}`, 'info');
-        });
+        if (this.elements.showSeconds) {
+            this.elements.showSeconds.addEventListener('change', () => {
+                this.showSeconds = this.elements.showSeconds.checked;
+                this.updateSecondHandVisibility();
+            });
+        }
 
-        this.elements.showNumbers.addEventListener('change', () => {
-            this.showNumbers = this.elements.showNumbers.checked;
-            this.updateNumbersVisibility();
-            if (this.terminal) this.terminal.log(`Numbers ${this.showNumbers ? 'enabled' : 'disabled'}`, 'info');
-        });
+        if (this.elements.showNumbers) {
+            this.elements.showNumbers.addEventListener('change', () => {
+                this.showNumbers = this.elements.showNumbers.checked;
+                this.updateNumbersVisibility();
+            });
+        }
 
-        this.elements.smoothSeconds.addEventListener('change', () => {
-            this.smoothSeconds = this.elements.smoothSeconds.checked;
-            if (this.terminal) this.terminal.log(`Smooth seconds ${this.smoothSeconds ? 'enabled' : 'disabled'}`, 'info');
-        });
+        if (this.elements.smoothSeconds) {
+            this.elements.smoothSeconds.addEventListener('change', () => {
+                this.smoothSeconds = this.elements.smoothSeconds.checked;
+                this.startClock(); // Restart to change interval
+            });
+        }
 
         // Style buttons
         this.elements.styleButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const style = button.dataset.style;
                 this.applyStyle(style);
-                if (this.terminal) this.terminal.log(`Style changed to ${style}`, 'success');
             });
         });
-
-        // Timezone controls
-        this.elements.applyTimezone.addEventListener('click', () => {
-            const selectedTimezone = this.elements.timezoneSelect.value;
-            if (selectedTimezone) {
-                this.setTimezone(selectedTimezone);
-                if (this.terminal) this.terminal.log(`Timezone set to ${selectedTimezone}`, 'success');
-            }
-        });
-
-        this.elements.resetTimezone.addEventListener('click', () => {
-            this.setTimezone(null);
-            if (this.terminal) this.terminal.log('Timezone reset to local', 'info');
-        });
-    }
-
-    setupKeyboardShortcuts() {
-        document.addEventListener('keydown', (e) => {
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
-
-            switch (e.code) {
-                case 'KeyS':
-                    if (e.ctrlKey) {
-                        e.preventDefault();
-                        this.elements.showSeconds.click();
-                    }
-                    break;
-                case 'KeyN':
-                    if (e.ctrlKey) {
-                        e.preventDefault();
-                        this.elements.showNumbers.click();
-                    }
-                    break;
-            }
-        });
-    }
-
-    setTimezone(timezone) {
-        this.currentTimezone = timezone;
-        if (timezone) {
-            this.elements.currentTimezone.textContent = timezone.replace('_', ' ');
-            this.elements.timezoneSelect.value = timezone;
-        } else {
-            this.detectUserTimezone();
-            this.elements.timezoneSelect.value = '';
-        }
     }
 
     applyStyle(styleName) {
@@ -176,23 +106,24 @@ class AnalogClock {
     }
 
     updateSecondHandVisibility() {
-        this.elements.secondHand.style.display = this.showSeconds ? 'block' : 'none';
+        if (this.elements.secondHand) {
+            this.elements.secondHand.style.display = this.showSeconds ? 'block' : 'none';
+        }
     }
 
     updateNumbersVisibility() {
         const numbers = document.querySelector('.clock-numbers');
-        numbers.style.display = this.showNumbers ? 'block' : 'none';
+        if (numbers) numbers.style.display = this.showNumbers ? 'block' : 'none';
     }
 
     startClock() {
+        if (this.updateInterval) clearInterval(this.updateInterval);
         this.updateClock();
         this.updateInterval = setInterval(() => this.updateClock(), this.smoothSeconds ? 16 : 1000);
     }
 
     updateClock() {
-        const now = this.currentTimezone ?
-            new Date(new Date().toLocaleString('en-US', { timeZone: this.currentTimezone })) :
-            new Date();
+        const now = new Date();
 
         const hours = now.getHours() % 12;
         const minutes = now.getMinutes();
@@ -207,13 +138,12 @@ class AnalogClock {
             seconds * 6;
 
         // Apply rotations
-        this.elements.hourHand.style.transform = `rotate(${hourAngle}deg)`;
-        this.elements.minuteHand.style.transform = `rotate(${minuteAngle}deg)`;
-        this.elements.secondHand.style.transform = `rotate(${secondAngle}deg)`;
+        if (this.elements.hourHand) this.elements.hourHand.style.transform = `rotate(${hourAngle}deg)`;
+        if (this.elements.minuteHand) this.elements.minuteHand.style.transform = `rotate(${minuteAngle}deg)`;
+        if (this.elements.secondHand) this.elements.secondHand.style.transform = `rotate(${secondAngle}deg)`;
     }
 }
 
-// Initialize clock when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new AnalogClock();
 });

@@ -1,111 +1,123 @@
-*{
-    padding: 0;
-    margin: 0;
+/* Print Numbers - Minimalist Dark Theme */
+
+/* Override global centering to prevent layout shift and allow scrolling */
+body.game-body {
+  justify-content: flex-start !important;
+  padding-top: 15vh !important;
+  height: auto !important;
+  min-height: 100vh;
+  overflow-y: auto !important;
 }
 
-body{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: black;
-    color: white;
+/* Container */
+.print-app-container {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
 }
 
-/* Compact Print Numbers Styles */
-.container {
-    width: 100%;
-    max-width: 400px;
-    background: var(--bg-terminal);
-    padding: 20px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+/* Header: Using global styles */
+
+/* Input Group */
+.input-group {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
 }
 
-.input-section {
-    display: flex;
-    gap: 10px;
+.modern-input {
+  flex: 1;
+  padding: 12px 15px;
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-family: "JetBrains Mono", monospace;
+  transition: border-color 0.2s;
 }
 
-.input-section input {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    background: var(--bg-card);
-    color: var(--text-primary);
-    font-family: 'JetBrains Mono', monospace;
+.modern-input:focus {
+  outline: none;
+  border-color: var(--game-accent-light);
 }
 
-.input-section button {
-    padding: 8px 15px;
-    background: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-weight: bold;
+/* Button using global .btn-primary */
+
+/* Options */
+.options-group {
+  display: flex;
+  gap: 20px;
+  background: #222;
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid #333;
 }
 
-.input-section button:hover {
-    background: var(--accent-hover);
+.sort-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
 }
 
-.sort-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    background: var(--bg-card);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
+.sort-option label {
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  transition: color 0.2s;
 }
 
-.sort-label {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
+.sort-option input:checked + label {
+  color: #ffffff;
+  font-weight: bold;
 }
 
-.radio-group {
-    display: flex;
-    gap: 15px;
-}
-
-.radio-label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: var(--text-primary);
-}
-
+/* Print Area */
 .print-area {
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-    padding: 15px;
-    background: var(--bg-card);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 1rem;
 }
 
 .row {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
 }
 
 .box {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--bg-terminal);
-    border: 1px solid var(--accent-color);
-    border-radius: var(--radius-sm);
-    color: var(--accent-color);
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: bold;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: "JetBrains Mono", monospace;
+  font-weight: bold;
+  font-size: 1.2rem;
+  animation: popIn 0.3s ease-out backwards;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

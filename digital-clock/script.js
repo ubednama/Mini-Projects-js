@@ -1,25 +1,16 @@
-// Digital Clock with Terminal Integration
+// Digital Clock
 class DigitalClock {
     constructor() {
         this.is24Hour = true;
         this.showSeconds = true;
         this.updateInterval = null;
-        this.terminal = null;
 
         this.init();
     }
 
     init() {
         this.setupElements();
-        this.initializeTerminal();
         this.startClock();
-    }
-
-    initializeTerminal() {
-        if (window.TerminalUtils && window.TerminalUtils.TerminalUI) {
-            this.terminal = new window.TerminalUtils.TerminalUI('digital-clock');
-            this.terminal.log('Digital Clock v1.0 initialized...', 'system');
-        }
     }
 
     setupElements() {
