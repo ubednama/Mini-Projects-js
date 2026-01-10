@@ -98,18 +98,10 @@
 
         init() {
             this.updateStatus();
-            this.updateClock(); // Start clock
             setInterval(() => this.updateStatus(), 5000);
-            setInterval(() => this.updateClock(), 1000);
         }
 
-        updateClock() {
-            const timeEl = document.getElementById('currentTime');
-            if (timeEl) {
-                const now = new Date();
-                timeEl.textContent = '🕒 ' + now.toLocaleTimeString();
-            }
-        }
+
 
         updateStatus() {
             const statusItems = document.querySelectorAll('.status-item');
