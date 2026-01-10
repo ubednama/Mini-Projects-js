@@ -22,6 +22,15 @@
   margin: 5vh auto;
 }
 
+@media (max-width: 600px) {
+  .terminal-container.main-menu {
+    /* Ensure it fits in viewport and footer is visible */
+    height: calc(100vh - 20px);
+    width: 98%;
+    margin: 10px auto;
+  }
+}
+
 .terminal-container.main-menu .terminal-body {
   flex: 1;
   overflow: hidden;
@@ -45,7 +54,7 @@
 
 @media (max-width: 768px) {
   .terminal-buttons {
-    align-self: flex-end;
+    align-self: flex-start; /* Move buttons to left/start */
   }
 
   /* Mobile optimizations */
@@ -201,30 +210,13 @@
   text-decoration: underline !important;
 }
 
-[data-theme="light"] .back-btn:hover,
-[data-theme="light"] .terminal-back-btn:hover {
-  color: #007bff !important;
+[data-theme="dark"] .back-btn:hover,
+[data-theme="dark"] .terminal-back-btn:hover {
+  color: #00ff00 !important;
   text-decoration: underline !important;
 }
 
-/* Theme Toggle */
-.theme-toggle {
-  background: none;
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
-  padding: 4px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all var(--transition-fast);
-  font-family: "JetBrains Mono", monospace;
-}
-
-.theme-toggle:hover {
-  background-color: var(--bg-hover);
-  border-color: var(--game-accent-light);
-  transform: scale(1.05);
-}
+/* Theme Toggle Removed */
 
 /* Terminal Body */
 .terminal-body {
@@ -431,13 +423,9 @@
   background-color: rgba(0, 255, 0, 0.1);
 }
 
-[data-theme="light"] .project-link {
-  color: #007bff;
-}
-
-[data-theme="light"] .project-link:hover {
-  color: #0056b3;
-  background-color: rgba(0, 123, 255, 0.1);
+[data-theme="dark"] .project-link:hover {
+  color: #ffffff;
+  background-color: rgba(0, 255, 0, 0.1);
 }
 
 /* Clock Display in Footer */

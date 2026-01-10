@@ -2,96 +2,8 @@
 (function () {
     'use strict';
 
-    // Theme Management
-    class ThemeManager {
-        constructor() {
-            this.theme = localStorage.getItem('theme') || 'dark';
-            this.init();
-        }
-
-        init() {
-            this.applyTheme();
-            this.bindEvents();
-            this.updateToggleButton();
-        }
-
-        applyTheme() {
-            document.documentElement.setAttribute('data-theme', this.theme);
-            localStorage.setItem('theme', this.theme);
-        }
-
-        toggleTheme() {
-            this.theme = this.theme === 'dark' ? 'light' : 'dark';
-            this.applyTheme();
-            this.updateToggleButton();
-            this.showThemeNotification();
-        }
-
-        updateToggleButton() {
-            const toggleBtn = document.querySelector('.theme-toggle');
-            if (toggleBtn) {
-                toggleBtn.textContent = this.theme === 'dark' ? '☀️' : '🌙';
-                toggleBtn.setAttribute('aria-label',
-                    `Switch to ${this.theme === 'dark' ? 'light' : 'dark'} theme`);
-            }
-        }
-
-        showThemeNotification() {
-            const notification = document.createElement('div');
-            notification.className = 'theme-notification';
-            notification.textContent = `Switched to ${this.theme} theme`;
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: var(--bg-header);
-                color: var(--text-primary);
-                padding: 8px 16px;
-                border: 1px solid var(--border-color);
-                border-radius: 4px;
-                font-family: 'JetBrains Mono', monospace;
-                font-size: 12px;
-                z-index: 1000;
-                opacity: 0;
-                transform: translateX(100%);
-                transition: all 0.3s ease;
-            `;
-
-            document.body.appendChild(notification);
-
-            // Animate in
-            requestAnimationFrame(() => {
-                notification.style.opacity = '1';
-                notification.style.transform = 'translateX(0)';
-            });
-
-            // Remove after 2 seconds
-            setTimeout(() => {
-                notification.style.opacity = '0';
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
-            }, 2000);
-        }
-
-        bindEvents() {
-            const toggleBtn = document.querySelector('.theme-toggle');
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', () => this.toggleTheme());
-            }
-
-            // Keyboard shortcut: Ctrl/Cmd + Shift + T
-            document.addEventListener('keydown', (e) => {
-                if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'T') {
-                    e.preventDefault();
-                    this.toggleTheme();
-                }
-            });
-        }
-    }
+    // Theme Management Removed
+    // class ThemeManager { ... }
 
     // Terminal Animation Manager
     class TerminalAnimator {
@@ -174,93 +86,8 @@
     // Keyboard Manager removed
 
 
-    // Terminal Window Controls
-    class TerminalControls {
-        constructor() {
-            this.init();
-        }
-
-        init() {
-            this.bindWindowControls();
-        }
-
-        bindWindowControls() {
-            const closeBtn = document.querySelector('.btn.close');
-            const minimizeBtn = document.querySelector('.btn.minimize');
-            const maximizeBtn = document.querySelector('.btn.maximize');
-
-            if (closeBtn) {
-                closeBtn.addEventListener('click', () => {
-                    this.showCloseConfirmation();
-                });
-            }
-
-            if (minimizeBtn) {
-                minimizeBtn.addEventListener('click', () => {
-                    this.minimizeWindow();
-                });
-            }
-
-            if (maximizeBtn) {
-                maximizeBtn.addEventListener('click', () => {
-                    this.toggleMaximize();
-                });
-            }
-        }
-
-        showCloseConfirmation() {
-            const confirmed = confirm('Are you sure you want to close the terminal?');
-            if (confirmed) {
-                // In a real terminal, this would close the window
-                // For demo purposes, we'll just show a message
-                this.showTerminalMessage('Terminal session ended. Refresh to restart.');
-            }
-        }
-
-        minimizeWindow() {
-            const container = document.querySelector('.terminal-container');
-            container.style.transform = 'scale(0.8)';
-            container.style.opacity = '0.5';
-
-            setTimeout(() => {
-                container.style.transform = 'scale(1)';
-                container.style.opacity = '1';
-            }, 1000);
-        }
-
-        toggleMaximize() {
-            const container = document.querySelector('.terminal-container');
-            const isMaximized = container.classList.contains('maximized');
-
-            if (isMaximized) {
-                container.classList.remove('maximized');
-                container.style.cssText = '';
-            } else {
-                container.classList.add('maximized');
-                container.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100vw;
-                    height: 100vh;
-                    margin: 0;
-                    border-radius: 0;
-                    z-index: 1000;
-                `;
-            }
-        }
-
-        showTerminalMessage(message) {
-            const output = document.querySelector('.terminal-output');
-            const newLine = document.createElement('div');
-            newLine.className = 'line';
-            newLine.innerHTML = `
-                <span class="prompt">ubednama@terminal:~$</span>
-                <span class="output">${message}</span>
-            `;
-            output.appendChild(newLine);
-        }
-    }
+    // Terminal Window Controls Removed
+    // class TerminalControls { ... }
 
     // Performance Monitor
     class PerformanceMonitor {
@@ -325,18 +152,21 @@
 
 
     // Initialize everything when DOM is ready
+    // Initialize everything when DOM is ready
     function init() {
         // Initialize all managers
-        new ThemeManager();
+        // new ThemeManager(); // Removed
         new TerminalAnimator();
         // new KeyboardManager(); // Removed
-        new TerminalControls();
+        // new TerminalControls(); // Removed
         new PerformanceMonitor();
         // new MainTerminal(); // Removed
 
         // Add loading complete message
         setTimeout(() => {
             const output = document.querySelector('.terminal-output');
+            if (!output) return; // Guard clause
+
             const newLine = document.createElement('div');
             newLine.className = 'line';
             newLine.innerHTML = `
@@ -348,8 +178,7 @@
 
         // Add some retro startup messages
         const startupMessages = [
-            'Loading project database...',
-            'Initializing theme system...'
+            'Loading project database...'
         ];
 
         startupMessages.forEach((message, index) => {
