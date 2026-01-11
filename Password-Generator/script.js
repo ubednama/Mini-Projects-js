@@ -54,9 +54,12 @@ class PasswordGenerator {
         // Copy functionality
         this.copyIcon.addEventListener("click", () => {
             if (this.passBox.value !== "") {
-                navigator.clipboard.writeText(this.passBox.value).then(() => {
-                    if (this.terminal) this.terminal.log('Password copied to clipboard', 'info');
-                });
+                if (window.TerminalUtils) {
+                    window.TerminalUtils.copyToClipboard(this.passBox.value, () => {
+                        if (this.terminal) this.terminal.log('Password copied to clipboard', 'info');
+                        window.TerminalUtils.showToast('Password copied!', 'success');
+                    });
+                }
             }
         });
 

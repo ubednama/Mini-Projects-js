@@ -20,11 +20,8 @@
 /* Header: Using global styles */
 
 /* Inputs */
-.input-section {
-  width: 100%;
-  display: flex;
-  gap: 10px;
-}
+/* Inputs */
+/* .input-section moved to global.css */
 
 #cityInput {
   flex: 1;
@@ -86,8 +83,4 @@
 }
 
 /* Spinner */
-.loading {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-}
+/* Spinner removed - using global */

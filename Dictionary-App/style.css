@@ -22,11 +22,8 @@ body.game-body {
 /* Header: Using global styles */
 
 /* Inputs */
-.input-section {
-  width: 100%;
-  display: flex;
-  gap: 10px;
-}
+/* Inputs */
+/* .input-section moved to global.css */
 
 #word {
   flex: 1;
@@ -116,11 +113,7 @@ audio {
 }
 
 /* Loading */
-.loading {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-}
+/* Loading moved to global.css */
 
 /* Audio Section */
 .audio-section {

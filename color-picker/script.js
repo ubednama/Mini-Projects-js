@@ -265,28 +265,20 @@ class ColorPicker {
                 break;
         }
 
-        navigator.clipboard.writeText(textToCopy).then(() => {
-            if (this.terminal) this.terminal.log(`${format.toUpperCase()} copied to clipboard`, 'success');
-            this.showToast(`${format.toUpperCase()} copied!`);
-        }).catch(() => {
-            // Fallback
-            const textArea = document.createElement('textarea');
-            textArea.value = textToCopy;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            if (this.terminal) this.terminal.log(`${format.toUpperCase()} copied to clipboard`, 'success');
-            this.showToast(`${format.toUpperCase()} copied!`);
-        });
+        if (window.TerminalUtils) {
+            window.TerminalUtils.copyToClipboard(textToCopy, () => {
+                if (this.terminal) this.terminal.log(`${format.toUpperCase()} copied to clipboard`, 'success');
+                this.showToast(`${format.toUpperCase()} copied!`);
+            }, (err) => {
+                this.showToast('Failed to copy', 'error');
+            });
+        }
     }
 
     showToast(message) {
-        this.toast.textContent = message;
-        this.toast.classList.add('show');
-        setTimeout(() => {
-            this.toast.classList.remove('show');
-        }, 2000);
+        if (window.TerminalUtils) {
+            window.TerminalUtils.showToast(message, 'info');
+        }
     }
 
     isValidHex(hex) {

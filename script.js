@@ -140,21 +140,10 @@
         }
     }
 
-    // MainTerminal class removed
-
-
-    // Initialize everything when DOM is ready
-    // Initialize everything when DOM is ready
     function init() {
-        // Initialize all managers
-        // new ThemeManager(); // Removed
         new TerminalAnimator();
-        // new KeyboardManager(); // Removed
-        // new TerminalControls(); // Removed
         new PerformanceMonitor();
-        // new MainTerminal(); // Removed
 
-        // Add loading complete message
         setTimeout(() => {
             const output = document.querySelector('.terminal-output');
             if (!output) return; // Guard clause
@@ -168,7 +157,6 @@
             output.appendChild(newLine);
         }, 1000);
 
-        // Add some retro startup messages
         const startupMessages = [
             'Loading project database...'
         ];

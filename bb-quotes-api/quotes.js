@@ -46,28 +46,17 @@ class QuotesApp {
             console.error("Error fetching quote:", error);
             this.quoteText.innerText = "Click button to retry.";
             this.showToast("Failed to fetch quote. Please try again.", "error");
+            showToast("Failed to fetch quote. Please try again.", "error");
         } finally {
             this.quoteText.parentElement.classList.remove('loading');
             this.newQuoteBtn.disabled = false;
         }
     }
+}
 
-    showToast(message, type = 'info') {
-        const toast = document.createElement('div');
-        toast.className = `toast ${type}`;
-        toast.innerText = message;
-
-        if (this.toastContainer) {
-            this.toastContainer.appendChild(toast);
-
-            // Auto remove after 3 seconds
-            setTimeout(() => {
-                toast.classList.add('fade-out');
-                toast.addEventListener('animationend', () => {
-                    toast.remove();
-                });
-            }, 3000);
-        }
+function showToast(message, type = 'error') {
+    if (window.TerminalUtils) {
+        window.TerminalUtils.showToast(message, type);
     }
 }
 

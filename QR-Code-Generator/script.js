@@ -57,7 +57,7 @@ class QRCodeGenerator {
             return;
         }
 
-        this.loader.classList.add('show');
+        this.loader.classList.remove('hide');
         this.codeImage.classList.remove('active'); // Hide previous
         this.codeImage.style.display = 'none';
 
@@ -66,7 +66,7 @@ class QRCodeGenerator {
         // Setup load handler before setting src
         const img = new Image();
         img.onload = () => {
-            this.loader.classList.remove('show');
+            this.loader.classList.add('hide');
             this.codeImage.src = api;
             this.codeImage.style.display = 'block';
             // Slight delay to allow display block to render before opacity transition
@@ -75,27 +75,16 @@ class QRCodeGenerator {
             }, 50);
         };
         img.onerror = () => {
-            this.loader.classList.remove('show');
+            this.loader.classList.add('hide');
             this.showToast('Failed to generate QR code', 'error');
         };
         img.src = api;
     }
 
     showToast(message, type = 'error') {
-        if (!this.toastContainer) return;
-
-        const toast = document.createElement('div');
-        toast.className = `toast ${type}`;
-        toast.innerText = message;
-
-        this.toastContainer.appendChild(toast);
-
-        setTimeout(() => {
-            toast.classList.add('fade-out');
-            toast.addEventListener('animationend', () => {
-                toast.remove();
-            });
-        }, 3000);
+        if (window.TerminalUtils) {
+            window.TerminalUtils.showToast(message, type);
+        }
     }
 }
 

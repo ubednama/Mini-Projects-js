@@ -98,20 +98,9 @@ class WeatherApp {
     }
 
     showToast(message, type = 'error') {
-        if (!this.toastContainer) return;
-
-        const toast = document.createElement('div');
-        toast.className = `toast ${type}`;
-        toast.innerText = message;
-
-        this.toastContainer.appendChild(toast);
-
-        setTimeout(() => {
-            toast.classList.add('fade-out');
-            toast.addEventListener('animationend', () => {
-                toast.remove();
-            });
-        }, 3000);
+        if (window.TerminalUtils) {
+            window.TerminalUtils.showToast(message, type);
+        }
     }
 }
 

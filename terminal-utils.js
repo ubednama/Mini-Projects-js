@@ -114,9 +114,60 @@ class TerminalUI {
 }
 
 // Export for use
+// Shared Utilities
+const Utils = {
+    copyToClipboard: async (text, onSuccess, onError) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            if (onSuccess) onSuccess();
+        } catch (err) {
+            console.error('Clipboard Error:', err);
+            // Fallback
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                if (onSuccess) onSuccess();
+            } catch (fallbackErr) {
+                console.error('Fallback Clipboard Error:', fallbackErr);
+                if (onError) onError(fallbackErr);
+            }
+        }
+    },
+
+    showToast: (message, type = 'info') => {
+        let container = document.getElementById('toast-container');
+        if (!container) {
+            // Create if missing (fallback)
+            container = document.createElement('div');
+            container.id = 'toast-container';
+            container.className = 'toast-container';
+            document.body.appendChild(container);
+        }
+
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerText = message;
+        container.appendChild(toast);
+
+        // Auto remove
+        setTimeout(() => {
+            toast.classList.add('fade-out');
+            toast.addEventListener('animationend', () => {
+                if (toast.parentNode) toast.parentNode.removeChild(toast);
+            });
+        }, 3000);
+    }
+};
+
+// Export for use
 window.TerminalUtils = {
     TerminalClock,
-    TerminalUI
+    TerminalUI,
+    ...Utils
 };
 
 // Initialize Clock on load
