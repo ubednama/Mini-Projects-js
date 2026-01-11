@@ -217,12 +217,6 @@ body {
     padding: 5px;
   }
 
-  .status-bar {
-    flex-direction: column;
-    gap: 4px;
-    align-items: flex-start;
-  }
-
   /* Merged from 600px/480px rules */
   .app-header {
     margin-bottom: 0.5rem;

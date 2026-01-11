@@ -19,7 +19,7 @@
     />
   </head>
   <body class="index-body">
-    <div class="terminal-container main-menu">
+    <div class="terminal-container">
       <div class="terminal-header">
         <div class="terminal-buttons">
           <span class="btn close"></span>
@@ -30,159 +30,154 @@
       </div>
 
       <div class="terminal-body">
-        <div class="terminal-output">
-          <div class="line">
-            <span class="prompt">ubednama@mini-projects:~$</span>
-            <span class="command">./list_projects.sh --categorized</span>
+        <div class="line">
+          <span class="prompt">ubednama@mini-projects:~$</span>
+          <span class="output">./list_projects.sh --categorized</span>
+        </div>
+        <div class="line output">Categorized project listing:</div>
+        <div class="line"></div>
+
+        <div class="projects-list">
+          <div class="category-header">[GAMES & INTERACTIVE]</div>
+          <div class="project-item">
+            <a href="./tic-tac-toe/" class="project-link">
+              <span class="project-icon">🎯</span>
+              <span class="project-name">tic-tac-toe</span>
+              <span class="project-desc">// Classic strategy game</span>
+            </a>
           </div>
-          <div class="line output">Categorized project listing:</div>
-          <div class="line"></div>
+          <div class="project-item">
+            <a href="./rock-paper-scissors/" class="project-link">
+              <span class="project-icon">✂️</span>
+              <span class="project-name">rock-paper-scissors</span>
+              <span class="project-desc">// Battle the computer</span>
+            </a>
+          </div>
+          <div class="project-item">
+            <a href="./circle-game/" class="project-link">
+              <span class="project-icon">⭕</span>
+              <span class="project-name">circle-game</span>
+              <span class="project-desc">// Interactive tap circles</span>
+            </a>
+          </div>
 
-          <div class="projects-list">
-            <div class="category-header">[GAMES & INTERACTIVE]</div>
-            <div class="project-item">
-              <a href="./tic-tac-toe/" class="project-link">
-                <span class="project-icon">🎯</span>
-                <span class="project-name">tic-tac-toe</span>
-                <span class="project-desc">// Classic strategy game</span>
-              </a>
-            </div>
-            <div class="project-item">
-              <a href="./rock-paper-scissors/" class="project-link">
-                <span class="project-icon">✂️</span>
-                <span class="project-name">rock-paper-scissors</span>
-                <span class="project-desc">// Battle the computer</span>
-              </a>
-            </div>
-            <div class="project-item">
-              <a href="./circle-game/" class="project-link">
-                <span class="project-icon">⭕</span>
-                <span class="project-name">circle-game</span>
-                <span class="project-desc">// Interactive tap circles</span>
-              </a>
-            </div>
+          <div class="category-header">[UTILITY APPS]</div>
+          <div class="project-item">
+            <a href="./currency-converter/" class="project-link">
+              <span class="project-icon">💱</span>
+              <span class="project-name">currency-converter</span>
+              <span class="project-desc">// Real-time conversion</span>
+            </a>
+          </div>
+          <div class="project-item">
+            <a href="./temperature-converter/" class="project-link">
+              <span class="project-icon">🌡️</span>
+              <span class="project-name">temperature-converter</span>
+              <span class="project-desc">// Multi-unit conversion</span>
+            </a>
+          </div>
+          <div class="project-item">
+            <a href="./calculator/" class="project-link">
+              <span class="project-icon">🧮</span>
+              <span class="project-name">calculator</span>
+              <span class="project-desc">// Basic math operations</span>
+            </a>
+          </div>
+          <div class="project-item">
+            <a href="./weather-app/" class="project-link">
+              <span class="project-icon">🌤️</span>
+              <span class="project-name">weather-app</span>
+              <span class="project-desc">// Current conditions</span>
+            </a>
+          </div>
+          <div class="project-item">
+            <a href="./dictionary-app/" class="project-link">
+              <span class="project-icon">📖</span>
+              <span class="project-name">dictionary-app</span>
+              <span class="project-desc">// Word definitions</span>
+            </a>
+          </div>
+          <div class="project-item">
+            <a href="./password-generator/" class="project-link">
+              <span class="project-icon">🔐</span>
+              <span class="project-name">password-generator</span>
+              <span class="project-desc">// Secure passwords</span>
+            </a>
+          </div>
+          <div class="project-item">
+            <a href="./qr-code-generator/" class="project-link">
+              <span class="project-icon">📱</span>
+              <span class="project-name">qr-code-generator</span>
+              <span class="project-desc">// Generate QR codes</span>
+            </a>
+          </div>
+          <div class="project-item">
+            <a href="./color-picker/" class="project-link">
+              <span class="project-icon">🎨</span>
+              <span class="project-name">color-picker</span>
+              <span class="project-desc">// Advanced color tools</span>
+            </a>
+          </div>
 
-            <div class="category-header">[UTILITY APPS]</div>
-            <div class="project-item">
-              <a href="./currency-converter/" class="project-link">
-                <span class="project-icon">💱</span>
-                <span class="project-name">currency-converter</span>
-                <span class="project-desc">// Real-time conversion</span>
-              </a>
-            </div>
-            <div class="project-item">
-              <a href="./temperature-converter/" class="project-link">
-                <span class="project-icon">🌡️</span>
-                <span class="project-name">temperature-converter</span>
-                <span class="project-desc">// Multi-unit conversion</span>
-              </a>
-            </div>
-            <div class="project-item">
-              <a href="./calculator/" class="project-link">
-                <span class="project-icon">🧮</span>
-                <span class="project-name">calculator</span>
-                <span class="project-desc">// Basic math operations</span>
-              </a>
-            </div>
-            <div class="project-item">
-              <a href="./weather-app/" class="project-link">
-                <span class="project-icon">🌤️</span>
-                <span class="project-name">weather-app</span>
-                <span class="project-desc">// Current conditions</span>
-              </a>
-            </div>
-            <div class="project-item">
-              <a href="./dictionary-app/" class="project-link">
-                <span class="project-icon">📖</span>
-                <span class="project-name">dictionary-app</span>
-                <span class="project-desc">// Word definitions</span>
-              </a>
-            </div>
-            <div class="project-item">
-              <a href="./password-generator/" class="project-link">
-                <span class="project-icon">🔐</span>
-                <span class="project-name">password-generator</span>
-                <span class="project-desc">// Secure passwords</span>
-              </a>
-            </div>
-            <div class="project-item">
-              <a href="./qr-code-generator/" class="project-link">
-                <span class="project-icon">📱</span>
-                <span class="project-name">qr-code-generator</span>
-                <span class="project-desc">// Generate QR codes</span>
-              </a>
-            </div>
-            <div class="project-item">
-              <a href="./color-picker/" class="project-link">
-                <span class="project-icon">🎨</span>
-                <span class="project-name">color-picker</span>
-                <span class="project-desc">// Advanced color tools</span>
-              </a>
-            </div>
+          <div class="category-header">[TIME & PRODUCTIVITY]</div>
+          <div class="project-item">
+            <a href="./stopwatch/" class="project-link">
+              <span class="project-icon">⏱️</span>
+              <span class="project-name">stopwatch</span>
+              <span class="project-desc">// Precision timing</span>
+            </a>
+          </div>
+          <div class="project-item">
+            <a href="./digital-clock/" class="project-link">
+              <span class="project-icon">🕐</span>
+              <span class="project-name">digital-clock</span>
+              <span class="project-desc">// World time zones</span>
+            </a>
+          </div>
+          <div class="project-item">
+            <a href="./analog-clock/" class="project-link">
+              <span class="project-icon">🕰️</span>
+              <span class="project-name">analog-clock</span>
+              <span class="project-desc">// Classic timepiece</span>
+            </a>
+          </div>
 
-            <div class="category-header">[TIME & PRODUCTIVITY]</div>
-            <div class="project-item">
-              <a href="./stopwatch/" class="project-link">
-                <span class="project-icon">⏱️</span>
-                <span class="project-name">stopwatch</span>
-                <span class="project-desc">// Precision timing</span>
-              </a>
-            </div>
-            <div class="project-item">
-              <a href="./digital-clock/" class="project-link">
-                <span class="project-icon">🕐</span>
-                <span class="project-name">digital-clock</span>
-                <span class="project-desc">// World time zones</span>
-              </a>
-            </div>
-            <div class="project-item">
-              <a href="./analog-clock/" class="project-link">
-                <span class="project-icon">🕰️</span>
-                <span class="project-name">analog-clock</span>
-                <span class="project-desc">// Classic timepiece</span>
-              </a>
-            </div>
+          <div class="category-header">[CREATIVE TOOLS]</div>
+          <div class="project-item">
+            <a href="./quick-sign/" class="project-link">
+              <span class="project-icon">✏️</span>
+              <span class="project-name">quick-sign</span>
+              <span class="project-desc">// Digital canvas</span>
+            </a>
+          </div>
+          <div class="project-item">
+            <a href="./print-numbers/" class="project-link">
+              <span class="project-icon">🔢</span>
+              <span class="project-name">print-numbers</span>
+              <span class="project-desc">// Number sequences</span>
+            </a>
+          </div>
 
-            <div class="category-header">[CREATIVE TOOLS]</div>
-            <div class="project-item">
-              <a href="./quick-sign/" class="project-link">
-                <span class="project-icon">✏️</span>
-                <span class="project-name">quick-sign</span>
-                <span class="project-desc">// Digital canvas</span>
-              </a>
-            </div>
-            <div class="project-item">
-              <a href="./print-numbers/" class="project-link">
-                <span class="project-icon">🔢</span>
-                <span class="project-name">print-numbers</span>
-                <span class="project-desc">// Number sequences</span>
-              </a>
-            </div>
-
-            <div class="category-header">[API & CONTENT]</div>
-            <div class="project-item">
-              <a href="./bb-quotes-api/" class="project-link">
-                <span class="project-icon">💬</span>
-                <span class="project-name">breaking-bad-quotes</span>
-                <span class="project-desc">// Random BB quotes</span>
-              </a>
-            </div>
+          <div class="category-header">[API & CONTENT]</div>
+          <div class="project-item">
+            <a href="./bb-quotes-api/" class="project-link">
+              <span class="project-icon">💬</span>
+              <span class="project-name">breaking-bad-quotes</span>
+              <span class="project-desc">// Random BB quotes</span>
+            </a>
           </div>
         </div>
       </div>
 
       <div class="terminal-footer">
-        <div class="status-bar">
-          <span class="status-item">📁 ~/mini-projects-js</span>
-          <span class="status-item">🔧 vanilla-js</span>
-          <span class="status-item">⚡ 18 projects loaded</span>
-          <span class="status-item" id="currentTime"></span>
-        </div>
+        <span class="status-item">📁 ~/mini-projects-js</span>
+        <span class="status-item">🔧 vanilla-js</span>
+        <span class="status-item">⚡ 18 projects loaded</span>
+        <span class="status-item status-clock" id="currentTime"></span>
       </div>
     </div>
 
-    </div>
-
+    <script src="terminal-utils.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
