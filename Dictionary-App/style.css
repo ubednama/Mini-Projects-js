@@ -19,11 +19,7 @@ body.game-body {
   align-items: center;
 }
 
-/* Header: Using global styles */
-
 /* Inputs */
-/* Inputs */
-/* .input-section moved to global.css */
 
 #word {
   flex: 1;
@@ -41,8 +37,6 @@ body.game-body {
   outline: none;
   border-color: var(--accent-color);
 }
-
-/* Button using global .btn-primary */
 
 /* Output - Clean Typography */
 .dictionary-output {

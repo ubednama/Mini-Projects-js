@@ -36,8 +36,6 @@
   border-color: var(--game-accent-light);
 }
 
-/* Button using global .btn-primary */
-
 /* Output */
 .weather-output {
   width: 100%;

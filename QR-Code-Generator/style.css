@@ -10,8 +10,6 @@
   align-items: center;
 }
 
-/* Header: Using global styles */
-
 /* Inputs */
 .input-section {
   width: 100%;
@@ -37,8 +35,6 @@
   outline: none;
   border-color: var(--accent-color);
 }
-
-/* Button using global .btn-primary */
 
 /* Output */
 .output-section {

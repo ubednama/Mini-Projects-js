@@ -102,8 +102,6 @@ canvas {
   margin-bottom: 4rem; /* Space for footer */
 }
 
-/* Buttons using global classes */
-
 /* Responsive */
 @media (max-width: 640px) {
   .controls-top {

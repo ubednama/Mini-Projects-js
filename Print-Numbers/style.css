@@ -20,8 +20,6 @@ body.game-body {
   padding: 1rem;
 }
 
-/* Header: Using global styles */
-
 /* Input Group */
 .input-group {
   display: flex;
@@ -46,8 +44,6 @@ body.game-body {
   outline: none;
   border-color: var(--game-accent-light);
 }
-
-/* Button using global .btn-primary */
 
 /* Options */
 .options-group {

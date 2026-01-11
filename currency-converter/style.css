@@ -10,8 +10,6 @@
   align-items: center;
 }
 
-/* Header: Using global styles */
-
 /* Form */
 form {
   width: 100%;
@@ -106,8 +104,6 @@ form {
   color: var(--accent-color);
   transform: scale(1.1);
 }
-
-/* Convert Button: Using global .btn-primary */
 
 /* Result Message */
 .result-msg {
