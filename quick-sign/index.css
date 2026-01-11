@@ -12,8 +12,6 @@
   justify-content: space-between; /* Distribute space */
 }
 
-/* Header: Using global styles */
-
 /* Controls Top */
 .controls-top {
   display: flex;

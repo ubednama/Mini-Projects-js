@@ -17,11 +17,7 @@
   }
 }
 
-/* Header: Using global styles */
-
 /* Inputs */
-/* Inputs */
-/* .input-section moved to global.css */
 
 #cityInput {
   flex: 1;
@@ -81,6 +77,3 @@
   text-transform: capitalize;
   font-weight: 500;
 }
-
-/* Spinner */
-/* Spinner removed - using global */

@@ -17,13 +17,6 @@ body.game-body {
 }
 
 /* Header */
-.app-header {
-  text-align: center;
-}
-
-.app-desc {
-  color: var(--text-muted);
-}
 
 /* Time Display */
 .time-display {

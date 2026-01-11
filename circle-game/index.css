@@ -24,7 +24,7 @@ body.fullscreen-game {
   position: absolute !important; /* Force absolute just in case */
 }
 
-.global-footer {
+.footer {
   z-index: 100;
   position: fixed !important; /* Force fixed just in case */
 }

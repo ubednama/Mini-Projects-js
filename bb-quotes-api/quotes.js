@@ -45,7 +45,6 @@ class QuotesApp {
         } catch (error) {
             console.error("Error fetching quote:", error);
             this.quoteText.innerText = "Click button to retry.";
-            this.showToast("Failed to fetch quote. Please try again.", "error");
             showToast("Failed to fetch quote. Please try again.", "error");
         } finally {
             this.quoteText.parentElement.classList.remove('loading');

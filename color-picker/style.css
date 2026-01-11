@@ -1,7 +1,6 @@
 /* Color Picker - Minimalist Dark Theme */
 
 /* Container */
-/* Container */
 .color-app-container {
   width: 100%;
   max-width: 600px;
@@ -13,18 +12,8 @@
   padding-top: 0;
 }
 
-@media (max-width: 640px) {
-  .control-group {
-    flex-direction: column;
-  }
-  .picker-section {
-    flex-direction: column;
-  }
-}
-
 /* Header */
-/* Header styles moved to global.css */
-/* Overriding strict global header margin to move it down */
+/* Custom margin adjustments for color picker */
 .app-header {
   margin-top: 2rem;
   margin-bottom: 0.5rem;
@@ -257,4 +246,14 @@ code {
 .history-color:hover {
   transform: scale(1.2);
   border-color: #fff;
+}
+
+/* Mobile Media Queries */
+@media (max-width: 640px) {
+  .control-group {
+    flex-direction: column;
+  }
+  .picker-section {
+    flex-direction: column;
+  }
 }
