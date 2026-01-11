@@ -67,7 +67,7 @@
 }
 
 /* Responsive */
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .time-display {
     font-size: 3.5rem;
   }

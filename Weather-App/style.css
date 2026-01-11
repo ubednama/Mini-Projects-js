@@ -10,7 +10,7 @@
   align-items: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .weather-app-container {
     gap: 1rem;
     padding-top: 0; /* Pull content up */

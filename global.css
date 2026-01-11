@@ -212,7 +212,7 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   body {
     padding: 5px;
   }
@@ -222,9 +222,18 @@ body {
     gap: 4px;
     align-items: flex-start;
   }
-}
 
-@media (max-width: 480px) {
+  /* Merged from 600px/480px rules */
+  .app-header {
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .global-footer {
+    font-size: 0.7rem;
+    bottom: 10px;
+  }
 }
 
 /* Accessibility */
@@ -263,6 +272,33 @@ body {
   .cursor {
     display: none;
   }
+}
+
+/* Standardized Back Button for All Apps */
+.back-btn,
+.terminal-back-btn {
+  background: none !important;
+  border: none !important;
+  color: var(--text-secondary) !important;
+  font-size: 14px !important;
+  font-family: "JetBrains Mono", monospace !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  padding: 6px 12px !important;
+  transition: all var(--transition-fast) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  box-shadow: none !important;
+  border-radius: 4px !important;
+}
+
+.back-btn:hover,
+.terminal-back-btn:hover {
+  color: var(--game-accent-gray) !important;
+  text-decoration: underline !important;
+  transform: translateX(-2px) !important;
+  background: none !important;
 }
 
 /* Selection styling */
@@ -349,14 +385,6 @@ body.game-body {
   width: 100%;
 }
 
-@media (max-width: 600px) {
-  .app-header {
-    margin-bottom: 0.5rem;
-    margin-top: 0;
-    padding-top: 0;
-  }
-}
-
 .app-title {
   font-size: 2.5rem;
   color: #ffffff;
@@ -409,13 +437,6 @@ body.game-body {
   opacity: 0.8;
   z-index: 999;
   white-space: nowrap; /* Single line */
-}
-
-@media (max-width: 600px) {
-  .global-footer {
-    font-size: 0.7rem; /* Smaller on mobile */
-    bottom: 10px;
-  }
 }
 
 .global-footer a {

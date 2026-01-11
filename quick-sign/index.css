@@ -107,7 +107,7 @@ canvas {
 /* Buttons using global classes */
 
 /* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .controls-top {
     flex-wrap: wrap;
     justify-content: center;
