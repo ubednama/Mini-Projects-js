@@ -185,7 +185,7 @@ body {
 
 .btn-secondary {
   background: var(--bg-button-secondary);
-  color: var(--text-inverse);
+  color: var(--text-secondary);
   border: 1px solid var(--border-color);
   padding: 12px 24px;
   border-radius: var(--radius-sm);
@@ -197,6 +197,7 @@ body {
 
 .btn-secondary:hover {
   background: var(--bg-button-secondary-hover);
+  border-color: var(--text-secondary);
   transform: translateY(-1px);
 }
 

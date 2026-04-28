@@ -114,7 +114,9 @@ class ColorPicker {
 
     updateClearButtonVisibility() {
         if (!this.clearHistoryBtn) return;
-        this.clearHistoryBtn.classList.toggle('hide', this.colorHistory.length === 0);
+        // Use a visibility toggle (not display) so the layout doesn't jump when
+        // history goes from 0 → 1 colors or back.
+        this.clearHistoryBtn.classList.toggle('is-invisible', this.colorHistory.length === 0);
     }
 
     // Live preview: paint, sync inputs, refresh format readouts. NO history.
