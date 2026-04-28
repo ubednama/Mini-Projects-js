@@ -1,6 +1,6 @@
 # 🖥️ Mini Projects JavaScript Collection
 
-![Mini Projects JS](og-image.svg)
+![Mini Projects JS](og-image.png)
 
 A retro terminal-inspired collection of 17 interactive web applications and mini-projects built with vanilla HTML, CSS, and JavaScript. Features a nostalgic terminal aesthetic with modern functionality and responsive design.
 

@@ -112,6 +112,11 @@ class ColorPicker {
         }
     }
 
+    updateClearButtonVisibility() {
+        if (!this.clearHistoryBtn) return;
+        this.clearHistoryBtn.classList.toggle('hide', this.colorHistory.length === 0);
+    }
+
     // Live preview: paint, sync inputs, refresh format readouts. NO history.
     previewColor(color) {
         this.currentColor = color;
@@ -264,6 +269,8 @@ class ColorPicker {
             });
             this.colorHistoryEl.appendChild(colorEl);
         });
+
+        this.updateClearButtonVisibility();
     }
 
     loadHistory() {

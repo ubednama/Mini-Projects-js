@@ -36,14 +36,16 @@
   border-color: var(--accent-color);
 }
 
-/* Output — reserve enough vertical space for QR + actions so layout doesn't
-   shift when the code is generated. */
+/* Output — reserve fixed vertical space for QR + actions so layout doesn't
+   shift when the code is generated (250 image + 10 border + 12 gap + ~40 buttons
+   + breathing room). */
 .output-section {
-  min-height: 290px;
+  min-height: 340px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
+  padding-top: 8px;
 }
 
 .qr-result {

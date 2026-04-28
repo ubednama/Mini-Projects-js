@@ -35,7 +35,7 @@ Every project page should look like this. Copy from any existing project (e.g. `
     <meta property="og:title" content="My New Thing | Mini Projects JS" />
     <meta property="og:description" content="One-line description" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="../og-image.svg" />
+    <meta property="og:image" content="../og-image.png" />
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Icons / PWA -->

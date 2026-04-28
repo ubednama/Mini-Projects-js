@@ -11,7 +11,7 @@
     <meta property="og:title" content="Color Picker | Mini Projects JS" />
     <meta property="og:description" content="Pick colors, generate palettes, and get HEX/RGB values" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="../og-image.svg" />
+    <meta property="og:image" content="../og-image.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/manifest.webmanifest" />
@@ -87,13 +87,10 @@
 
         <!-- History -->
         <div class="history-wrapper">
-          <div class="history-header">
-            <span class="history-label">// history</span>
-            <button id="clearHistory" class="history-clear" type="button" title="Clear history">
-              ✕ clear
-            </button>
-          </div>
           <div class="history-section" id="colorHistory"></div>
+          <button id="clearHistory" class="palette-btn history-clear" type="button" aria-label="Clear color history">
+            Clear history
+          </button>
         </div>
       </div>
 
