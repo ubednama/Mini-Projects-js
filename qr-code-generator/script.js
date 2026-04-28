@@ -52,9 +52,8 @@ class QRCodeGenerator {
     reset() {
         this.input.value = '';
         this.lastEncoded = '';
-        this.codeImage.src = '';
+        this.codeImage.removeAttribute('src');
         this.codeImage.classList.remove('active');
-        this.codeImage.style.display = 'none';
         this.copyButton?.classList.add('hide');
         this.downloadButton?.classList.add('hide');
         this.resetButton?.classList.add('hide');
@@ -65,7 +64,7 @@ class QRCodeGenerator {
         const trimmed = text.trim();
         if (!trimmed) {
             this.showToast('Please enter text or URL', 'error');
-            this.codeImage.style.display = "none";
+            this.codeImage.classList.remove('active');
             this.copyButton?.classList.add('hide');
             this.downloadButton?.classList.add('hide');
             this.resetButton?.classList.add('hide');
@@ -74,7 +73,6 @@ class QRCodeGenerator {
 
         this.loader.classList.remove('hide');
         this.codeImage.classList.remove('active');
-        this.codeImage.style.display = 'none';
         this.copyButton?.classList.add('hide');
         this.downloadButton?.classList.add('hide');
         this.resetButton?.classList.add('hide');
@@ -85,14 +83,12 @@ class QRCodeGenerator {
         img.onload = () => {
             this.loader.classList.add('hide');
             this.codeImage.src = api;
-            this.codeImage.style.display = 'block';
             this.lastEncoded = trimmed;
             this.copyButton?.classList.remove('hide');
             this.downloadButton?.classList.remove('hide');
             this.resetButton?.classList.remove('hide');
-            setTimeout(() => {
-                this.codeImage.classList.add('active');
-            }, 50);
+            // Add .active on next tick so the opacity transition runs.
+            requestAnimationFrame(() => this.codeImage.classList.add('active'));
         };
         img.onerror = () => {
             this.loader.classList.add('hide');
