@@ -47,7 +47,7 @@ A retro terminal-inspired collection of 17 interactive web applications and mini
 
 ### 📚 API & Content (1)
 
-- **[Breaking Bad Quotes](./bb-quotes-api)** [🔗](https://mini-projects-js-five.vercel.app/bb-quotes-api) - Random BB quotes
+- **[Random Quotes](./random-quotes)** [🔗](https://mini-projects-js-five.vercel.app/random-quotes) - Live random quotes via DummyJSON API
 
 ## 🚀 Getting Started
 

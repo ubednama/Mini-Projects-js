@@ -405,24 +405,29 @@ links:
 screenshot: screenshots/print-numbers.png
 ```
 
-### 17. Breaking Bad Quotes
+### 17. Random Quotes
 
 ```yaml
-title: Breaking Bad Quotes
-slug: bb-quotes-api
+title: Random Quotes
+slug: random-quotes
 category: API & Content
-tagline: One-click random quotes from the show.
+tagline: Live random quotes via the DummyJSON public API.
 description: |
-  Fetches a random quote from a Breaking Bad quotes API. Demonstrates
-  third-party API consumption with proper loading and error states.
-tech: [JavaScript, Fetch API]
+  Fetches a fresh random quote on each click from DummyJSON
+  (https://dummyjson.com/quotes/random). Demonstrates third-party API
+  consumption: loading state, error state with retry hint, button-disable
+  during in-flight request, and toast on failure. Folder slug remains
+  random-quotes for URL stability — the original Breaking Bad quotes
+  API is defunct.
+tech: [JavaScript, Fetch API, async/await]
 highlights:
-  - Loading state + graceful error handling
-  - One-click "new quote" interaction
+  - Live API integration (no embedded data)
+  - Loading state + graceful error handling with retry
+  - Button disabled while request is in flight
 links:
-  live: https://mini-projects-js-five.vercel.app/bb-quotes-api/
-  source: https://github.com/ubednama/Mini-Projects-js/tree/main/bb-quotes-api
-screenshot: screenshots/bb-quotes-api.png
+  live: https://mini-projects-js-five.vercel.app/random-quotes/
+  source: https://github.com/ubednama/Mini-Projects-js/tree/main/random-quotes
+screenshot: screenshots/random-quotes.png
 ```
 
 ---

@@ -8,7 +8,8 @@ class ColorPicker {
         this.initializeElements();
         this.bindEvents();
         this.initializeTerminal();
-        this.updateColor(this.currentColor);
+        // Initial render — preview only, never seed history with the default color.
+        this.previewColor(this.currentColor);
         this.renderHistory();
     }
 
@@ -25,37 +26,42 @@ class ColorPicker {
         this.hslValue = document.getElementById('hslValue');
         this.paletteDisplay = document.getElementById('paletteDisplay');
         this.colorHistoryEl = document.getElementById('colorHistory');
-        this.toast = document.getElementById('toast');
     }
 
     bindEvents() {
-        // Color input events
+        // Live preview while dragging through the native color picker — no history.
         this.colorInput.addEventListener('input', (e) => {
-            const color = e.target.value;
-            this.updateColor(color);
+            this.previewColor(e.target.value);
+        });
+
+        // Picker closed / value committed — record in history.
+        this.colorInput.addEventListener('change', (e) => {
+            this.commitColor(e.target.value);
         });
 
         this.hexInput.addEventListener('input', (e) => {
             const hex = e.target.value;
             if (this.isValidHex(hex)) {
-                this.updateColor(hex);
+                this.previewColor(hex);
             }
         });
 
-        this.hexInput.addEventListener('blur', (e) => {
-            if (!this.isValidHex(e.target.value)) {
+        // Hex committed via blur or change.
+        this.hexInput.addEventListener('change', (e) => {
+            const hex = e.target.value;
+            if (this.isValidHex(hex)) {
+                this.commitColor(hex);
+            } else {
                 e.target.value = this.currentColor;
             }
         });
 
-        // Enter key support for hex input
         this.hexInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
                 const hex = e.target.value;
                 if (this.isValidHex(hex)) {
-                    this.updateColor(hex);
-                    this.addToHistory(hex);
+                    this.commitColor(hex);
                     if (this.terminal) this.terminal.log(`Set color to ${hex}`, 'success');
                 }
             }
@@ -91,7 +97,8 @@ class ColorPicker {
         });
     }
 
-    updateColor(color) {
+    // Live preview: paint, sync inputs, refresh format readouts. NO history.
+    previewColor(color) {
         this.currentColor = color;
         this.colorInput.value = color;
         this.hexInput.value = color;
@@ -102,10 +109,13 @@ class ColorPicker {
             this.colorPreview.classList.remove('changing');
         }, 300);
 
-        // Update all format displays
         this.updateFormats(color);
+    }
 
-        // Add to history
+    // Commit: preview + record into history (used when picker closes, hex
+    // committed, palette/history clicked).
+    commitColor(color) {
+        this.previewColor(color);
         this.addToHistory(color);
     }
 
@@ -207,7 +217,7 @@ class ColorPicker {
             colorEl.style.backgroundColor = color;
             colorEl.dataset.color = color;
             colorEl.addEventListener('click', () => {
-                this.updateColor(color);
+                this.commitColor(color);
                 if (this.terminal) this.terminal.log(`Selected palette color: ${color}`, 'info');
             });
             this.paletteDisplay.appendChild(colorEl);
@@ -234,7 +244,7 @@ class ColorPicker {
             colorEl.style.backgroundColor = color;
             colorEl.title = color;
             colorEl.addEventListener('click', () => {
-                this.updateColor(color);
+                this.commitColor(color);
                 if (this.terminal) this.terminal.log(`Selected history color: ${color}`, 'info');
             });
             this.colorHistoryEl.appendChild(colorEl);
