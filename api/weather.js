@@ -1,5 +1,5 @@
 // Vercel serverless function: proxies OpenWeatherMap so the API key stays server-side.
-// Set OPENWEATHER_API_KEY in Vercel project env vars (and locally via `vercel env pull`).
+// Set OPENWEATHER_KEY in Vercel project env vars (and locally via `vercel env pull`).
 
 export default async function handler(req, res) {
   const city = (req.query.city || '').trim();
@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'city or lat+lon query parameter is required' });
   }
 
-  const key = process.env.OPENWEATHER_API_KEY;
+  const key = process.env.OPENWEATHER_KEY;
   if (!key) {
     return res.status(500).json({ error: 'weather service not configured' });
   }

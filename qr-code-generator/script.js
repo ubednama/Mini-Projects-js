@@ -5,6 +5,7 @@ class QRCodeGenerator {
         this.codeImage = document.querySelector("#code-img");
         this.copyButton = document.querySelector("#copy-text");
         this.downloadButton = document.querySelector("#download-qr");
+        this.resetButton = document.querySelector("#reset-qr");
         this.loader = document.querySelector("#loading");
         this.input = document.querySelector("#input");
         this.toastContainer = document.querySelector("#toast-container");
@@ -43,6 +44,21 @@ class QRCodeGenerator {
         if (this.downloadButton) {
             this.downloadButton.addEventListener('click', () => this.downloadQR());
         }
+        if (this.resetButton) {
+            this.resetButton.addEventListener('click', () => this.reset());
+        }
+    }
+
+    reset() {
+        this.input.value = '';
+        this.lastEncoded = '';
+        this.codeImage.src = '';
+        this.codeImage.classList.remove('active');
+        this.codeImage.style.display = 'none';
+        this.copyButton?.classList.add('hide');
+        this.downloadButton?.classList.add('hide');
+        this.resetButton?.classList.add('hide');
+        this.input.focus();
     }
 
     generateQR(text) {
@@ -52,6 +68,7 @@ class QRCodeGenerator {
             this.codeImage.style.display = "none";
             this.copyButton?.classList.add('hide');
             this.downloadButton?.classList.add('hide');
+            this.resetButton?.classList.add('hide');
             return;
         }
 
@@ -60,6 +77,7 @@ class QRCodeGenerator {
         this.codeImage.style.display = 'none';
         this.copyButton?.classList.add('hide');
         this.downloadButton?.classList.add('hide');
+        this.resetButton?.classList.add('hide');
 
         const api = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(trimmed)}`;
 
@@ -71,6 +89,7 @@ class QRCodeGenerator {
             this.lastEncoded = trimmed;
             this.copyButton?.classList.remove('hide');
             this.downloadButton?.classList.remove('hide');
+            this.resetButton?.classList.remove('hide');
             setTimeout(() => {
                 this.codeImage.classList.add('active');
             }, 50);

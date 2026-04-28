@@ -26,6 +26,7 @@ class ColorPicker {
         this.hslValue = document.getElementById('hslValue');
         this.paletteDisplay = document.getElementById('paletteDisplay');
         this.colorHistoryEl = document.getElementById('colorHistory');
+        this.clearHistoryBtn = document.getElementById('clearHistory');
     }
 
     bindEvents() {
@@ -95,6 +96,20 @@ class ColorPicker {
             this.generatePalette('analogous');
             if (this.terminal) this.terminal.log('Generated analogous palette', 'info');
         });
+
+        if (this.clearHistoryBtn) {
+            this.clearHistoryBtn.addEventListener('click', () => this.clearHistory());
+        }
+    }
+
+    clearHistory() {
+        if (this.colorHistory.length === 0) return;
+        this.colorHistory = [];
+        this.saveHistory();
+        this.renderHistory();
+        if (window.TerminalUtils) {
+            window.TerminalUtils.showToast('History cleared', 'info');
+        }
     }
 
     // Live preview: paint, sync inputs, refresh format readouts. NO history.

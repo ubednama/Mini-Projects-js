@@ -21,7 +21,7 @@
   </head>
   <body class="game-body">
     <!-- Back Button -->
-    <a href="../index.html" class="top-right-back">← Back</a>
+    <a href="../" class="top-right-back">← Back</a>
 
     <main class="center-container">
       <header class="app-header">
@@ -86,7 +86,15 @@
         </div>
 
         <!-- History -->
-        <div class="history-section" id="colorHistory"></div>
+        <div class="history-wrapper">
+          <div class="history-header">
+            <span class="history-label">// history</span>
+            <button id="clearHistory" class="history-clear" type="button" title="Clear history">
+              ✕ clear
+            </button>
+          </div>
+          <div class="history-section" id="colorHistory"></div>
+        </div>
       </div>
 
       <!-- Toast container for dynamic copy feedback -->
