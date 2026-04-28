@@ -1,7 +1,7 @@
 // Mini Projects JS — service worker
 // Strategy: cache-first for static shell, network-first (no cache) for /api/*.
 
-const CACHE_NAME = 'mini-projects-v1';
+const CACHE_NAME = 'mini-projects-v2';
 const SHELL = [
   '/',
   '/index.html',
