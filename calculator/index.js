@@ -82,23 +82,20 @@ function calculate() {
     const expression = myInput.value;
 
     try {
-        // Basic security check
-        if (/[^0-9+\-*/.()%]/.test(expression)) {
+        if (/[^0-9+\-*/.()%\s]/.test(expression)) {
             throw new Error("Invalid characters");
         }
 
-        // Handle percentage
-        let evalExpression = expression.replace(/%/g, '/100');
+        const result = evaluateExpression(expression.replace(/%/g, '/100'));
 
-        const result = eval(evalExpression);
+        if (!Number.isFinite(result)) {
+            throw new Error("Math error");
+        }
 
-        // Format result to avoid long decimals
         const formattedResult = parseFloat(result.toFixed(8));
-
         myInput.value = formattedResult;
         currentExpression = '';
 
-        // Log full expression to terminal
         if (terminal) terminal.log(`${expression} = ${formattedResult}`, 'success');
     } catch (e) {
         myInput.value = 'ERROR';
@@ -107,4 +104,74 @@ function calculate() {
 
         if (terminal) terminal.log(`Error: ${expression}`, 'error');
     }
+}
+
+// Recursive-descent expression evaluator — replaces eval().
+// Grammar: expr → term (('+'|'-') term)* ; term → factor (('*'|'/') factor)* ;
+//          factor → number | '(' expr ')' | ('-'|'+') factor
+function evaluateExpression(input) {
+    let pos = 0;
+    const src = input;
+
+    function peek() {
+        while (pos < src.length && src[pos] === ' ') pos++;
+        return src[pos];
+    }
+
+    function consume() {
+        const c = peek();
+        pos++;
+        return c;
+    }
+
+    function parseNumber() {
+        let start = pos;
+        while (pos < src.length && /[0-9.]/.test(src[pos])) pos++;
+        const num = parseFloat(src.slice(start, pos));
+        if (Number.isNaN(num)) throw new Error("Bad number");
+        return num;
+    }
+
+    function parseFactor() {
+        const c = peek();
+        if (c === '(') {
+            consume();
+            const value = parseExpr();
+            if (peek() !== ')') throw new Error("Missing )");
+            consume();
+            return value;
+        }
+        if (c === '-') { consume(); return -parseFactor(); }
+        if (c === '+') { consume(); return parseFactor(); }
+        if (c === undefined || !/[0-9.]/.test(c)) throw new Error("Unexpected token");
+        return parseNumber();
+    }
+
+    function parseTerm() {
+        let value = parseFactor();
+        while (peek() === '*' || peek() === '/') {
+            const op = consume();
+            const rhs = parseFactor();
+            if (op === '*') value *= rhs;
+            else {
+                if (rhs === 0) throw new Error("Division by zero");
+                value /= rhs;
+            }
+        }
+        return value;
+    }
+
+    function parseExpr() {
+        let value = parseTerm();
+        while (peek() === '+' || peek() === '-') {
+            const op = consume();
+            const rhs = parseTerm();
+            value = op === '+' ? value + rhs : value - rhs;
+        }
+        return value;
+    }
+
+    const result = parseExpr();
+    if (pos < src.length && peek() !== undefined) throw new Error("Trailing input");
+    return result;
 }

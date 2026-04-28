@@ -21,13 +21,15 @@
 
       <div class="weather-app-container">
         <div class="input-section">
+          <label for="cityInput" class="visually-hidden">City name</label>
           <input
             type="text"
             id="cityInput"
             placeholder="Enter City Name..."
             autocomplete="off"
+            aria-label="City name"
           />
-          <button id="btn" class="btn-primary">Search</button>
+          <button id="btn" class="btn-primary" aria-label="Search weather">Search</button>
         </div>
 
         <div class="weather-output">
@@ -56,6 +58,7 @@
       </footer>
     </main>
 
+    <script src="../terminal-utils.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

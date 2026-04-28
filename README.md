@@ -1,6 +1,6 @@
 # 🖥️ Mini Projects JavaScript Collection
 
-A retro terminal-inspired collection of 18 interactive web applications and mini-projects built with vanilla HTML, CSS, and JavaScript. Features a nostalgic terminal aesthetic with modern functionality and responsive design.
+A retro terminal-inspired collection of 17 interactive web applications and mini-projects built with vanilla HTML, CSS, and JavaScript. Features a nostalgic terminal aesthetic with modern functionality and responsive design.
 
 ## 🌐 Live Demo
 
@@ -45,10 +45,9 @@ A retro terminal-inspired collection of 18 interactive web applications and mini
 - **[Quick Sign](./quick-sign)** [🔗](https://mini-projects-js-five.vercel.app/quick-sign) - Digital canvas for drawing
 - **[Print Numbers](./print-numbers)** [🔗](https://mini-projects-js-five.vercel.app/print-numbers) - Number sequence generator
 
-### 📚 API & Content (2)
+### 📚 API & Content (1)
 
 - **[Breaking Bad Quotes](./bb-quotes-api)** [🔗](https://mini-projects-js-five.vercel.app/bb-quotes-api) - Random BB quotes
-- **More coming soon...**
 
 ## 🚀 Getting Started
 
