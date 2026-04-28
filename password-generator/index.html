@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Password Generator</title>
     <meta name="description" content="Generate secure passwords" />
+    <meta property="og:title" content="Password Generator | Mini Projects JS" />
+    <meta property="og:description" content="Generate secure passwords" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="../og-image.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#000000" />
     <link rel="stylesheet" href="../global.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -53,6 +60,11 @@
               <span>Symbols (@-#)</span>
             </label>
           </div>
+        </div>
+
+        <div class="strength-meter" aria-live="polite">
+          <div class="strength-bar"><span id="strengthFill"></span></div>
+          <span id="strengthLabel" class="strength-label">—</span>
         </div>
 
         <button id="genBtn" class="btn-primary">Generate Password</button>

@@ -5,12 +5,29 @@ const canvas = document.getElementById("my-canvas");
 const clearButton = document.getElementById("clear-button");
 const saveButton = document.getElementById("download-button");
 const retrieveButton = document.getElementById("retrieve-button");
+const undoButton = document.getElementById("undo-button");
 const fontPicker = document.getElementById("font-picker");
 const ctx = canvas.getContext("2d");
 
 let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
+
+// Undo history — snapshot the canvas before each new stroke. Capped to bound memory.
+const MAX_HISTORY = 20;
+const history = [];
+
+function pushHistory() {
+    history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    if (history.length > MAX_HISTORY) history.shift();
+    if (undoButton) undoButton.disabled = false;
+}
+
+function undo() {
+    const snapshot = history.pop();
+    if (snapshot) ctx.putImageData(snapshot, 0, 0);
+    if (undoButton) undoButton.disabled = history.length === 0;
+}
 
 // Convert pointer event to canvas-bitmap coordinates so drawing stays aligned
 // when CSS scales the canvas (responsive layouts, mobile).
@@ -36,6 +53,7 @@ colorPicker.addEventListener('change', (e) => {
 });
 
 canvas.addEventListener("mousedown", (e) => {
+    pushHistory();
     isDrawing = true;
     const { x, y } = getPointerPos(e);
     lastX = x;
@@ -58,6 +76,7 @@ canvas.addEventListener("mouseout", () => { isDrawing = false; });
 
 canvas.addEventListener("touchstart", (e) => {
     e.preventDefault();
+    pushHistory();
     isDrawing = true;
     const { x, y } = getPointerPos(e);
     lastX = x;
@@ -90,10 +109,22 @@ fontPicker.addEventListener('change', (e) => {
 });
 
 clearButton.addEventListener('click', () => {
+    pushHistory();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // Restore background
     ctx.fillStyle = canvasColor.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+});
+
+if (undoButton) {
+    undoButton.disabled = true;
+    undoButton.addEventListener('click', undo);
+}
+
+document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'z' && !e.shiftKey) {
+        e.preventDefault();
+        undo();
+    }
 });
 
 saveButton.addEventListener('click', () => {

@@ -70,3 +70,10 @@
 
 /* Spinner */
 /* Spinner removed - using global */
+
+.qr-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 12px;
+}

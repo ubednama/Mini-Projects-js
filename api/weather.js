@@ -3,8 +3,11 @@
 
 export default async function handler(req, res) {
   const city = (req.query.city || '').trim();
-  if (!city) {
-    return res.status(400).json({ error: 'city query parameter is required' });
+  const lat = (req.query.lat || '').trim();
+  const lon = (req.query.lon || '').trim();
+
+  if (!city && !(lat && lon)) {
+    return res.status(400).json({ error: 'city or lat+lon query parameter is required' });
   }
 
   const key = process.env.OPENWEATHER_API_KEY;
@@ -12,9 +15,18 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'weather service not configured' });
   }
 
-  const url =
-    'https://api.openweathermap.org/data/2.5/weather' +
-    `?q=${encodeURIComponent(city)}&appid=${key}&units=metric`;
+  const params = new URLSearchParams({ appid: key, units: 'metric' });
+  if (city) {
+    params.set('q', city);
+  } else {
+    if (Number.isNaN(parseFloat(lat)) || Number.isNaN(parseFloat(lon))) {
+      return res.status(400).json({ error: 'lat and lon must be numbers' });
+    }
+    params.set('lat', lat);
+    params.set('lon', lon);
+  }
+
+  const url = `https://api.openweathermap.org/data/2.5/weather?${params.toString()}`;
 
   try {
     const upstream = await fetch(url);

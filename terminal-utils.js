@@ -185,3 +185,13 @@ window.TerminalUtils = {
 document.addEventListener('DOMContentLoaded', () => {
     new TerminalClock();
 });
+
+// Register the service worker once across the whole app.
+// Skip when served via file:// (no SW support) or a non-http protocol.
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch((err) => {
+            console.warn('[sw] registration failed:', err);
+        });
+    });
+}

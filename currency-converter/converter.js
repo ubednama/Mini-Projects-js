@@ -1,12 +1,29 @@
 // Currency Converter
 const BASE_URL = `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies`
+const STORAGE_KEY = 'currency-converter-prefs-v1';
 
 const dropdowns = document.querySelectorAll(".currency-selectors select");
 const btn = document.querySelector(".btn-primary");
 const fromCurrSelect = document.querySelector("#from-select")
 const toCurrSelect = document.querySelector("#to-select")
 const msg = document.querySelector(".result-msg");
+const amountInput = document.querySelector(".amount-section input");
 const toastContainer = document.querySelector("#toast-container");
+
+const savedPrefs = (() => {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+    catch (_) { return {}; }
+})();
+
+const savePrefs = () => {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            from: fromCurrSelect.value,
+            to: toCurrSelect.value,
+            amount: amountInput.value,
+        }));
+    } catch (_) { /* ignore */ }
+};
 
 // Populate Dropdowns
 for (let select of dropdowns) {
@@ -15,17 +32,24 @@ for (let select of dropdowns) {
         newOption.innerText = currCode;
         newOption.value = currCode;
 
-        if (select.name === "from" && currCode === "USD") {
+        const savedFrom = savedPrefs.from || 'USD';
+        const savedTo = savedPrefs.to || 'INR';
+
+        if (select.name === "from" && currCode === savedFrom) {
             newOption.selected = "selected"
-        } else if (select.name === "to" && currCode === "INR") {
+        } else if (select.name === "to" && currCode === savedTo) {
             newOption.selected = "selected"
         }
         select.append(newOption);
     };
     select.addEventListener("change", (evt) => {
         updateFlag(evt.target);
+        savePrefs();
     });
 };
+
+if (savedPrefs.amount) amountInput.value = savedPrefs.amount;
+amountInput.addEventListener('input', savePrefs);
 
 const updateFlag = (element) => {
     let currCode = element.value;
@@ -42,12 +66,11 @@ const showToast = (message, type = 'error') => {
 };
 
 const updateExchRate = async () => {
-    let amount = document.querySelector(".amount-section input");
-    let amtVal = amount.value;
+    let amtVal = amountInput.value;
 
     if (amtVal === "" || amtVal < 1) {
         amtVal = 1;
-        amount.value = "1";
+        amountInput.value = "1";
     }
 
     const fromCurr = fromCurrSelect.value.toLowerCase();
@@ -95,12 +118,15 @@ if (swapIcon) {
 
         updateFlag(fromCurrSelect);
         updateFlag(toCurrSelect);
+        savePrefs();
         updateExchRate();
     });
 }
 
-// Initialize and update exchange rate on load
+// Initialize: sync flags with saved selections, then fetch rate.
 window.addEventListener("load", () => {
+    updateFlag(fromCurrSelect);
+    updateFlag(toCurrSelect);
     updateExchRate();
 });
 

@@ -1,0 +1,19 @@
+{
+  "name": "Mini Projects JS",
+  "short_name": "Mini JS",
+  "description": "A retro terminal-inspired collection of 17 vanilla JavaScript mini-projects.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00ff00",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

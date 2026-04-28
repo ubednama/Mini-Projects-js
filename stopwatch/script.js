@@ -1,3 +1,5 @@
+const STORAGE_KEY = 'stopwatch-state-v1';
+
 class Stopwatch {
     constructor() {
         this.startTime = 0;
@@ -5,9 +7,11 @@ class Stopwatch {
         this.timerInterval = null;
         this.isRunning = false;
         this.lapCount = 0;
+        this.laps = [];
 
         this.initializeElements();
         this.bindEvents();
+        this.restoreState();
     }
 
     initializeElements() {
@@ -24,31 +28,18 @@ class Stopwatch {
     }
 
     bindEvents() {
-        this.startBtn.addEventListener('click', () => {
-            this.start();
-        });
-        this.pauseBtn.addEventListener('click', () => {
-            this.pause();
-        });
-        this.resetBtn.addEventListener('click', () => {
-            this.reset();
-        });
-        this.lapBtn.addEventListener('click', () => {
-            this.recordLap();
-        });
+        this.startBtn.addEventListener('click', () => this.start());
+        this.pauseBtn.addEventListener('click', () => this.pause());
+        this.resetBtn.addEventListener('click', () => this.reset());
+        this.lapBtn.addEventListener('click', () => this.recordLap());
 
-        // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT') return;
 
             switch (e.code) {
                 case 'Space':
                     e.preventDefault();
-                    if (this.isRunning) {
-                        this.pause();
-                    } else {
-                        this.start();
-                    }
+                    this.isRunning ? this.pause() : this.start();
                     break;
                 case 'KeyR':
                     if (e.ctrlKey) {
@@ -64,6 +55,10 @@ class Stopwatch {
                     break;
             }
         });
+
+        // Persist before unload so refresh doesn't lose state.
+        window.addEventListener('beforeunload', () => this.saveState());
+        window.addEventListener('pagehide', () => this.saveState());
     }
 
     start() {
@@ -77,6 +72,7 @@ class Stopwatch {
             this.lapBtn.disabled = false;
 
             this.timeDisplay.classList.add('running');
+            this.saveState();
         }
     }
 
@@ -90,6 +86,7 @@ class Stopwatch {
             this.lapBtn.disabled = true;
 
             this.timeDisplay.classList.remove('running');
+            this.saveState();
         }
     }
 
@@ -99,6 +96,7 @@ class Stopwatch {
         this.elapsedTime = 0;
         this.lapCount = 0;
         this.startTime = 0;
+        this.laps = [];
 
         this.startBtn.disabled = false;
         this.pauseBtn.disabled = true;
@@ -111,6 +109,7 @@ class Stopwatch {
         this.millisecondsSpan.textContent = '00';
 
         this.clearLaps();
+        this.saveState();
     }
 
     updateDisplay() {
@@ -130,38 +129,42 @@ class Stopwatch {
         if (this.isRunning) {
             this.lapCount++;
             const currentTime = this.formatTime(this.elapsedTime);
+            this.laps.unshift({ n: this.lapCount, t: currentTime });
+            this.laps = this.laps.slice(0, 100);
+            this.renderLaps();
+            this.saveState();
+        }
+    }
 
+    renderLaps() {
+        if (this.laps.length === 0) {
+            this.clearLaps();
+            return;
+        }
+        this.lapsContainer.replaceChildren();
+        for (const lap of this.laps) {
             const lapItem = document.createElement('div');
             lapItem.className = 'lap-item';
 
             const numSpan = document.createElement('span');
             numSpan.className = 'lap-number';
-            numSpan.textContent = `Lap ${this.lapCount}`;
+            numSpan.textContent = `Lap ${lap.n}`;
 
             const timeSpan = document.createElement('span');
             timeSpan.className = 'lap-time';
-            timeSpan.textContent = currentTime;
+            timeSpan.textContent = lap.t;
 
             lapItem.append(numSpan, timeSpan);
-
-            const noLaps = this.lapsContainer.querySelector('.no-laps');
-            if (noLaps) {
-                noLaps.remove();
-            }
-
-            this.lapsContainer.insertBefore(lapItem, this.lapsContainer.firstChild);
-
-            // Cap lap history to keep DOM bounded.
-            const MAX_LAPS = 100;
-            const items = this.lapsContainer.querySelectorAll('.lap-item');
-            for (let i = MAX_LAPS; i < items.length; i++) {
-                items[i].remove();
-            }
+            this.lapsContainer.appendChild(lapItem);
         }
     }
 
     clearLaps() {
-        this.lapsContainer.innerHTML = '<div class="no-laps">No laps recorded</div>';
+        this.lapsContainer.replaceChildren();
+        const noLaps = document.createElement('div');
+        noLaps.className = 'no-laps';
+        noLaps.textContent = 'No laps recorded';
+        this.lapsContainer.appendChild(noLaps);
     }
 
     formatTime(milliseconds) {
@@ -171,6 +174,57 @@ class Stopwatch {
         const ms = totalMs % 100;
 
         return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
+    }
+
+    saveState() {
+        try {
+            const state = {
+                elapsedTime: this.elapsedTime,
+                isRunning: this.isRunning,
+                startTime: this.startTime,
+                lapCount: this.lapCount,
+                laps: this.laps,
+                savedAt: Date.now(),
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (_) { /* storage may be disabled */ }
+    }
+
+    restoreState() {
+        let state = null;
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (raw) state = JSON.parse(raw);
+        } catch (_) { return; }
+
+        if (!state) return;
+
+        this.lapCount = state.lapCount || 0;
+        this.laps = Array.isArray(state.laps) ? state.laps : [];
+
+        if (state.isRunning && state.startTime) {
+            // Resume from where we left off — startTime stays anchored to the
+            // original wall clock, so elapsed advances naturally.
+            this.elapsedTime = Date.now() - state.startTime;
+            this.startTime = state.startTime;
+            this.renderLaps();
+            this.updateDisplay();
+            this.start();
+        } else {
+            this.elapsedTime = state.elapsedTime || 0;
+            this.startTime = 0;
+            this.renderLaps();
+            if (this.elapsedTime > 0) {
+                this.updateDisplay = this.updateDisplay.bind(this);
+                const totalMs = Math.floor(this.elapsedTime / 10);
+                const minutes = Math.floor(totalMs / 6000);
+                const seconds = Math.floor((totalMs % 6000) / 100);
+                const ms = totalMs % 100;
+                this.minutesSpan.textContent = minutes.toString().padStart(2, '0');
+                this.secondsSpan.textContent = seconds.toString().padStart(2, '0');
+                this.millisecondsSpan.textContent = ms.toString().padStart(2, '0');
+            }
+        }
     }
 }
 

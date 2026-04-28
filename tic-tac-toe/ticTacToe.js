@@ -146,8 +146,8 @@ class TicTacToe {
         let move;
         switch (this.difficulty) {
             case 'easy': move = this.getRandomMove(); break;
-            case 'medium': move = this.getMediumMove(); break;
-            case 'hard': move = this.getHardMove(); break;
+            case 'medium': move = this.getHeuristicMove(); break;
+            case 'hard': move = this.getMinimaxMove(); break;
             default: move = this.getRandomMove();
         }
 
@@ -181,12 +181,8 @@ class TicTacToe {
         return -1;
     }
 
-    getMediumMove() {
-        if (Math.random() < 0.5) return this.getHardMove();
-        return this.getRandomMove();
-    }
-
-    getHardMove() {
+    // Medium difficulty — solid heuristic: win > block > center > corner > random.
+    getHeuristicMove() {
         let winMove = this.findWinningMove('X');
         if (winMove !== -1) return winMove;
 
@@ -195,12 +191,73 @@ class TicTacToe {
 
         if (!this.boxes[4].disabled) return 4;
 
-        let corners = [0, 2, 6, 8];
-        for (let corner of corners) {
+        const corners = [0, 2, 6, 8];
+        for (const corner of corners) {
             if (!this.boxes[corner].disabled) return corner;
         }
 
         return this.getRandomMove();
+    }
+
+    // Hard difficulty — full minimax. With 9 cells, exhaustive search is instant
+    // and the AI is provably unbeatable.
+    getMinimaxMove() {
+        const board = Array.from(this.boxes, b => b.innerText || '');
+        let bestScore = -Infinity;
+        let bestMoves = [];
+
+        for (let i = 0; i < 9; i++) {
+            if (board[i] !== '') continue;
+            board[i] = 'X';
+            const score = this.minimax(board, 0, false);
+            board[i] = '';
+
+            if (score > bestScore) {
+                bestScore = score;
+                bestMoves = [i];
+            } else if (score === bestScore) {
+                bestMoves.push(i);
+            }
+        }
+
+        if (bestMoves.length === 0) return -1;
+        // Tiebreak randomly so the AI doesn't always play the same move.
+        return bestMoves[Math.floor(Math.random() * bestMoves.length)];
+    }
+
+    minimax(board, depth, isMax) {
+        const winner = this.evaluateBoard(board);
+        if (winner === 'X') return 10 - depth;
+        if (winner === 'O') return depth - 10;
+        if (board.every(c => c !== '')) return 0;
+
+        if (isMax) {
+            let best = -Infinity;
+            for (let i = 0; i < 9; i++) {
+                if (board[i] !== '') continue;
+                board[i] = 'X';
+                best = Math.max(best, this.minimax(board, depth + 1, false));
+                board[i] = '';
+            }
+            return best;
+        }
+        let best = Infinity;
+        for (let i = 0; i < 9; i++) {
+            if (board[i] !== '') continue;
+            board[i] = 'O';
+            best = Math.min(best, this.minimax(board, depth + 1, true));
+            board[i] = '';
+        }
+        return best;
+    }
+
+    evaluateBoard(board) {
+        for (const [a, b, c] of this.winPatterns) {
+            if (board[a] && board[a] === board[b] && board[b] === board[c]) {
+                return board[a];
+            }
+        }
+        return null;
     }
 
     findWinningMove(player) {

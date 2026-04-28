@@ -3,6 +3,7 @@ class WeatherApp {
     constructor() {
         this.cityInput = document.getElementById("cityInput");
         this.btn = document.getElementById("btn");
+        this.locBtn = document.getElementById("locBtn");
         this.icon = document.querySelector(".icon");
         this.weatherBox = document.querySelector(".weather-box");
         this.weatherLocation = document.querySelector(".weather-location");
@@ -27,26 +28,52 @@ class WeatherApp {
                 this.handleSearch();
             }
         });
+
+        if (this.locBtn) {
+            this.locBtn.addEventListener('click', () => this.useGeolocation());
+        }
     }
 
     handleSearch() {
         const city = this.cityInput.value.trim();
         if (city) {
-            this.getWeather(city);
+            this.fetchWeather(`city=${encodeURIComponent(city)}`, city);
         }
     }
 
-    async getWeather(city) {
+    useGeolocation() {
+        if (!navigator.geolocation) {
+            this.showToast('Geolocation is not supported by this browser', 'error');
+            return;
+        }
+        this.showLoading(true);
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const { latitude, longitude } = pos.coords;
+                this.fetchWeather(`lat=${latitude}&lon=${longitude}`, 'your location');
+            },
+            (err) => {
+                this.showLoading(false);
+                const msg = err.code === err.PERMISSION_DENIED
+                    ? 'Location permission denied'
+                    : 'Could not determine your location';
+                this.showToast(msg, 'error');
+            },
+            { timeout: 10000, maximumAge: 60000 }
+        );
+    }
+
+    async fetchWeather(query, label) {
         this.showLoading(true);
         this.weatherBox.classList.add('hide');
 
         try {
-            const response = await fetch(`/api/weather?city=${encodeURIComponent(city)}`);
+            const response = await fetch(`/api/weather?${query}`);
             const data = await response.json();
 
             if (!response.ok) {
                 if (response.status === 404) {
-                    this.showToast(`City "${city}" not found`, 'error');
+                    this.showToast(`Weather for ${label} not found`, 'error');
                 } else if (response.status === 401 || response.status === 429) {
                     this.showToast('Weather service is temporarily unavailable', 'error');
                 } else {

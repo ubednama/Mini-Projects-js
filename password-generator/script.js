@@ -10,6 +10,8 @@ class PasswordGenerator {
         this.symbols = document.getElementById("symbols");
         this.genBtn = document.getElementById("genBtn");
         this.copyIcon = document.getElementById("copyIcon");
+        this.strengthFill = document.getElementById("strengthFill");
+        this.strengthLabel = document.getElementById("strengthLabel");
 
         this.lowerChars = "abcdefghijklmnopqrstuvwxyz";
         this.upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -25,20 +27,26 @@ class PasswordGenerator {
         this.bindEvents();
         this.initializeTerminal();
         this.sliderValue.textContent = this.inputSlider.value;
+        this.updateStrength();
     }
 
     bindEvents() {
-        // Slider value display
+        const refreshStrength = () => this.updateStrength();
+
         this.inputSlider.addEventListener('input', () => {
             this.sliderValue.textContent = this.inputSlider.value;
+            refreshStrength();
         });
 
-        // Generate button
+        for (const cb of [this.lowercase, this.uppercase, this.numbers, this.symbols]) {
+            cb.addEventListener('change', refreshStrength);
+        }
+
         this.genBtn.addEventListener('click', () => {
             const password = this.generatePassword();
             this.passBox.value = password;
+            this.updateStrength();
 
-            // Log to terminal
             if (this.terminal) {
                 const length = this.inputSlider.value;
                 const flags = [];
@@ -51,7 +59,6 @@ class PasswordGenerator {
             }
         });
 
-        // Copy functionality
         this.copyIcon.addEventListener("click", () => {
             if (this.passBox.value !== "") {
                 if (window.TerminalUtils) {
@@ -63,7 +70,6 @@ class PasswordGenerator {
             }
         });
 
-        // Enter key to generate
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -72,24 +78,66 @@ class PasswordGenerator {
         });
     }
 
+    charsetSize() {
+        let size = 0;
+        if (this.lowercase.checked) size += this.lowerChars.length;
+        if (this.uppercase.checked) size += this.upperChars.length;
+        if (this.numbers.checked) size += this.allNumbers.length;
+        if (this.symbols.checked) size += this.allSymbols.length;
+        return size;
+    }
+
     generatePassword() {
-        let genPassword = "";
         let allChars = "";
+        if (this.lowercase.checked) allChars += this.lowerChars;
+        if (this.uppercase.checked) allChars += this.upperChars;
+        if (this.numbers.checked) allChars += this.allNumbers;
+        if (this.symbols.checked) allChars += this.allSymbols;
 
-        allChars += this.lowercase.checked ? this.lowerChars : "";
-        allChars += this.uppercase.checked ? this.upperChars : "";
-        allChars += this.numbers.checked ? this.allNumbers : "";
-        allChars += this.symbols.checked ? this.allSymbols : "";
-
-        if (allChars === "" || allChars.length === 0) {
-            return genPassword;
+        if (allChars.length === 0) {
+            if (window.TerminalUtils) {
+                window.TerminalUtils.showToast('Pick at least one character set', 'error');
+            }
+            return "";
         }
 
-        for (let i = 0; i < this.inputSlider.value; i++) {
-            genPassword += allChars.charAt(Math.floor(Math.random() * allChars.length));
-        }
+        const length = parseInt(this.inputSlider.value, 10);
+        const out = new Array(length);
 
-        return genPassword;
+        // Use crypto RNG; reject values that would bias the modulo-mapping.
+        const max = Math.floor(0xffffffff / allChars.length) * allChars.length;
+        const buf = new Uint32Array(length * 2);
+        let i = 0;
+        while (i < length) {
+            crypto.getRandomValues(buf);
+            for (let j = 0; j < buf.length && i < length; j++) {
+                if (buf[j] < max) {
+                    out[i++] = allChars[buf[j] % allChars.length];
+                }
+            }
+        }
+        return out.join('');
+    }
+
+    updateStrength() {
+        const length = parseInt(this.inputSlider.value, 10) || 0;
+        const setSize = this.charsetSize();
+        const bits = setSize > 0 ? Math.floor(length * Math.log2(setSize)) : 0;
+
+        // Buckets roughly aligned to NIST/zxcvbn intuition.
+        let level, label;
+        if (bits < 28) { level = 'weak'; label = 'Weak'; }
+        else if (bits < 60) { level = 'fair'; label = 'Fair'; }
+        else if (bits < 100) { level = 'strong'; label = 'Strong'; }
+        else { level = 'very-strong'; label = 'Very strong'; }
+
+        if (this.strengthFill) {
+            this.strengthFill.style.width = Math.min(100, (bits / 128) * 100) + '%';
+            this.strengthFill.dataset.level = level;
+        }
+        if (this.strengthLabel) {
+            this.strengthLabel.textContent = setSize === 0 ? 'No charset' : `${label} (~${bits} bits)`;
+        }
     }
 
     initializeTerminal() {

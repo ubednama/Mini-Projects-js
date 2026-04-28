@@ -4,6 +4,7 @@ class QRCodeGenerator {
         this.qrButton = document.querySelector("#qr-code");
         this.codeImage = document.querySelector("#code-img");
         this.copyButton = document.querySelector("#copy-text");
+        this.downloadButton = document.querySelector("#download-qr");
         this.loader = document.querySelector("#loading");
         this.input = document.querySelector("#input");
         this.toastContainer = document.querySelector("#toast-container");
@@ -39,6 +40,9 @@ class QRCodeGenerator {
         if (this.copyButton) {
             this.copyButton.addEventListener('click', () => this.copyEncoded());
         }
+        if (this.downloadButton) {
+            this.downloadButton.addEventListener('click', () => this.downloadQR());
+        }
     }
 
     generateQR(text) {
@@ -47,6 +51,7 @@ class QRCodeGenerator {
             this.showToast('Please enter text or URL', 'error');
             this.codeImage.style.display = "none";
             this.copyButton?.classList.add('hide');
+            this.downloadButton?.classList.add('hide');
             return;
         }
 
@@ -54,6 +59,7 @@ class QRCodeGenerator {
         this.codeImage.classList.remove('active');
         this.codeImage.style.display = 'none';
         this.copyButton?.classList.add('hide');
+        this.downloadButton?.classList.add('hide');
 
         const api = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(trimmed)}`;
 
@@ -64,6 +70,7 @@ class QRCodeGenerator {
             this.codeImage.style.display = 'block';
             this.lastEncoded = trimmed;
             this.copyButton?.classList.remove('hide');
+            this.downloadButton?.classList.remove('hide');
             setTimeout(() => {
                 this.codeImage.classList.add('active');
             }, 50);
@@ -73,6 +80,28 @@ class QRCodeGenerator {
             this.showToast('Failed to generate QR code', 'error');
         };
         img.src = api;
+    }
+
+    async downloadQR() {
+        if (!this.lastEncoded) return;
+        try {
+            const api = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(this.lastEncoded)}`;
+            const response = await fetch(api);
+            if (!response.ok) throw new Error('fetch failed');
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `qr-${Date.now()}.png`;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            URL.revokeObjectURL(url);
+        } catch (err) {
+            console.error(err);
+            this.showToast('Download failed', 'error');
+        }
     }
 
     copyEncoded() {

@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QR Code Generator</title>
     <meta name="description" content="Generate QR codes instantly" />
+    <meta property="og:title" content="QR Code Generator | Mini Projects JS" />
+    <meta property="og:description" content="Generate QR codes instantly" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="../og-image.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#000000" />
     <link rel="stylesheet" href="../global.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -36,9 +43,10 @@
           <div id="loading" class="spinner hide"></div>
           <div class="qr-result">
             <img id="code-img" src="" alt="Generated QR Code" />
-            <button id="copy-text" class="btn-secondary hide" type="button">
-              Copy text
-            </button>
+            <div class="qr-actions">
+              <button id="copy-text" class="btn-secondary hide" type="button">Copy text</button>
+              <button id="download-qr" class="btn-primary hide" type="button">Download</button>
+            </div>
           </div>
         </div>
       </div>
