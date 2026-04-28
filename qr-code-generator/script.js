@@ -3,9 +3,11 @@ class QRCodeGenerator {
     constructor() {
         this.qrButton = document.querySelector("#qr-code");
         this.codeImage = document.querySelector("#code-img");
+        this.copyButton = document.querySelector("#copy-text");
         this.loader = document.querySelector("#loading");
         this.input = document.querySelector("#input");
         this.toastContainer = document.querySelector("#toast-container");
+        this.lastEncoded = '';
 
         this.init();
     }
@@ -15,61 +17,53 @@ class QRCodeGenerator {
     }
 
     bindEvents() {
-        // Generate button
-        this.qrButton.addEventListener('click', () => {
-            const text = this.input.value;
+        const submit = () => {
+            const text = this.input.value.trim();
             if (text) {
                 this.generateQR(text);
             } else {
                 this.showToast('Please enter text or URL', 'error');
             }
-        });
+        };
 
-        // Enter key in input
-        this.input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const text = this.input.value;
-                if (text) {
-                    this.generateQR(text);
-                } else {
-                    this.showToast('Please enter text or URL', 'error');
-                }
-            }
-        });
+        this.qrButton.addEventListener('click', submit);
 
-        // Global Enter key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && document.activeElement !== this.input) {
-                const text = this.input.value;
-                if (text) {
-                    this.generateQR(text);
-                } else {
-                    this.showToast('Please enter text or URL', 'error');
-                }
-            }
-        });
+        if (window.TerminalUtils && window.TerminalUtils.onEnter) {
+            window.TerminalUtils.onEnter(this.input, submit);
+        } else {
+            this.input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') { e.preventDefault(); submit(); }
+            });
+        }
+
+        if (this.copyButton) {
+            this.copyButton.addEventListener('click', () => this.copyEncoded());
+        }
     }
 
     generateQR(text) {
-        if (!text || text.trim() === "") {
+        const trimmed = text.trim();
+        if (!trimmed) {
             this.showToast('Please enter text or URL', 'error');
             this.codeImage.style.display = "none";
+            this.copyButton?.classList.add('hide');
             return;
         }
 
         this.loader.classList.remove('hide');
-        this.codeImage.classList.remove('active'); // Hide previous
+        this.codeImage.classList.remove('active');
         this.codeImage.style.display = 'none';
+        this.copyButton?.classList.add('hide');
 
-        const api = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(text)}`;
+        const api = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(trimmed)}`;
 
-        // Setup load handler before setting src
         const img = new Image();
         img.onload = () => {
             this.loader.classList.add('hide');
             this.codeImage.src = api;
             this.codeImage.style.display = 'block';
-            // Slight delay to allow display block to render before opacity transition
+            this.lastEncoded = trimmed;
+            this.copyButton?.classList.remove('hide');
             setTimeout(() => {
                 this.codeImage.classList.add('active');
             }, 50);
@@ -79,6 +73,15 @@ class QRCodeGenerator {
             this.showToast('Failed to generate QR code', 'error');
         };
         img.src = api;
+    }
+
+    copyEncoded() {
+        if (!this.lastEncoded || !window.TerminalUtils) return;
+        window.TerminalUtils.copyToClipboard(
+            this.lastEncoded,
+            () => this.showToast('Copied to clipboard', 'success'),
+            () => this.showToast('Copy failed', 'error'),
+        );
     }
 
     showToast(message, type = 'error') {

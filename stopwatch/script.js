@@ -133,10 +133,16 @@ class Stopwatch {
 
             const lapItem = document.createElement('div');
             lapItem.className = 'lap-item';
-            lapItem.innerHTML = `
-                <span class="lap-number">Lap ${this.lapCount}</span>
-                <span class="lap-time">${currentTime}</span>
-            `;
+
+            const numSpan = document.createElement('span');
+            numSpan.className = 'lap-number';
+            numSpan.textContent = `Lap ${this.lapCount}`;
+
+            const timeSpan = document.createElement('span');
+            timeSpan.className = 'lap-time';
+            timeSpan.textContent = currentTime;
+
+            lapItem.append(numSpan, timeSpan);
 
             const noLaps = this.lapsContainer.querySelector('.no-laps');
             if (noLaps) {
@@ -144,6 +150,13 @@ class Stopwatch {
             }
 
             this.lapsContainer.insertBefore(lapItem, this.lapsContainer.firstChild);
+
+            // Cap lap history to keep DOM bounded.
+            const MAX_LAPS = 100;
+            const items = this.lapsContainer.querySelectorAll('.lap-item');
+            for (let i = MAX_LAPS; i < items.length; i++) {
+                items[i].remove();
+            }
         }
     }
 

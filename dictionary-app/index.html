@@ -23,11 +23,13 @@
 
       <div class="dictionary-app-container">
         <form id="searchForm" class="input-section">
+          <label for="word" class="visually-hidden">Word to look up</label>
           <input
             type="text"
             id="word"
             placeholder="Search for a word..."
             autocomplete="off"
+            aria-label="Word to look up"
           />
           <button type="submit" class="btn-primary">Search</button>
         </form>
@@ -52,6 +54,7 @@
       </footer>
     </main>
 
+    <script src="../terminal-utils.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

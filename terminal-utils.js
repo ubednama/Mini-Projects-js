@@ -63,27 +63,28 @@ class TerminalUI {
     }
 
     addEntry(content, type) {
-        // Create new line
         const line = document.createElement('div');
         line.className = 'line';
 
-        let icon = '';
-        if (type === 'success') icon = '✓';
-        if (type === 'error') icon = '✗';
-        if (type === 'warning') icon = '⚠';
+        const iconChar = type === 'success' ? '✓' : type === 'error' ? '✗' : type === 'warning' ? '⚠' : '';
 
-        // Format: prompt command (or message)
-        // For read-only, we'll simulate the prompt for every line or just show the message?
-        // User asked for "ubednama@alamgirr.local:~ $"
-        // Let's format it as: Prompt Message [Icon]
+        const promptSpan = document.createElement('span');
+        promptSpan.className = 'prompt-text';
+        promptSpan.textContent = this.prompt;
 
-        const promptSpan = `<span class="prompt-text">${this.prompt}</span>`;
-        const messageSpan = `<span class="message ${type}">${content}</span>`;
-        const iconSpan = icon ? `<span class="icon ${type}">${icon}</span>` : '';
+        const messageSpan = document.createElement('span');
+        messageSpan.className = `message ${type}`;
+        messageSpan.textContent = content;
 
-        line.innerHTML = `${promptSpan} ${messageSpan} ${iconSpan}`;
+        line.append(promptSpan, document.createTextNode(' '), messageSpan);
 
-        // Append to output
+        if (iconChar) {
+            const iconSpan = document.createElement('span');
+            iconSpan.className = `icon ${type}`;
+            iconSpan.textContent = iconChar;
+            line.append(document.createTextNode(' '), iconSpan);
+        }
+
         this.terminalOutput.appendChild(line);
 
         this.enforceLogLimit();
@@ -136,6 +137,16 @@ const Utils = {
                 if (onError) onError(fallbackErr);
             }
         }
+    },
+
+    onEnter: (inputEl, handler) => {
+        if (!inputEl) return;
+        inputEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handler(e);
+            }
+        });
     },
 
     showToast: (message, type = 'info') => {

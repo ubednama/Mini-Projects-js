@@ -12,21 +12,17 @@ let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
 
-// Initialize Canvas
-function resizeCanvas() {
-    // If we want a fixed canvas size logic, or responsive:
-    // For now, let's keep the fixed size logic but ensure it fits
-    // Or we could make it dynamic. Sticking to initial dimensions for simplicity 
-    // but styles handle visual sizing.
-    // If we want better resolution on high DPI screens:
-    /*
+// Convert pointer event to canvas-bitmap coordinates so drawing stays aligned
+// when CSS scales the canvas (responsive layouts, mobile).
+function getPointerPos(evt) {
     const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-    */
-    // For now, preserving defined width/height but ensuring background color is applied
-    ctx.fillStyle = canvasColor.value;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const source = evt.touches ? evt.touches[0] : evt;
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    return {
+        x: (source.clientX - rect.left) * scaleX,
+        y: (source.clientY - rect.top) * scaleY,
+    };
 }
 
 // Set initial background
@@ -41,57 +37,47 @@ colorPicker.addEventListener('change', (e) => {
 
 canvas.addEventListener("mousedown", (e) => {
     isDrawing = true;
-    [lastX, lastY] = [e.offsetX, e.offsetY];
+    const { x, y } = getPointerPos(e);
+    lastX = x;
+    lastY = y;
 });
 
 canvas.addEventListener("mousemove", (e) => {
-    if (isDrawing) {
-        ctx.beginPath();
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(e.offsetX, e.offsetY);
-        ctx.stroke();
-        [lastX, lastY] = [e.offsetX, e.offsetY];
-    }
+    if (!isDrawing) return;
+    const { x, y } = getPointerPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    lastX = x;
+    lastY = y;
 });
 
-canvas.addEventListener("mouseup", () => {
-    isDrawing = false;
-});
+canvas.addEventListener("mouseup", () => { isDrawing = false; });
+canvas.addEventListener("mouseout", () => { isDrawing = false; });
 
-canvas.addEventListener("mouseout", () => {
-    isDrawing = false;
-});
-
-// Touch support
 canvas.addEventListener("touchstart", (e) => {
     e.preventDefault();
     isDrawing = true;
-    const rect = canvas.getBoundingClientRect();
-    const touch = e.touches[0];
-    lastX = touch.clientX - rect.left;
-    lastY = touch.clientY - rect.top;
-});
+    const { x, y } = getPointerPos(e);
+    lastX = x;
+    lastY = y;
+}, { passive: false });
 
 canvas.addEventListener("touchmove", (e) => {
     e.preventDefault();
-    if (isDrawing) {
-        const rect = canvas.getBoundingClientRect();
-        const touch = e.touches[0];
-        const x = touch.clientX - rect.left;
-        const y = touch.clientY - rect.top;
+    if (!isDrawing) return;
+    const { x, y } = getPointerPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    lastX = x;
+    lastY = y;
+}, { passive: false });
 
-        ctx.beginPath();
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        lastX = x;
-        lastY = y;
-    }
-});
-
-canvas.addEventListener("touchend", () => {
-    isDrawing = false;
-});
+canvas.addEventListener("touchend", () => { isDrawing = false; });
+canvas.addEventListener("touchcancel", () => { isDrawing = false; });
 
 // Controls
 canvasColor.addEventListener('change', (e) => {

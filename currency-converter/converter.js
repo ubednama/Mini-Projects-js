@@ -10,7 +10,7 @@ const toastContainer = document.querySelector("#toast-container");
 
 // Populate Dropdowns
 for (let select of dropdowns) {
-    for (currCode in countryList) {
+    for (let currCode in countryList) {
         let newOption = document.createElement("option");
         newOption.innerText = currCode;
         newOption.value = currCode;
@@ -36,22 +36,10 @@ const updateFlag = (element) => {
 }
 
 const showToast = (message, type = 'error') => {
-    if (!toastContainer) return;
-
-    const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-    toast.innerText = message;
-
-    toastContainer.appendChild(toast);
-
-    // Auto remove after 3 seconds
-    setTimeout(() => {
-        toast.classList.add('fade-out');
-        toast.addEventListener('animationend', () => {
-            toast.remove();
-        });
-    }, 3000);
-}
+    if (window.TerminalUtils) {
+        window.TerminalUtils.showToast(message, type);
+    }
+};
 
 const updateExchRate = async () => {
     let amount = document.querySelector(".amount-section input");
@@ -78,7 +66,16 @@ const updateExchRate = async () => {
         const result = `${amtVal} ${fromCurr.toUpperCase()} = ${shortFinalAmount} ${toCurr.toUpperCase()}`;
         const unitRate = `1 ${fromCurr.toUpperCase()} = ${rate} ${toCurr.toUpperCase()}`;
 
-        msg.innerHTML = `${result}<br><span style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px; display: block;">${unitRate}</span>`;
+        msg.replaceChildren(
+            document.createTextNode(result),
+            document.createElement('br'),
+            (() => {
+                const span = document.createElement('span');
+                span.className = 'unit-rate';
+                span.textContent = unitRate;
+                return span;
+            })()
+        );
 
     } catch (error) {
         msg.innerText = 'Conversion failed';

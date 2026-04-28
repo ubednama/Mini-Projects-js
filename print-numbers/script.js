@@ -18,15 +18,9 @@ class PrintNumbers {
     bindEvents() {
         this.printButton.addEventListener('click', () => this.handlePrint());
 
-        this.input.addEventListener('keypress', (e) => {
+        this.input.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
-                this.handlePrint();
-            }
-        });
-
-        // Global Enter key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
+                e.preventDefault();
                 this.handlePrint();
             }
         });
@@ -45,20 +39,34 @@ class PrintNumbers {
     }
 
     handlePrint() {
-        const inputNumber = parseInt(this.input.value);
+        const inputNumber = parseInt(this.input.value, 10);
 
-        if (!isNaN(inputNumber)) {
-            this.printArea.innerHTML = ''; // Clear previous content
+        if (Number.isNaN(inputNumber) || !Number.isFinite(inputNumber)) {
+            this.toast('Please enter a valid number.');
+            return;
+        }
 
-            if (this.sortOrder === "ascending") {
-                this.printAscending(inputNumber);
-            } else {
-                this.printDescending(inputNumber);
-            }
+        const MIN = -9999;
+        const MAX = 9999;
+        if (inputNumber < MIN || inputNumber > MAX) {
+            this.toast(`Number must be between ${MIN} and ${MAX}.`);
+            return;
+        }
 
-            this.printArea.style.display = 'flex';
+        this.printArea.replaceChildren();
+
+        if (this.sortOrder === "ascending") {
+            this.printAscending(inputNumber);
         } else {
-            alert('Please enter a valid number.');
+            this.printDescending(inputNumber);
+        }
+
+        this.printArea.style.display = 'flex';
+    }
+
+    toast(message) {
+        if (window.TerminalUtils) {
+            window.TerminalUtils.showToast(message, 'error');
         }
     }
 

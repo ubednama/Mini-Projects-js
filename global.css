@@ -27,6 +27,10 @@
   --accent-color: #00ff00;
   --accent-hover: #00cc00;
 
+  /* Link Colors */
+  --link-color: #00ff00;
+  --link-hover: #00cc00;
+
   /* Status Colors */
   --success-color: #00ff00;
   --success-hover: #00cc00;

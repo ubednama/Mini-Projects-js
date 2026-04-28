@@ -21,11 +21,13 @@
 
       <div class="qr-app-container">
         <div class="input-section">
+          <label for="input" class="visually-hidden">Text or URL to encode</label>
           <input
             type="text"
             id="input"
             placeholder="Enter text or URL..."
             autocomplete="off"
+            aria-label="Text or URL to encode"
           />
           <button id="qr-code" class="btn-primary">Generate QR Code</button>
         </div>
@@ -34,6 +36,9 @@
           <div id="loading" class="spinner hide"></div>
           <div class="qr-result">
             <img id="code-img" src="" alt="Generated QR Code" />
+            <button id="copy-text" class="btn-secondary hide" type="button">
+              Copy text
+            </button>
           </div>
         </div>
       </div>
@@ -47,6 +52,7 @@
       </footer>
     </main>
 
+    <script src="../terminal-utils.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

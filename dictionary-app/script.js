@@ -1,4 +1,22 @@
 // Dictionary App
+
+// Tiny element builder — keeps DOM construction safe (no innerHTML with API data).
+function el(tag, attrs, children) {
+    const node = document.createElement(tag);
+    if (attrs) {
+        for (const [key, value] of Object.entries(attrs)) {
+            if (key === 'class') node.className = value;
+            else node.setAttribute(key, value);
+        }
+    }
+    if (children) {
+        for (const child of children) {
+            node.append(child instanceof Node ? child : document.createTextNode(child));
+        }
+    }
+    return node;
+}
+
 class DictionaryApp {
     constructor() {
         this.form = document.getElementById('searchForm');
@@ -21,16 +39,6 @@ class DictionaryApp {
             const searchWord = this.wordInput.value.trim();
             if (searchWord) {
                 this.getData(searchWord);
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const searchWord = this.wordInput.value.trim();
-                if (searchWord) {
-                    this.getData(searchWord);
-                }
             }
         });
     }
@@ -64,48 +72,61 @@ class DictionaryApp {
 
     displayResult(wordData) {
         this.resultContainer.classList.remove('hide');
+        this.result.replaceChildren();
+
         const definitions = wordData.meanings[0].definitions[0];
 
-        let html = `
-            <div class="word-header">
-                <h2>${wordData.word}</h2>
-                <span class="part-of-speech">${wordData.meanings[0].partOfSpeech}</span>
-            </div>
-            <div class="definition-section">
-                <p><strong>Meaning:</strong> ${definitions.definition || "Not Found"}</p>
-                <p><strong>Example:</strong> ${definitions.example || "Not Found"}</p>
-            </div>
-        `;
+        const header = el('div', { class: 'word-header' }, [
+            el('h2', null, [wordData.word]),
+            el('span', { class: 'part-of-speech' }, [wordData.meanings[0].partOfSpeech]),
+        ]);
 
-        // Antonyms
+        const defSection = el('div', { class: 'definition-section' }, [
+            el('p', null, [el('strong', null, ['Meaning: ']), definitions.definition || 'Not Found']),
+            el('p', null, [el('strong', null, ['Example: ']), definitions.example || 'Not Found']),
+        ]);
+
+        this.result.append(header, defSection);
+
         if (definitions.antonyms && definitions.antonyms.length > 0) {
-            html += `<div class="antonyms-section"><p><strong>Antonyms:</strong> ${definitions.antonyms.join(', ')}</p></div>`;
+            this.result.append(el('div', { class: 'antonyms-section' }, [
+                el('p', null, [
+                    el('strong', null, ['Antonyms: ']),
+                    definitions.antonyms.join(', '),
+                ]),
+            ]));
         }
 
-        // Audio
         const phonetics = wordData.phonetics.filter(p => p.audio);
         if (phonetics.length > 0) {
-            html += `<div class="audio-section">`;
+            const audioSection = el('div', { class: 'audio-section' });
             phonetics.forEach((phonetic, index) => {
-                html += `
-                    <div class="audio-item">
-                        <span>Pronunciation ${index + 1}:</span>
-                        <audio controls src="${phonetic.audio}"></audio>
-                    </div>
-                `;
+                const audio = document.createElement('audio');
+                audio.controls = true;
+                audio.src = phonetic.audio;
+                audioSection.append(el('div', { class: 'audio-item' }, [
+                    el('span', null, [`Pronunciation ${index + 1}:`]),
+                    audio,
+                ]));
             });
-            html += `</div>`;
+            this.result.append(audioSection);
         }
 
-        html += `<div class="source-link"><a href="${wordData.sourceUrls[0]}" target="_blank">Read More</a></div>`;
+        if (wordData.sourceUrls && wordData.sourceUrls[0]) {
+            const link = document.createElement('a');
+            link.href = wordData.sourceUrls[0];
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = 'Read More';
+            this.result.append(el('div', { class: 'source-link' }, [link]));
+        }
 
-        this.result.innerHTML = html;
         this.wordInput.value = '';
     }
 
     showError(message) {
         this.resultContainer.classList.remove('hide');
-        this.result.innerHTML = `<p class="error-msg">${message}</p>`;
+        this.result.replaceChildren(el('p', { class: 'error-msg' }, [message]));
     }
 
     showLoading(isLoading) {
